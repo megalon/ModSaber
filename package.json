@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/lolPants/ModSaber/issues"
   },
-  "homepage": "https://github.com/lolPants/ModSaber#readme"
+  "homepage": "https://github.com/lolPants/ModSaber#readme",
+  "devDependencies": {
+    "eslint": "^5.2.0"
+  }
 }
