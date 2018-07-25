@@ -1,0 +1,26 @@
+{
+  "name": "modsaber",
+  "version": "0.1.0",
+  "description": "Beat Saber Mod Database",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "eslint --color src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lolPants/ModSaber.git"
+  },
+  "keywords": [
+    "beat",
+    "saber",
+    "mod",
+    "database",
+    "db"
+  ],
+  "author": "Jack Baron <jackmbaron@gmail.com> (https://www.jackbaron.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lolPants/ModSaber/issues"
+  },
+  "homepage": "https://github.com/lolPants/ModSaber#readme"
+}
