@@ -17,6 +17,7 @@ router.post('/upload', async (req, res) => {
   if (!req.user.active) return res.status(403).send({ error: 'verification' })
 
   let { name, version, title, description, gameVersion, dependsOn, conflictsWith } = req.body
+  if (!req.files) return res.status(400).send({ field: 'steam' })
   let { steam, oculus } = req.files
 
   // Validate Required Fields
