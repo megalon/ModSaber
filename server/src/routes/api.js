@@ -12,6 +12,11 @@ const Mod = require('../models/mod.js')
 const router = Router() // eslint-disable-line
 router.use(fileUpload({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true }))
 
+router.get('/self', (req, res) => {
+  let { username, verified, admin } = req.user
+  res.send({ username, verified, admin })
+})
+
 router.post('/upload', async (req, res) => {
   // Refuse unverified accounts
   if (!req.user.verified) return res.status(403).send({ error: 'verification' })
