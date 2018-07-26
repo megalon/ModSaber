@@ -24,6 +24,7 @@ app.use((req, res, next) => {
 })
 
 // Routes
+app.use('/registry', require('./routes/registry.js'))
 app.use('/auth', require('./routes/auth.js'))
 app.use('/api', passport.authenticate('jwt', { session: false }), require('./routes/api.js'))
 
