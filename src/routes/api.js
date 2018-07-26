@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const fileUpload = require('express-fileupload')
 const semver = require('semver')
+const { errors } = require('../constants.js')
 const { processZIP } = require('../app/api.js')
 const Mod = require('../models/mod.js')
 
@@ -13,21 +14,25 @@ router.post('/upload', async (req, res) => {
   let { steam, oculus } = req.files
 
   // Validate Required Fields
-  if (!name) return res.status(400).send({ field: 'name' })
-  if (!version) return res.status(400).send({ field: 'version' })
-  if (!title) return res.status(400).send({ field: 'title' })
-  if (!gameVersion) return res.status(400).send({ field: 'gameVersion' })
+  if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+  if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
+  if (!title) return res.status(400).send({ field: 'title', error: errors.MISSING })
+  if (!gameVersion) return res.status(400).send({ field: 'gameVersion', error: errors.MISSING })
 
   // Validate SemVer
   version = semver.valid(semver.coerce(version))
-  if (version === null) return res.status(400).send({ field: 'version' })
+  if (version === null) return res.status(400).send({ field: 'version', error: errors.SEMVER_INVALID })
 
   // Default values
   if (!description) description = ''
   dependsOn = !dependsOn ? [] : dependsOn.split(',')
 
-  // Process Uploaded Files
+  // Validate Uploaded Files
   if (!steam) return res.status(400).send({ field: 'steam' })
+  if (steam.mimetype !== 'application/zip') return res.status(400).send({ field: 'steam', error: errors.FILE_WRONG_TYPE })
+  if (oculus) if (oculus.mimetype !== 'application/zip') return res.status(400).send({ field: 'oculus', error: errors.FILE_WRONG_TYPE })
+
+  // Process Uploaded Files
   steam = await processZIP(steam.data)
   oculus = !oculus ? undefined : await processZIP(oculus.data)
 
