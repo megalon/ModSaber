@@ -3,6 +3,7 @@ const fs = require('fs-extra')
 const { Router } = require('express')
 const fileUpload = require('express-fileupload')
 const semver = require('semver')
+const slugify = require('slugify')
 const { errors, STORE_PATH } = require('../constants.js')
 const { processZIP } = require('../app/api.js')
 const Mod = require('../models/mod.js')
@@ -22,7 +23,7 @@ router.post('/upload', async (req, res) => {
   if (!gameVersion) return res.status(400).send({ field: 'gameVersion', error: errors.MISSING })
 
   // Coerce name correct format
-  // TODO: Coerce Name
+  name = slugify(name, { lower: true })
 
   // Validate SemVer
   version = semver.valid(semver.coerce(version))
