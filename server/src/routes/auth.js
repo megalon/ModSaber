@@ -4,13 +4,17 @@ const jwt = require('jsonwebtoken')
 const uuid = require('uuid/v4')
 const { plusDays } = require('../app/helpers.js')
 const Account = require('../models/account.js')
+const mailDriver = require('../mail/drivers.js')
 
 // Setup Router
 const router = Router() // eslint-disable-line
 
 // Environment Variables and Constants
-const { JWT_SECRET } = process.env
+const { JWT_SECRET, MAIL_DRIVER } = process.env
 const { COOKIE_NAME } = require('../constants.js')
+
+// Mail Driver
+const mail = mailDriver(MAIL_DRIVER)
 
 // Authentication Routes
 router.post('/register', (req, res) => {
@@ -27,6 +31,11 @@ router.post('/register', (req, res) => {
 
       return res.send(response)
     }
+
+    // Send Verification Email
+    let { protocol, headers: { host } } = req
+    let verifyURL = `${protocol}://${host}/auth/verify/${verifyToken}`
+    mail.sendVerification(username, email, verifyURL)
 
     let { id } = account
     let expires = plusDays(7)
