@@ -13,3 +13,4 @@ Beat Saber Mod Database
 * ~~Docker Compose Rules~~
 * Frontend UI
 * Write Proper Readme
+* Password Resets
