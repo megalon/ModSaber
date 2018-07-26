@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 
 // App Constants
 const { MONGO_URL } = require('./constants.js')
-const { COOKIE_SECRET } = process.env
+const { PORT, COOKIE_SECRET } = process.env
 
 // Setup Express App
 const app = express()
@@ -32,4 +32,4 @@ app.use('/api', passport.authenticate('jwt', { session: false }), require('./rou
 mongoose.connect(MONGO_URL, { useNewUrlParser: true })
 
 // Listen on port 3000
-app.listen(3000)
+app.listen(PORT || 3000)
