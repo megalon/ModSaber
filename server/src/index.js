@@ -11,11 +11,17 @@ const { COOKIE_SECRET } = process.env
 
 // Setup Express App
 const app = express()
+app.set('trust proxy', true)
 require('./app/passport.js')
 app.use(morgan('combined'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cookieParser(COOKIE_SECRET))
+app.use((req, res, next) => {
+  res.set('X-Docker-Hostname', process.env.HOSTNAME)
+  res.removeHeader('X-Powered-By')
+  next()
+})
 
 // Routes
 app.use('/auth', require('./routes/auth.js'))
