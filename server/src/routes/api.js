@@ -45,6 +45,7 @@ router.post('/upload', async (req, res) => {
   let existing = (await Mod.find({ name }).exec())
     .sort((a, b) => semver.rcompare(a.version, b.version))
 
+  let approved = false
   if (existing.length > 0) {
     let [previous] = existing
     // Check they own the mod
@@ -52,6 +53,9 @@ router.post('/upload', async (req, res) => {
 
     // Check SemVer is newer
     if (!semver.gt(version, previous.version)) return res.status(403).send({ error: 'semver' })
+
+    // Keep approved status
+    if (previous.approved) approved = true
   }
 
   // Pull a list of all old versions
@@ -69,6 +73,7 @@ router.post('/upload', async (req, res) => {
       version,
       oldVersions,
       gameVersion,
+      approved,
       files: { steam: steamFiles, oculus: oculusFiles },
       dependsOn,
     })
