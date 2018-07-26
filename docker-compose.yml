@@ -6,6 +6,7 @@ services:
     restart: always
     depends_on:
       - mongo
+      - redis
     networks:
       - internal
       - proxy
@@ -16,6 +17,8 @@ services:
   proxy:
     image: nginx
     restart: always
+    depends_on:
+      - backend
     networks:
       - proxy
     volumes:
@@ -30,6 +33,11 @@ services:
       - internal
     volumes:
       - mongo:/data/db:rw
+  redis:
+    image: redis:alpine
+    restart: 'always'
+    networks:
+      - internal
 networks:
   proxy:
   internal:
