@@ -2,9 +2,11 @@ const { Router } = require('express')
 const semver = require('semver')
 const Mod = require('../models/mod.js')
 const Account = require('../models/account.js')
+const { REDIS_HOST } = require('../constants.js')
 
 // Setup Router
 const router = Router() // eslint-disable-line
+const cache = require('express-redis-cache')({ host: REDIS_HOST })
 
 /**
  * @typedef {Object} ModShort
@@ -32,12 +34,12 @@ const mapMods = mods => {
   return final
 }
 
-router.get('/', async (req, res) => {
+router.get('/', cache.route(10), async (req, res) => {
   let mods = await Mod.find({}).exec()
   res.send(mapMods(mods))
 })
 
-router.get('/approved', async (req, res) => {
+router.get('/approved', cache.route(10), async (req, res) => {
   let mods = await Mod.find({ approved: true }).exec()
   res.send(mapMods(mods))
 })
@@ -51,7 +53,7 @@ router.get('/:name', async (req, res) => {
   res.redirect(`/registry/${name}/${latest.version}`)
 })
 
-router.get('/:name/:version', async (req, res) => {
+router.get('/:name/:version', cache.route(5 * 60), async (req, res) => {
   let { name: n, version: v } = req.params
   let mod = await Mod.findOne({ name: n, version: v }).exec()
 
