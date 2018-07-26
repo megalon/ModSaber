@@ -7,4 +7,9 @@ Beat Saber Mod Database
 * Run `node .` to run the server on port `3000`
 
 ## TODO:
-Write more readme.
+* ~~Registry Routes that serve mod data~~
+* ~~Implement Redis Route Caching~~
+* ~~Docker~~
+* ~~Docker Compose Rules~~
+* Frontend UI
+* Write Proper Readme
