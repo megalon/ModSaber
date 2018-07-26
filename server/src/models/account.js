@@ -7,6 +7,7 @@ const Account = new Schema({
   email: { type: String, lowercase: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true },
   password: String,
   active: { type: Boolean, default: false },
+  verifyToken: String,
   admin: { type: Boolean, default: false },
 })
 

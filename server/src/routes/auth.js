@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+const uuid = require('uuid/v4')
 const { plusDays } = require('../app/helpers.js')
 const Account = require('../models/account.js')
 
@@ -14,15 +15,15 @@ const { COOKIE_NAME } = require('../constants.js')
 // Authentication Routes
 router.post('/register', (req, res) => {
   let { username, password, email } = req.body
-  Account.register(new Account({ username, email }), password, (err, account) => {
+  let verifyToken = uuid().replace(/-/g, '')
+
+  Account.register(new Account({ username, email, verifyToken }), password, (err, account) => {
     if (err) {
       console.error(err)
       res.status(400)
 
       let response = { error: err.name }
-      if (err.name === 'ValidationError') {
-        response.fields = err.errors
-      }
+      if (err.name === 'ValidationError') response.fields = err.errors
 
       return res.send(response)
     }
@@ -42,6 +43,16 @@ router.post('/login', passport.authenticate('local', { session: false }), (req, 
 
   const token = jwt.sign({ id, expires }, JWT_SECRET)
   res.cookie(COOKIE_NAME, token, { expires, httpOnly: true })
+
+  res.redirect('/')
+})
+
+// Verify Account
+router.get('/verify/:token', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (req.user.active) return res.redirect('/')
+
+  let { token } = req.params
+  if (req.user.verifyToken === token) await Account.findByIdAndUpdate(req.user.id, { $set: { active: true } }).exec()
 
   res.redirect('/')
 })
