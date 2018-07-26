@@ -13,6 +13,9 @@ const router = Router() // eslint-disable-line
 router.use(fileUpload({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true }))
 
 router.post('/upload', async (req, res) => {
+  // Refuse unverified accounts
+  if (!req.user.active) return res.status(403).send({ error: 'verification' })
+
   let { name, version, title, description, gameVersion, dependsOn, conflictsWith } = req.body
   let { steam, oculus } = req.files
 
