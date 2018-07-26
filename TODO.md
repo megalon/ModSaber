@@ -2,5 +2,6 @@
 
 * Registry Routes that serve mod data
 * Implement Redis Route Caching
-* Probably some other stuff
+* ~~Docker~~
+* Docker Compose Rules
 * Frontend UI
