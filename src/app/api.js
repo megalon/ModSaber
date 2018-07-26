@@ -35,7 +35,7 @@ const mapFileStructure = files => {
  */
 const processZIP = async data => {
   let zip = new AdmZip(data)
-  let files = zip.getEntries()
+  let entries = zip.getEntries()
     .map(entry => new Promise(resolve => {
       entry.getDataAsync(async buffer => {
         let hash = await calculateHash(buffer)
@@ -43,7 +43,9 @@ const processZIP = async data => {
       })
     }))
 
-  return mapFileStructure(await Promise.all(files))
+  let hash = await calculateHash(data)
+  let files = mapFileStructure(await Promise.all(entries))
+  return { hash, files }
 }
 
 module.exports = { calculateHash, processZIP }
