@@ -1,7 +1,7 @@
 const passport = require('passport')
 const { Strategy: JWTStrategy } = require('passport-jwt')
 const { cookieExtractor } = require('./helpers.js')
-const Account = require('./models/account.js')
+const Account = require('../models/account.js')
 
 // Environment Variables
 const { JWT_SECRET } = process.env

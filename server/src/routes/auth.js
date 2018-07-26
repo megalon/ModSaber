@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
-const { plusDays } = require('../helpers.js')
+const { plusDays } = require('../app/helpers.js')
 const Account = require('../models/account.js')
 
 // Setup Router

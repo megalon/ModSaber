@@ -11,7 +11,7 @@ const { COOKIE_SECRET } = process.env
 
 // Setup Express App
 const app = express()
-require('./passport.js')
+require('./app/passport.js')
 app.use(morgan('combined'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
