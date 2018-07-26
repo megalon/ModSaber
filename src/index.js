@@ -19,6 +19,7 @@ app.use(cookieParser(COOKIE_SECRET))
 // Routes
 app.use('/', require('./routes/index.js'))
 app.use('/auth', require('./routes/auth.js'))
+app.use('/api', require('./routes/api.js'))
 
 // Connect to DB
 mongoose.connect(MONGO_URL)
