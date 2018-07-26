@@ -53,6 +53,9 @@ router.post('/upload', async (req, res) => {
     if (!semver.gt(version, previous.version)) return res.status(403).send({ error: 'semver' })
   }
 
+  // Pull a list of all old versions
+  let oldVersions = existing.map(x => x.version)
+
   try {
     await fs.ensureDir(path.join(STORE_PATH, name))
     await fs.writeFile(path.join(STORE_PATH, name, `${version}-steam.zip`), steam.data)
@@ -63,7 +66,7 @@ router.post('/upload', async (req, res) => {
       author: req.user.id,
       description,
       version,
-      oldVersions: [],
+      oldVersions,
       gameVersion,
       files: { steam: steamFiles, oculus: oculusFiles },
       dependsOn,
