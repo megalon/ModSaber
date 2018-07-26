@@ -13,7 +13,7 @@ const router = Router() // eslint-disable-line
 router.use(fileUpload({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true }))
 
 router.post('/upload', async (req, res) => {
-  let { name, version, title, description, gameVersion, dependsOn } = req.body
+  let { name, version, title, description, gameVersion, dependsOn, conflictsWith } = req.body
   let { steam, oculus } = req.files
 
   // Validate Required Fields
@@ -32,6 +32,7 @@ router.post('/upload', async (req, res) => {
   // Default values
   if (!description) description = ''
   dependsOn = !dependsOn ? [] : dependsOn.split(',')
+  conflictsWith = !conflictsWith ? [] : conflictsWith.split(',')
 
   // Validate Uploaded Files
   if (!steam) return res.status(400).send({ field: 'steam' })
@@ -76,6 +77,7 @@ router.post('/upload', async (req, res) => {
       approved,
       files: { steam: steamFiles, oculus: oculusFiles },
       dependsOn,
+      conflictsWith,
     })
 
     res.sendStatus(200)

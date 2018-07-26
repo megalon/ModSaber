@@ -12,6 +12,7 @@ const Mod = new Schema({
   gameVersion: String,
   files: Schema.Types.Mixed,
   dependsOn: [String],
+  conflictsWith: [String],
 })
 
 module.exports = mongoose.model('Mod', Mod)
