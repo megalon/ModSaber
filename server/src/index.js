@@ -22,7 +22,7 @@ app.use('/auth', require('./routes/auth.js'))
 app.use('/api', passport.authenticate('jwt', { session: false }), require('./routes/api.js'))
 
 // Connect to DB
-mongoose.connect(MONGO_URL)
+mongoose.connect(MONGO_URL, { useNewUrlParser: true })
 
 // Listen on port 3000
 app.listen(3000)

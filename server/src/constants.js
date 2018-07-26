@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  MONGO_URL: process.env.NODE_ENV === 'development' ? 'mongodb://localhost/modsaber' : 'mongodb://mongo/modsaber',
+  MONGO_URL: process.env.NODE_ENV === 'development' ? 'mongodb://localhost:27017/modsaber' : 'mongodb://mongo:27017/modsaber',
   COOKIE_NAME: 'jwt',
   STORE_PATH: path.join(__dirname, 'store'),
   errors: {
