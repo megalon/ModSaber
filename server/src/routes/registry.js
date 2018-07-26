@@ -41,4 +41,13 @@ router.get('/approved', async (req, res) => {
   res.send(mapMods(mods))
 })
 
+router.get('/:name', async (req, res) => {
+  let { name } = req.params
+  let mods = await Mod.find({ name }).exec()
+  if (mods.length === 0) return res.sendStatus(404)
+  let [latest] = mods.sort((a, b) => a.name > b.name ? 1 : b.name > a.name ? -1 : 0 || semver.rcompare(a.version, b.version))
+
+  res.redirect(`/registry/${name}/${latest.version}`)
+})
+
 module.exports = router
