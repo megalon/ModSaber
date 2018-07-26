@@ -1,7 +1,9 @@
+const path = require('path')
+const fs = require('fs-extra')
 const { Router } = require('express')
 const fileUpload = require('express-fileupload')
 const semver = require('semver')
-const { errors } = require('../constants.js')
+const { errors, STORE_PATH } = require('../constants.js')
 const { processZIP } = require('../app/api.js')
 const Mod = require('../models/mod.js')
 
@@ -19,6 +21,9 @@ router.post('/upload', async (req, res) => {
   if (!title) return res.status(400).send({ field: 'title', error: errors.MISSING })
   if (!gameVersion) return res.status(400).send({ field: 'gameVersion', error: errors.MISSING })
 
+  // Coerce name correct format
+  // TODO: Coerce Name
+
   // Validate SemVer
   version = semver.valid(semver.coerce(version))
   if (version === null) return res.status(400).send({ field: 'version', error: errors.SEMVER_INVALID })
@@ -33,8 +38,8 @@ router.post('/upload', async (req, res) => {
   if (oculus) if (oculus.mimetype !== 'application/zip') return res.status(400).send({ field: 'oculus', error: errors.FILE_WRONG_TYPE })
 
   // Process Uploaded Files
-  steam = await processZIP(steam.data)
-  oculus = !oculus ? undefined : await processZIP(oculus.data)
+  let steamFiles = await processZIP(steam.data)
+  let oculusFiles = !oculus ? undefined : await processZIP(oculus.data)
 
   let existing = (await Mod.find({ name }).exec())
     .sort((b, a) => semver.gt(a.version, b.version) ? 1 : semver.gt(b.version, a.version) ? -1 : 0)
@@ -47,19 +52,27 @@ router.post('/upload', async (req, res) => {
     if (!semver.gt(version, previous.version)) return res.status(403).send({ error: 'semver' })
   }
 
-  await Mod.create({
-    name,
-    title,
-    author: req.user.id,
-    description,
-    version,
-    oldVersions: [],
-    gameVersion,
-    files: { steam, oculus },
-    dependsOn,
-  })
+  try {
+    await fs.ensureDir(path.join(STORE_PATH, name))
+    await fs.writeFile(path.join(STORE_PATH, name, `${version}-steam.zip`), steam.data)
 
-  res.send({ name, steam })
+    await Mod.create({
+      name,
+      title,
+      author: req.user.id,
+      description,
+      version,
+      oldVersions: [],
+      gameVersion,
+      files: { steam: steamFiles, oculus: oculusFiles },
+      dependsOn,
+    })
+
+    res.sendStatus(200)
+  } catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+  }
 })
 
 module.exports = router
