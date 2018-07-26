@@ -18,7 +18,6 @@ app.use(bodyParser.json())
 app.use(cookieParser(COOKIE_SECRET))
 
 // Routes
-app.use('/', require('./routes/index.js'))
 app.use('/auth', require('./routes/auth.js'))
 app.use('/api', passport.authenticate('jwt', { session: false }), require('./routes/api.js'))
 
