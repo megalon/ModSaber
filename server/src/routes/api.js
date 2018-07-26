@@ -14,7 +14,7 @@ router.use(fileUpload({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: tr
 
 router.post('/upload', async (req, res) => {
   // Refuse unverified accounts
-  if (!req.user.active) return res.status(403).send({ error: 'verification' })
+  if (!req.user.verified) return res.status(403).send({ error: 'verification' })
 
   let { name, version, title, description, gameVersion, dependsOn, conflictsWith } = req.body
   if (!req.files) return res.status(400).send({ field: 'steam' })

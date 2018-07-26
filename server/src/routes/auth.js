@@ -58,10 +58,10 @@ router.post('/login', passport.authenticate('local', { session: false }), (req, 
 
 // Verify Account
 router.get('/verify/:token', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user.active) return res.redirect('/')
+  if (req.user.verified) return res.redirect('/')
 
   let { token } = req.params
-  if (req.user.verifyToken === token) await Account.findByIdAndUpdate(req.user.id, { $set: { active: true } }).exec()
+  if (req.user.verifyToken === token) await Account.findByIdAndUpdate(req.user.id, { $set: { verified: true } }).exec()
 
   res.redirect('/')
 })
