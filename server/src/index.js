@@ -23,6 +23,17 @@ app.use((req, res, next) => {
   next()
 })
 
+// Allow CORS on Dev Server
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'development') {
+    res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+    res.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+    res.set('Access-Control-Allow-Credentials', 'true')
+    res.set('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With')
+  }
+  next()
+})
+
 // Routes
 app.use('/registry', require('./routes/registry.js'))
 app.use('/auth', require('./routes/auth.js'))
