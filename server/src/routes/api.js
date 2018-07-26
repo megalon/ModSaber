@@ -42,7 +42,8 @@ router.post('/upload', async (req, res) => {
   let oculusFiles = !oculus ? undefined : await processZIP(oculus.data)
 
   let existing = (await Mod.find({ name }).exec())
-    .sort((b, a) => semver.gt(a.version, b.version) ? 1 : semver.gt(b.version, a.version) ? -1 : 0)
+    .sort((a, b) => semver.rcompare(a.version, b.version))
+
   if (existing.length > 0) {
     let [previous] = existing
     // Check they own the mod
