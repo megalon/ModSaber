@@ -4,7 +4,7 @@ const { cookieExtractor } = require('./helpers.js')
 const Account = require('../models/account.js')
 
 // Environment Variables
-const { JWT_SECRET } = process.env
+const { JWT_SECRET, ADMIN_USERNAME } = process.env
 
 // Authenticate with Database
 passport.use(Account.createStrategy())
@@ -20,7 +20,10 @@ passport.use(new JWTStrategy(
     if (new Date() >= expires) return cb(null, false)
 
     Account.findById(payload.id)
-      .then(user => cb(null, user))
+      .then(user => {
+        if (user.username === ADMIN_USERNAME) user.admin = true
+        cb(null, user)
+      })
       .catch(err => cb(err))
   }
 ))
