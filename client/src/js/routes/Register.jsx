@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import constants, { sanitiseUsername } from '../constants.js'
@@ -98,7 +99,8 @@ class Login extends Component {
               onEnter={ () => this.submitForm() }
             />
 
-            <button className='button is-dark' onClick={ () => this.submitForm() }>Login</button>
+            <button className='button is-dark' onClick={ () => this.submitForm() }>Register</button>
+            <Link className='button has-outline' to='/login' style={{ marginTop: '8px' }}>Already have an account?</Link>
           </div>
         </div>
       </Layout>
