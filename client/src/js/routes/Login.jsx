@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
-import { BASE_URL, AUTH, sanitiseUsername } from '../constants.js'
+import { BASE_URL, AUTH, sanitise } from '../constants.js'
 import Layout from '../components/Layout.jsx'
 import Field from '../components/Field.jsx'
 
@@ -67,7 +67,7 @@ class Login extends Component {
               type='text'
               icon='user'
               value={ this.state.username }
-              onChange={ e => { this.setState({ username: sanitiseUsername(e.target.value), error: '' }) }}
+              onChange={ e => { this.setState({ username: sanitise(e.target.value), error: '' }) }}
               onEnter={ () => this.submitForm() }
             />
 

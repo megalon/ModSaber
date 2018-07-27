@@ -1,12 +1,13 @@
 /**
  * @param {string} username Username String
+ * @param {number} [length] Maximum Length
  * @returns {string}
  */
-export const sanitiseUsername = username => username
+export const sanitise = (username, length = 20) => username
   .toLowerCase()
   .replace(/ /g, '-')
   .replace(/[^a-z0-9\-_]/g, '')
-  .substring(0, 20)
+  .substring(0, length)
 
 export const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : ''
 export const MESSAGE_UNVERIFIED = `Your account is unverified. You cannot upload mods without first verifying your account.
