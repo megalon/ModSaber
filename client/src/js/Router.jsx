@@ -17,7 +17,7 @@ class Router extends Component {
           <Route exact path='/' component={ Home } />
           <Route path='/login' component={ withContext(AsyncLogin) } />
           <Route path='/register' component={ withContext(AsyncRegister) } />
-          <Route path='/publish' component={ withContext(AsyncPublish) } />
+          <Route path='/publish/:name?' component={ withContext(AsyncPublish) } />
         </Switch>
       </HashRouter>
     )
