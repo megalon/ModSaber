@@ -2,7 +2,22 @@ html {
   background-color: hsl(0, 0%, 14%);
 }
 
+.is-fullwidth {
+  width: 100%;
+}
+
 div.is-main {
   margin: 0 20px;
   margin-top: 25px;
+}
+
+div.login-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+div.login-tile {
+  max-width: 500px;
+  flex-direction: column;
 }
