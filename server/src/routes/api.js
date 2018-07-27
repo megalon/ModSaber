@@ -46,8 +46,10 @@ router.post('/upload', async (req, res) => {
 
   // Validate Uploaded Files
   if (!steam) return res.status(400).send({ field: 'steam' })
-  if (steam.mimetype !== 'application/zip') return res.status(400).send({ field: 'steam', error: errors.FILE_WRONG_TYPE })
-  if (oculus) if (oculus.mimetype !== 'application/zip') return res.status(400).send({ field: 'oculus', error: errors.FILE_WRONG_TYPE })
+
+  let mimes = ['application/zip', 'application/x-zip-compressed', 'multipart/x-zip']
+  if (!mimes.includes(steam.mimetype)) return res.status(400).send({ field: 'steam', error: errors.FILE_WRONG_TYPE })
+  if (oculus) if (!mimes.includes(oculus.mimetype)) return res.status(400).send({ field: 'oculus', error: errors.FILE_WRONG_TYPE })
 
   // Process Uploaded Files
   let steamFiles = await processZIP(steam.data)
@@ -63,10 +65,17 @@ router.post('/upload', async (req, res) => {
     if (!previous.author.id.equals(req.user._id.id)) return res.sendStatus(401)
 
     // Check SemVer is newer
-    if (!semver.gt(version, previous.version)) return res.status(403).send({ error: 'semver' })
+    if (!semver.gt(version, previous.version)) return res.status(403).send({ error: 'semver', version: previous.version })
 
     // Keep approved status
     if (previous.approved) approved = true
+
+    // Lookup game version
+    try {
+      gameVersion = (await GameVersion.findById(gameVersion).exec())._id
+    } catch (err) {
+      return res.status(400).send({ field: 'gameVersion', error: errors.GAMEVERSION_INVALID })
+    }
   }
 
   // Pull a list of all old versions

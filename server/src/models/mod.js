@@ -16,7 +16,7 @@ const Mod = new Schema({
   approved: { type: Boolean, default: false },
   version: String,
   oldVersions: [String],
-  gameVersion: String,
+  gameVersion: Schema.Types.ObjectId,
   files: Schema.Types.Mixed,
   dependsOn: [String],
   conflictsWith: [String],

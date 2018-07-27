@@ -10,5 +10,6 @@ module.exports = {
     MISSING: 'missing_field',
     SEMVER_INVALID: 'semver_invalid',
     FILE_WRONG_TYPE: 'file_wrong_type',
+    GAMEVERSION_INVALID: 'gameversion_invalid',
   },
 }
