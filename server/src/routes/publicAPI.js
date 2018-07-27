@@ -16,7 +16,7 @@ router.get('/alert', (req, res) => {
 router.get('/gameversions', async (req, res) => {
   let versions = (await GameVersion.find({}).exec())
     .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .map(x => ({ value: x.value, manifest: x.manifest }))
+    .map(x => ({ id: x._id, value: x.value, manifest: x.manifest }))
 
   res.send(versions)
 })
