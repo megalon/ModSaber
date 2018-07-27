@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import Layout from './components/Layout.jsx'
 import constants from './constants.js'
 
 class App extends Component {
@@ -25,9 +26,7 @@ class App extends Component {
 
   render () {
     return (
-      <div>
-        Hello World
-      </div>
+      <Layout />
     )
   }
 }
