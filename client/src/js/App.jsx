@@ -6,9 +6,11 @@ import Router from './Router.jsx'
 class App extends Component {
   render () {
     return (
-      <UserProvider>
-        <Router />
-      </UserProvider>
+      <div className='has-text-white'>
+        <UserProvider>
+          <Router />
+        </UserProvider>
+      </div>
     )
   }
 }
