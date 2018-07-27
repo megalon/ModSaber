@@ -15,8 +15,7 @@ class Login extends Component {
       error: '',
     }
 
-    this.context = this.props.context
-    if (this.context.loggedIn) this.props.history.push('')
+    if (this.props.context.loggedIn) this.props.history.push('')
   }
 
   static propTypes = {
@@ -41,7 +40,8 @@ class Login extends Component {
       if (resp.status === 400) return this.setState({ error: 'Invalid Username or Password' })
       if (resp.status === 401) return this.setState({ error: 'Incorrect Password' })
 
-      this.context.refresh()
+      this.props.context.refresh()
+      this.props.history.push('')
     } catch (err) {
       console.log(err)
       return this.setState({ error: 'Something went wrong...' })
@@ -50,7 +50,7 @@ class Login extends Component {
 
   render () {
     return (
-      <Layout>
+      <Layout history={ this.props.history }>
         <div className='login-container'>
           <div className='tile box login-tile'>
             <h1 className='is-size-4 has-text-weight-semibold has-text-centered'>Login</h1>
