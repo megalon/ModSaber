@@ -38,7 +38,7 @@ export class UserProvider extends Component {
 
   async loadAlerts () {
     try {
-      let { alert } = await (await fetch(`${constants.BASE_URL}/alert`, { credentials: 'include' })).json()
+      let { alert } = await (await fetch(`${constants.BASE_URL}/api/alert`, { credentials: 'include' })).json()
       this.setState({ alert })
     } catch (err) {
       // Silently Fail
