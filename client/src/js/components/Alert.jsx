@@ -8,8 +8,8 @@ class Alert extends Component {
   render () {
     return (
       <UserConsumer>
-        { ({ user: { verified }, alert }) => {
-          if (!verified) return <AlertBox text={ constants.MESSAGE_UNVERIFIED } />
+        { ({ loggedIn, user: { verified }, alert }) => {
+          if (!verified && loggedIn) return <AlertBox text={ constants.MESSAGE_UNVERIFIED } />
 
           if (alert) return <AlertBox text={ alert } />
           else return null
