@@ -16,29 +16,28 @@ Beat Saber Mod Database
 * Password Resets
 
 ## Frontend Plan
-* Navbar always at the top
-  * ModSaber (goes home)
-  * Mod Installer
-  * Modding Discord
-  * Upload a mod (hidden if not logged in)
-  * --- PINNED TO THE RIGHT SIDE
-  * Logged out:
-    * LOGIN
-  * Logged in:
-    * Username
-    * Log Out
-    * Settings
+* ~~Navbar always at the top~~
+  * ~~ModSaber (goes home)~~
+  * Mod Installer *(This won't link anywhere until the new installer is out)*
+  * ~~Modding Discord~~
+  * ~~Upload a mod (hidden if not logged in)~~
+  * ~~--- PINNED TO THE RIGHT SIDE~~
+  * ~~Logged out:~~
+    * ~~LOGIN~~
+  * ~~Logged in:~~
+    * ~~Username (goes to settings)~~
+    * ~~Log Out~~
 * Front Page
   * Lists latest mods
   * Fetch list of all mods
   * Remove older versions
   * Fetch info on all
   * Display the newest 10
-* Login Page
-  * Username / password combo
-  * Use fetch API
-* Register Page
-  * Same deal as login
+* ~~Login Page~~
+  * ~~Username / password combo~~
+  * ~~Use fetch API~~
+* ~~Register Page~~
+  * ~~Same deal as login~~
 * Mod Page
   * Lists all info about a mod
   * Includes download link
