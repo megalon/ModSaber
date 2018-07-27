@@ -36,3 +36,30 @@ Field.propTypes = {
 }
 
 export default Field
+
+export const FieldArea = props =>
+  <div className='field'>
+    <label className='label'>{ props.label }</label>
+    <div className='control'>
+      <textarea
+        className='textarea'
+        type={ props.type }
+        placeholder={ props.placeholder }
+        disabled={ props.disabled }
+        onChange={ props.onChange }
+      >
+        { props.value }
+      </textarea>
+    </div>
+    <p className='help is-danger' style={{ textAlign: 'center' }}>{ props.prompt }</p>
+  </div>
+
+FieldArea.propTypes = {
+  value: PropTypes.string,
+  label: PropTypes.string,
+  placeholder: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  prompt: PropTypes.string,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
+}
