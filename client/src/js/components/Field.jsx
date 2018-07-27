@@ -26,7 +26,7 @@ const Field = props =>
 Field.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   type: PropTypes.string.isRequired,
   icon: PropTypes.string,
   prompt: PropTypes.string,
@@ -47,9 +47,8 @@ export const FieldArea = props =>
         placeholder={ props.placeholder }
         disabled={ props.disabled }
         onChange={ props.onChange }
-      >
-        { props.value }
-      </textarea>
+        value={ props.value }
+      />
     </div>
     <p className='help is-danger' style={{ textAlign: 'center' }}>{ props.prompt }</p>
   </div>
@@ -57,7 +56,7 @@ export const FieldArea = props =>
 FieldArea.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   type: PropTypes.string.isRequired,
   prompt: PropTypes.string,
   disabled: PropTypes.bool,
