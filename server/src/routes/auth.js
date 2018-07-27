@@ -42,7 +42,7 @@ router.post('/register', (req, res) => {
     const token = jwt.sign({ id, expires }, JWT_SECRET)
     res.cookie(COOKIE_NAME, token, { expires, httpOnly: true })
 
-    res.redirect('/')
+    res.sendStatus(200)
   })
 })
 
@@ -53,7 +53,7 @@ router.post('/login', passport.authenticate('local', { session: false }), (req, 
   const token = jwt.sign({ id, expires }, JWT_SECRET)
   res.cookie(COOKIE_NAME, token, { expires, httpOnly: true })
 
-  res.redirect('/')
+  res.sendStatus(200)
 })
 
 // Verify Account
@@ -63,13 +63,13 @@ router.get('/verify/:token', passport.authenticate('jwt', { session: false }), a
   let { token } = req.params
   if (req.user.verifyToken === token) await Account.findByIdAndUpdate(req.user.id, { $set: { verified: true } }).exec()
 
-  res.redirect('/')
+  res.sendStatus(200)
 })
 
 // Logout Route
 router.get('/logout', (req, res) => {
   res.clearCookie(COOKIE_NAME)
-  res.redirect('/')
+  res.sendStatus(200)
 })
 
 module.exports = router
