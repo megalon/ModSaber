@@ -24,7 +24,20 @@ class Form extends Component {
 
       currentconflictsWith: '',
       currentconflictsWithError: '',
+
+      hasOculusFile: false,
+
+      steamFile: {},
+      oculusFile: {},
+
+      error: {
+        field: 'version',
+        message: 'reee',
+      },
     }
+
+    this.steamFile = React.createRef()
+    this.oculusFile = React.createRef()
   }
 
   static propTypes = {
@@ -194,6 +207,40 @@ class Form extends Component {
             />
           )
         }
+
+        <div className='control'>
+          <label className='label'>{ this.state.hasOculusFile ? 'Files' : 'File' }</label>
+
+          <div className='field'>
+            <label className='checkbox'>
+              <input
+                type='checkbox'
+                checked={ this.state.hasOculusFile }
+                onChange={ () => this.setState({ hasOculusFile: !this.state.hasOculusFile }) }
+              />
+              <span> Upload Seperate Oculus Files</span>
+            </label>
+          </div>
+
+          <FileField
+            name={ this.state.hasOculusFile ? 'Steam' : 'Upload' }
+            node={ this.steamFile }
+            file={ this.state.steamFile }
+            onChange={ e => this.setState({ steamFile: e.target.files[0] }) }
+          />
+          <FileField
+            isHidden={ !this.state.hasOculusFile }
+            name='Oculus'
+            node={ this.oculusFile }
+            file={ this.state.oculusFile }
+            onChange={ e => this.setState({ oculusFile: e.target.files[0] }) }
+          />
+
+          <p className='help is-danger'>
+            { this.state.error.field === 'files' ? this.state.error.message : '' }
+          </p>
+        </div>
+      </div>
     )
   }
 }

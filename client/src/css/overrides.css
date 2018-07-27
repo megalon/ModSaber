@@ -6,6 +6,10 @@ html {
   width: 100%;
 }
 
+.is-invis {
+  display: none;
+}
+
 div.is-main {
   margin: 0 20px;
   margin-top: 25px;
