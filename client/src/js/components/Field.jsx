@@ -64,7 +64,7 @@ FieldArea.propTypes = {
 }
 
 export const FieldAddon = props =>
-  <div className='field is-expanded' style={{ marginTop: props.isChild ? '-25px' : '' }}>
+  <div className='field is-expanded' style={{ marginTop: props.isChild ? '-12px' : '' }}>
     <label className='label'>{ props.label }</label>
     <div className={ `field ${props.button ? 'has-addons' : ''}` }>
       <div className='control is-fullwidth'>
@@ -85,7 +85,7 @@ export const FieldAddon = props =>
         </a>
       </div>
     </div>
-    <p className='help is-danger' style={{ marginTop: '-10px', marginBottom: '10px' }}>{ props.prompt }</p>
+    <p className='help is-danger' style={{ marginTop: '-10px' }}>{ props.prompt }</p>
   </div>
 
 FieldAddon.propTypes = {
