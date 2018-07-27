@@ -5,6 +5,7 @@ import asyncComponent from './components/AsyncComponent.jsx'
 import withContext from './components/WithContext.jsx'
 
 import Home from './routes/Home.jsx'
+import NotFound from './routes/NotFound.jsx'
 const AsyncLogin = asyncComponent(() => import('./routes/Login.jsx'))
 const AsyncRegister = asyncComponent(() => import('./routes/Register.jsx'))
 const AsyncPublish = asyncComponent(() => import('./routes/Publish.jsx'))
@@ -18,6 +19,7 @@ class Router extends Component {
           <Route path='/login' component={ withContext(AsyncLogin) } />
           <Route path='/register' component={ withContext(AsyncRegister) } />
           <Route path='/publish/:name?' component={ withContext(AsyncPublish) } />
+          <Route path='/' component={ NotFound } />
         </Switch>
       </HashRouter>
     )
