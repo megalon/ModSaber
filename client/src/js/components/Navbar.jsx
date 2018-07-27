@@ -48,6 +48,11 @@ class Navbar extends Component {
             <div className='navbar-start'>
               <a className='navbar-item'>Mod Installer</a>
               <a className='navbar-item' target='_blank' rel='noopener noreferrer' href='https://discord.gg/ZY8T8ky'>Modding Discord</a>
+              {
+                this.props.context.loggedIn ?
+                  <Link className='navbar-item' to='/publish'>Publish a Mod</Link> :
+                  null
+              }
             </div>
 
             <div className='navbar-end'>
