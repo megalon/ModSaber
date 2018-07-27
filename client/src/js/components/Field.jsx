@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 const Field = props =>
   <div className='field'>
+    <label className='label'>{ props.label }</label>
     <div className='control has-icons-left'>
       <input
         className='input'
@@ -21,6 +22,7 @@ const Field = props =>
 
 Field.propTypes = {
   value: PropTypes.string,
+  label: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
