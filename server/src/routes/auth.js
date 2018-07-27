@@ -63,7 +63,7 @@ router.get('/verify/:token', passport.authenticate('jwt', { session: false }), a
   let { token } = req.params
   if (req.user.verifyToken === token) await Account.findByIdAndUpdate(req.user.id, { $set: { verified: true } }).exec()
 
-  res.sendStatus(200)
+  res.redirect('/')
 })
 
 // Logout Route
