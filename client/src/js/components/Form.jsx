@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { BASE_URL, sanitise } from '../constants.js'
-import Field, { FieldArea } from './Field.jsx'
+import Field, { FieldArea, FieldAddon } from './Field.jsx'
 
 class Form extends Component {
   constructor (props) {
@@ -49,7 +49,7 @@ class Form extends Component {
 
   async fetchGameVersions () {
     let gameVersions = await (await fetch(`${BASE_URL}/api/public/gameversions`, { credentials: 'include' })).json()
-    this.setState({ gameVersions })
+    this.setState({ gameVersions, gameVersion: gameVersions[0] })
   }
 
   async addDependency () {
@@ -108,6 +108,7 @@ class Form extends Component {
         <Field
           label='Mod Name'
           type='text'
+          prompt={ this.state.error.field === 'name' ? this.state.error.message : '' }
           value={ this.state.name }
           disabled={ !this.props.new }
           onChange={ e => this.setState({ name: sanitise(e.target.value, 35) }) }
@@ -116,6 +117,7 @@ class Form extends Component {
         <Field
           label='Version'
           type='text'
+          prompt={ this.state.error.field === 'version' ? this.state.error.message : '' }
           placeholder={ this.props.details.version }
           value={ this.state.version }
           onChange={ e => this.setState({ version: e.target.value }) }
@@ -124,6 +126,7 @@ class Form extends Component {
         <Field
           label='Mod Title'
           type='text'
+          prompt={ this.state.error.field === 'title' ? this.state.error.message : '' }
           value={ this.state.title }
           onChange={ e => this.setState({ title: e.target.value.substring(0, 50) }) }
         />
@@ -136,21 +139,20 @@ class Form extends Component {
         />
 
         <div className='field'>
-        <div className='control'>
-          <label className='label'>Game Version</label>
-          <div className='select'>
-            <select onChange={ e => { this.setState({ gameVersion: JSON.parse(e.target.value) }) }}>
-              <option value='{}'>Select a version</option>
-              {
-                this.state.gameVersions.map(({ value, manifest }, i) =>
-                  <option key={manifest} value={ JSON.stringify({ value, manifest }) }>
-                    { value } { i === 0 ? '[LATEST]' : '' }
-                  </option>)
-              }
-            </select>
+          <div className='control'>
+            <label className='label'>Game Version</label>
+            <div className='select'>
+              <select onChange={ e => { this.setState({ gameVersion: JSON.parse(e.target.value) }) }}>
+                {
+                  this.state.gameVersions.map(({ value, manifest }, i) =>
+                    <option key={manifest} value={ JSON.stringify({ value, manifest }) }>
+                      { value } { i === 0 ? '[LATEST]' : '' }
+                    </option>)
+                }
+              </select>
+            </div>
           </div>
         </div>
-      </div>
 
         <FieldAddon
           label='Depends On'
