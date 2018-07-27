@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
 import constants, { sanitiseUsername } from '../constants.js'
@@ -66,6 +67,10 @@ class Login extends Component {
   render () {
     return (
       <Layout history={ this.props.history }>
+        <Helmet>
+          <title>ModSaber | Register</title>
+        </Helmet>
+
         <div className='login-container'>
           <div className='tile box login-tile'>
             <h1 className='is-size-4 has-text-weight-semibold has-text-centered'>Register</h1>
