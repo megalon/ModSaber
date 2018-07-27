@@ -16,6 +16,7 @@ class Login extends Component {
       email: '',
       password: '',
       error: '',
+      loading: false,
     }
 
     if (this.props.context.loggedIn) this.props.history.push('')
@@ -27,6 +28,7 @@ class Login extends Component {
   }
 
   async submitForm () {
+    this.setState({ loading: true })
     let { username, email, password } = this.state
 
     let body = new URLSearchParams()
@@ -44,13 +46,13 @@ class Login extends Component {
       if (resp.status === 400) {
         let { error, fields } = await resp.json()
 
-        if (error === 'MissingUsernameError') return this.setState({ error: AUTH.INVALID_USERNAME })
-        if (error === 'MissingPasswordError') return this.setState({ error: AUTH.INVALID_PASSWORD })
+        if (error === 'MissingUsernameError') return this.setState({ error: AUTH.INVALID_USERNAME, loading: false })
+        if (error === 'MissingPasswordError') return this.setState({ error: AUTH.INVALID_PASSWORD, loading: false })
         if (error === 'ValidationError') {
           let [field] = Object.keys(fields)
 
-          if (field === 'email') return this.setState({ error: AUTH.INVALID_EMAIL })
-          else return this.setState({ error: AUTH.ERROR_UNKNOWN })
+          if (field === 'email') return this.setState({ error: AUTH.INVALID_EMAIL, loading: false })
+          else return this.setState({ error: AUTH.ERROR_UNKNOWN, loading: false })
         }
 
         return false
@@ -60,7 +62,7 @@ class Login extends Component {
       this.props.history.push('')
     } catch (err) {
       console.log(err)
-      return this.setState({ error: AUTH.ERROR_UNKNOWN })
+      return this.setState({ error: AUTH.ERROR_UNKNOWN, loading: false })
     }
   }
 
@@ -104,8 +106,14 @@ class Login extends Component {
               onEnter={ () => this.submitForm() }
             />
 
-            <button className='button is-dark' onClick={ () => this.submitForm() }>Register</button>
-            <Link className='button has-outline' to='/login' style={{ marginTop: '8px' }}>Already have an account?</Link>
+            <button
+              disabled={ this.state.loading }
+              className={ `button is-dark is-fullwidth ${this.state.loading ? 'is-loading' : ''}` }
+              onClick={ () => this.submitForm() }
+            >
+              Register
+            </button>
+            <Link className='button has-outline is-fullwidth' to='/login' style={{ marginTop: '8px' }}>Already have an account?</Link>
           </div>
         </div>
       </Layout>

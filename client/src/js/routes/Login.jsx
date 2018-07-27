@@ -15,6 +15,7 @@ class Login extends Component {
       username: '',
       password: '',
       error: '',
+      loading: false,
     }
 
     if (this.props.context.loggedIn) this.props.history.push('')
@@ -26,6 +27,7 @@ class Login extends Component {
   }
 
   async submitForm () {
+    this.setState({ loading: true })
     let { username, password } = this.state
 
     let body = new URLSearchParams()
@@ -39,14 +41,14 @@ class Login extends Component {
         body,
       })
 
-      if (resp.status === 400) return this.setState({ error: AUTH.INVALID_EITHER })
-      if (resp.status === 401) return this.setState({ error: AUTH.INCORRECT_PASSWORD })
+      if (resp.status === 400) return this.setState({ error: AUTH.INVALID_EITHER, loading: false })
+      if (resp.status === 401) return this.setState({ error: AUTH.INCORRECT_PASSWORD, loading: false })
 
       this.props.context.refresh()
       this.props.history.push('')
     } catch (err) {
       console.log(err)
-      return this.setState({ error: AUTH.ERROR_UNKNOWN })
+      return this.setState({ error: AUTH.ERROR_UNKNOWN, loading: false })
     }
   }
 
@@ -81,8 +83,14 @@ class Login extends Component {
               onEnter={ () => this.submitForm() }
             />
 
-            <button className='button is-dark' onClick={ () => this.submitForm() }>Login</button>
-            <Link className='button has-outline' to='/register' style={{ marginTop: '8px' }}>Don&#39;t have an account?</Link>
+            <button
+              disabled={ this.state.loading }
+              className={ `button is-dark is-fullwidth ${this.state.loading ? 'is-loading' : ''}` }
+              onClick={ () => this.submitForm() }
+            >
+              Login
+            </button>
+            <Link className='button has-outline is-fullwidth' to='/register' style={{ marginTop: '8px' }}>Don&#39;t have an account?</Link>
           </div>
         </div>
       </Layout>
