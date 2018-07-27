@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
-import constants, { sanitiseUsername } from '../constants.js'
+import { BASE_URL, AUTH, sanitiseUsername } from '../constants.js'
 import Layout from '../components/Layout.jsx'
 import Field from '../components/Field.jsx'
 
@@ -35,7 +35,7 @@ class Login extends Component {
     body.set('password', password)
 
     try {
-      let resp = await fetch(`${constants.BASE_URL}/auth/register`, {
+      let resp = await fetch(`${BASE_URL}/auth/register`, {
         method: 'POST',
         credentials: 'include',
         body,
@@ -44,13 +44,13 @@ class Login extends Component {
       if (resp.status === 400) {
         let { error, fields } = await resp.json()
 
-        if (error === 'MissingUsernameError') return this.setState({ error: constants.auth.INVALID_USERNAME })
-        if (error === 'MissingPasswordError') return this.setState({ error: constants.auth.INVALID_PASSWORD })
+        if (error === 'MissingUsernameError') return this.setState({ error: AUTH.INVALID_USERNAME })
+        if (error === 'MissingPasswordError') return this.setState({ error: AUTH.INVALID_PASSWORD })
         if (error === 'ValidationError') {
           let [field] = Object.keys(fields)
 
-          if (field === 'email') return this.setState({ error: constants.auth.INVALID_EMAIL })
-          else return this.setState({ error: constants.auth.ERROR_UNKNOWN })
+          if (field === 'email') return this.setState({ error: AUTH.INVALID_EMAIL })
+          else return this.setState({ error: AUTH.ERROR_UNKNOWN })
         }
 
         return false
@@ -60,7 +60,7 @@ class Login extends Component {
       this.props.history.push('')
     } catch (err) {
       console.log(err)
-      return this.setState({ error: constants.auth.ERROR_UNKNOWN })
+      return this.setState({ error: AUTH.ERROR_UNKNOWN })
     }
   }
 

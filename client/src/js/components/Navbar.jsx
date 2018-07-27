@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import constants from '../constants.js'
+import { BASE_URL } from '../constants.js'
 
 class Navbar extends Component {
   constructor (props) {
@@ -19,7 +19,7 @@ class Navbar extends Component {
   }
 
   async logout () {
-    await fetch(`${constants.BASE_URL}/auth/logout`, { credentials: 'include' })
+    await fetch(`${BASE_URL}/auth/logout`, { credentials: 'include' })
     this.props.context.refresh()
     this.props.history.push('')
   }

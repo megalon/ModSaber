@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
-import constants, { sanitiseUsername } from '../constants.js'
+import { BASE_URL, AUTH, sanitiseUsername } from '../constants.js'
 import Layout from '../components/Layout.jsx'
 import Field from '../components/Field.jsx'
 
@@ -33,20 +33,20 @@ class Login extends Component {
     body.set('password', password)
 
     try {
-      let resp = await fetch(`${constants.BASE_URL}/auth/login`, {
+      let resp = await fetch(`${BASE_URL}/auth/login`, {
         method: 'POST',
         credentials: 'include',
         body,
       })
 
-      if (resp.status === 400) return this.setState({ error: constants.auth.INVALID_EITHER })
-      if (resp.status === 401) return this.setState({ error: constants.auth.INCORRECT_PASSWORD })
+      if (resp.status === 400) return this.setState({ error: AUTH.INVALID_EITHER })
+      if (resp.status === 401) return this.setState({ error: AUTH.INCORRECT_PASSWORD })
 
       this.props.context.refresh()
       this.props.history.push('')
     } catch (err) {
       console.log(err)
-      return this.setState({ error: constants.auth.ERROR_UNKNOWN })
+      return this.setState({ error: AUTH.ERROR_UNKNOWN })
     }
   }
 
