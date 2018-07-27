@@ -1,27 +1,34 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { UserConsumer } from '../Context.jsx'
+import constants from '../constants.js'
 
 class Alert extends Component {
   render () {
     return (
       <UserConsumer>
-        { ({ alert }) => {
-          if (alert) {
-            let text = alert.split('\n').map((line, i) => <span key={ i }>{ line }<br /></span>)
+        { ({ user: { verified }, alert }) => {
+          if (!verified) return <AlertBox text={ constants.MESSAGE_UNVERIFIED } />
 
-            return (
-              <article className='message is-warning'>
-                <div className='message-body'>{ text }</div>
-              </article>
-            )
-          } else {
-            return null
-          }
+          if (alert) return <AlertBox text={ alert } />
+          else return null
         } }
       </UserConsumer>
     )
   }
 }
+
+const AlertBox = props => {
+  let text = props.text.split('\n').map((line, i) => <span key={ i }>{ line }<br /></span>)
+
+  return (
+    <article className='message is-warning'>
+      <div className='message-body'>{ text }</div>
+    </article>
+  )
+}
+
+AlertBox.propTypes = { text: PropTypes.string.isRequired }
 
 export default Alert
