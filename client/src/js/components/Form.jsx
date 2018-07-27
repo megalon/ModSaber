@@ -31,8 +31,8 @@ class Form extends Component {
       oculusFile: {},
 
       error: {
-        field: 'version',
-        message: 'reee',
+        field: '',
+        message: '',
       },
     }
 
