@@ -32,7 +32,7 @@ export class UserProvider extends Component {
       let user = await (await fetch(`${constants.BASE_URL}/api/self`, { credentials: 'include' })).json()
       this.setState({ loggedIn: true, user })
     } catch (err) {
-      // Silently Fail
+      this.setState({ loggedIn: false, user: {} })
     }
   }
 
