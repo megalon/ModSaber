@@ -54,7 +54,7 @@ export class UserProvider extends Component {
           loggedIn: this.state.loggedIn,
           user: this.state.user,
           alert: this.state.alert,
-          refresh: this.refresh,
+          refresh: () => { this.refresh() },
         }}
       >
         {children}
