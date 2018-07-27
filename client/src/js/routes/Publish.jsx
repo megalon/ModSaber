@@ -15,6 +15,8 @@ class Publish extends Component {
       new: true,
       existing: {},
     }
+
+    if (!this.props.context.user.verified) this.props.history.push('')
   }
 
   componentDidMount () { this.checkExisting() }
