@@ -10,10 +10,20 @@ services:
     networks:
       - internal
       - proxy
+    logging:
+      driver: none
     env_file:
       - site.env
     volumes:
       - cdn:/usr/app/src/store:rw
+  frontend:
+    image: modsaber-frontend
+    build: 'client'
+    restart: always
+    networks:
+      - proxy
+    logging:
+      driver: none
   proxy:
     image: nginx
     restart: always
