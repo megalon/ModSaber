@@ -16,7 +16,7 @@ const Field = props =>
         <i className={ `fas fa-${props.icon}` }></i>
       </span>
     </div>
-    <p className='help is-danger'>{ props.prompt }</p>
+    <p className='help is-danger' style={{ textAlign: 'center' }}>{ props.prompt }</p>
   </div>
 
 Field.propTypes = {

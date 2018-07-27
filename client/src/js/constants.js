@@ -6,6 +6,9 @@ Check the email address you used to sign up for an account. (Look in spam too)`,
     ERROR_UNKNOWN: 'Something went wrong...',
     INVALID_EITHER: 'Invalid Username or Password',
     INCORRECT_PASSWORD: 'Incorrect Password',
+    INVALID_USERNAME: 'Invalid Username',
+    INVALID_EMAIL: 'Invalid Email',
+    INVALID_PASSWORD: 'Invalid Password',
   },
 }
 
