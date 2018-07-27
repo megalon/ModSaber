@@ -73,6 +73,7 @@ const NavbarEnd = props => {
   if (props.loggedIn) {
     return (
       <Fragment>
+        <Link className='navbar-item' to='/settings'>{ props.user.username }</Link>
         <a className='navbar-item' onClick={ props.logout }><b>Logout</b></a>
       </Fragment>
     )
