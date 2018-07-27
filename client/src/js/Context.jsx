@@ -12,9 +12,11 @@ export class UserProvider extends Component {
     this.state = {
       loggedIn: false,
       user: {},
+      alert: null,
     }
 
     this.loadUserState()
+    this.loadAlerts()
   }
 
   static propTypes = {
@@ -23,8 +25,17 @@ export class UserProvider extends Component {
 
   async loadUserState () {
     try {
-      let user = await (await fetch(`${constants.BASE_URL}/api/self`, { credentials: 'include' })).json()
+      let user = await (await fetch(`${constants.BASE_URL}/api/state`, { credentials: 'include' })).json()
       this.setState({ loggedIn: true, user })
+    } catch (err) {
+      // Silently Fail
+    }
+  }
+
+  async loadAlerts () {
+    try {
+      let { alert } = await (await fetch(`${constants.BASE_URL}/alert`, { credentials: 'include' })).json()
+      this.setState({ alert })
     } catch (err) {
       // Silently Fail
     }
@@ -38,6 +49,7 @@ export class UserProvider extends Component {
         value={{
           loggedIn: this.state.loggedIn,
           user: this.state.user,
+          alert: this.state.alert,
         }}
       >
         {children}
