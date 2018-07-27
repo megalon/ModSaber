@@ -49,7 +49,7 @@ class Publish extends Component {
         <h1 className='is-size-1 has-text-weight-semibold'>{ this.state.new ? 'Publish a Mod' : 'Publish an Update' }</h1>
         <br />
 
-        { this.state.checked ? <Form details={ this.state.existing } new={ this.state.new } /> : null }
+        { this.state.checked ? <Form details={ this.state.existing } new={ this.state.new } history={ this.props.history } /> : null }
       </Layout>
     )
   }
