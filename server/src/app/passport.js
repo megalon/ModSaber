@@ -21,8 +21,12 @@ passport.use(new JWTStrategy(
 
     Account.findById(payload.id)
       .then(user => {
-        if (user.username === ADMIN_USERNAME) user.admin = true
-        cb(null, user)
+        try {
+          if (user.username === ADMIN_USERNAME) user.admin = true
+          return cb(null, user)
+        } catch (err) {
+          return cb(err)
+        }
       })
       .catch(err => cb(err))
   }
