@@ -142,7 +142,7 @@ class Form extends Component {
       body,
     })
 
-    if (resp.status === 200) this.props.history.push(`/mod/${this.state.name}`)
+    if (resp.status === 200) this.props.history.push(`/mod/${this.state.name}/${this.state.version}`)
 
     let json = await resp.json()
     console.log(json)
