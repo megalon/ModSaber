@@ -108,6 +108,7 @@ class Form extends Component {
         <Field
           label='Mod Name'
           type='text'
+          placeholder='Internal database name. Must be lowercase and alphanumeric.'
           prompt={ this.state.error.field === 'name' ? this.state.error.message : '' }
           value={ this.state.name }
           disabled={ !this.props.new }
@@ -118,7 +119,7 @@ class Form extends Component {
           label='Version'
           type='text'
           prompt={ this.state.error.field === 'version' ? this.state.error.message : '' }
-          placeholder={ this.props.details.version }
+          placeholder={ this.props.details.version ? this.props.details.version : 'Must follow semver (Google it)' }
           value={ this.state.version }
           onChange={ e => this.setState({ version: e.target.value }) }
         />
@@ -126,6 +127,7 @@ class Form extends Component {
         <Field
           label='Mod Title'
           type='text'
+          placeholder='Mod Title. Shown on pages and in the mod installer.'
           prompt={ this.state.error.field === 'title' ? this.state.error.message : '' }
           value={ this.state.title }
           onChange={ e => this.setState({ title: e.target.value.substring(0, 50) }) }
@@ -134,6 +136,7 @@ class Form extends Component {
         <FieldArea
           label='Description'
           type='text'
+          placeholder='Long description text. Supports Markdown.'
           value={ this.state.description }
           onChange={ e => this.setState({ description: e.target.value.substring(0, 1000) }) }
         />
@@ -155,7 +158,7 @@ class Form extends Component {
         </div>
 
         <FieldAddon
-          label='Depends On'
+          label='Depends On [OPTIONAL]'
           type='text'
           prompt={ this.state.currentDependsOnError }
           button='Add Dependency'
@@ -183,7 +186,7 @@ class Form extends Component {
         }
 
         <FieldAddon
-          label='Conflicts With'
+          label='Conflicts With [OPTIONAL]'
           type='text'
           prompt={ this.state.currentconflictsWithError }
           button='Add Conflict'
@@ -220,7 +223,7 @@ class Form extends Component {
                 checked={ this.state.hasOculusFile }
                 onChange={ () => this.setState({ hasOculusFile: !this.state.hasOculusFile }) }
               />
-              <span> Upload Seperate Oculus Files</span>
+              <span> Upload Seperate File for Oculus users</span>
             </label>
           </div>
 
