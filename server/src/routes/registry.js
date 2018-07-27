@@ -68,9 +68,14 @@ router.get('/:name/:version', cache.route(5 * 60), async (req, res) => {
     value.url = `${baseURL}/${name}/${version}-${key}.zip`
   }
 
-  // Lookup author username from DB
-  let author = (await Account.findById(authorID).exec()).username
-  res.send({ name, version, author, authorID, title, description, gameVersion, oldVersions, dependsOn, files })
+  try {
+    // Lookup author username from DB
+    let author = (await Account.findById(authorID).exec()).username
+    res.send({ name, version, author, authorID, title, description, gameVersion, oldVersions, dependsOn, files })
+  } catch (err) {
+    // Send default values
+    res.send({ name, version, author: '', authorID: 0, title, description, gameVersion, oldVersions, dependsOn, files })
+  }
 })
 
 module.exports = router
