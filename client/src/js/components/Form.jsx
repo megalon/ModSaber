@@ -8,14 +8,12 @@ class Form extends Component {
   constructor (props) {
     super(props)
 
-    console.log(this.props.details)
-
     this.state = {
       name: this.props.details.name || '',
       version: '',
-      title: '',
-      description: '',
-      gameVersion: '',
+      title: this.props.details.title || '',
+      description: this.props.details.description || '',
+      gameVersion: {},
       dependsOn: [],
       conflictsWith: [],
 
@@ -46,8 +44,8 @@ class Form extends Component {
         <Field
           label='Version'
           type='text'
+          placeholder={ this.props.details.version }
           value={ this.state.version }
-          disabled={ !this.props.new }
           onChange={ e => this.setState({ version: e.target.value }) }
         />
 
@@ -55,7 +53,6 @@ class Form extends Component {
           label='Mod Title'
           type='text'
           value={ this.state.title }
-          disabled={ !this.props.new }
           onChange={ e => this.setState({ title: e.target.value.substring(0, 50) }) }
         />
 
@@ -63,7 +60,6 @@ class Form extends Component {
           label='Description'
           type='text'
           value={ this.state.description }
-          disabled={ !this.props.new }
           onChange={ e => this.setState({ description: e.target.value.substring(0, 1000) }) }
         />
       </div>
