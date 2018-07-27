@@ -20,7 +20,7 @@ const Field = props =>
           null
       }
     </div>
-    <p className='help is-danger' style={{ textAlign: 'center' }}>{ props.prompt }</p>
+    <p className='help is-danger' style={{ textAlign: props.centerPrompt ? 'center' : '' }}>{ props.prompt }</p>
   </div>
 
 Field.propTypes = {
@@ -30,6 +30,7 @@ Field.propTypes = {
   type: PropTypes.string.isRequired,
   icon: PropTypes.string,
   prompt: PropTypes.string,
+  centerPrompt: PropTypes.bool,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   onEnter: PropTypes.func,
@@ -50,7 +51,7 @@ export const FieldArea = props =>
         value={ props.value }
       />
     </div>
-    <p className='help is-danger' style={{ textAlign: 'center' }}>{ props.prompt }</p>
+    <p className='help is-danger' style={{ textAlign: props.centerPrompt ? 'center' : '' }}>{ props.prompt }</p>
   </div>
 
 FieldArea.propTypes = {
@@ -59,6 +60,7 @@ FieldArea.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.string.isRequired,
   prompt: PropTypes.string,
+  centerPrompt: PropTypes.bool,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
 }
