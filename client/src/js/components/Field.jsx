@@ -9,6 +9,7 @@ const Field = props =>
         className='input'
         type={ props.type }
         placeholder={ props.placeholder }
+        disabled={ props.disabled }
         onChange={ props.onChange }
         onKeyPress={ e => { if (e.key === 'Enter') { props.onEnter() } } }
         value={ props.value }
@@ -27,8 +28,9 @@ Field.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   prompt: PropTypes.string,
+  disabled: PropTypes.bool,
   onChange: PropTypes.func,
   onEnter: PropTypes.func,
 }
