@@ -37,14 +37,14 @@ class Login extends Component {
         body,
       })
 
-      if (resp.status === 400) return this.setState({ error: 'Invalid Username or Password' })
-      if (resp.status === 401) return this.setState({ error: 'Incorrect Password' })
+      if (resp.status === 400) return this.setState({ error: constants.auth.INVALID_EITHER })
+      if (resp.status === 401) return this.setState({ error: constants.auth.INCORRECT_PASSWORD })
 
       this.props.context.refresh()
       this.props.history.push('')
     } catch (err) {
       console.log(err)
-      return this.setState({ error: 'Something went wrong...' })
+      return this.setState({ error: constants.auth.ERROR_UNKNOWN })
     }
   }
 
