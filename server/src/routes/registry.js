@@ -70,7 +70,7 @@ router.get('/:name/:version', cache.route(5 * 60), async (req, res) => {
 
   // Lookup author username from DB
   let author = (await Account.findById(authorID).exec()).username
-  res.send({ name, version, author, title, description, gameVersion, oldVersions, dependsOn, files })
+  res.send({ name, version, author, authorID, title, description, gameVersion, oldVersions, dependsOn, files })
 })
 
 module.exports = router
