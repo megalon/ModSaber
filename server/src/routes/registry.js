@@ -58,7 +58,7 @@ router.get('/:name/:version', cache.route(5 * 60), async (req, res) => {
   let mod = await Mod.findOne({ name: n, version: v }).exec()
 
   if (!mod) return res.sendStatus(404)
-  let { name, version, author: authorID, title, description, gameVersion, oldVersions, dependsOn, files } = mod
+  let { name, version, author: authorID, title, description, gameVersion, oldVersions, dependsOn, conflictsWith, files } = mod
 
   // Insert file URLs to file object
   let { protocol, headers: { host } } = req
@@ -71,10 +71,10 @@ router.get('/:name/:version', cache.route(5 * 60), async (req, res) => {
   try {
     // Lookup author username from DB
     let author = (await Account.findById(authorID).exec()).username
-    res.send({ name, version, author, authorID, title, description, gameVersion, oldVersions, dependsOn, files })
+    res.send({ name, version, author, authorID, title, description, gameVersion, oldVersions, dependsOn, conflictsWith, files })
   } catch (err) {
     // Send default values
-    res.send({ name, version, author: '', authorID: 0, title, description, gameVersion, oldVersions, dependsOn, files })
+    res.send({ name, version, author: '', authorID: 0, title, description, gameVersion, oldVersions, dependsOn, conflictsWith, files })
   }
 })
 
