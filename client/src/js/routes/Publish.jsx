@@ -21,7 +21,12 @@ class Publish extends Component {
 
   componentDidMount () { this.checkExisting() }
 
+  componentDidUpdate (prevProps) {
+    if (this.props.match.params !== prevProps.match.params) this.checkExisting()
+  }
+
   async checkExisting () {
+    this.setState({ checked: false, new: true, existing: {} })
     let { name } = this.props.match.params
     if (!name) return this.setState({ checked: true })
 
