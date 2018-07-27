@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import constants from '../constants.js'
+import constants, { sanitiseUsername } from '../constants.js'
 import Layout from '../components/Layout.jsx'
 import Field from '../components/Field.jsx'
 
@@ -61,7 +61,7 @@ class Login extends Component {
               type='text'
               icon='user'
               value={ this.state.username }
-              onChange={ e => { this.setState({ username: e.target.value, error: '' }) }}
+              onChange={ e => { this.setState({ username: sanitiseUsername(e.target.value), error: '' }) }}
               onEnter={ () => this.submitForm() }
             />
 

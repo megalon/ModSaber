@@ -4,4 +4,14 @@ const constants = {
 Check the email address you used to sign up for an account. (Look in spam too)`,
 }
 
+/**
+ * @param {string} username Username String
+ * @returns {string}
+ */
+export const sanitiseUsername = username => username
+  .toLowerCase()
+  .replace(/ /g, '-')
+  .replace(/[^a-z0-9\-_]/g, '')
+  .substring(0, 20)
+
 export default constants
