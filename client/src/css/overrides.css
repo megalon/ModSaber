@@ -21,3 +21,7 @@ div.login-tile {
   max-width: 500px;
   flex-direction: column;
 }
+
+div.publish-tile {
+  flex-direction: column;
+}
