@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 
 // App Constants
 const { MONGO_URL } = require('./constants.js')
-const { PORT, COOKIE_SECRET, SITE_ALERT } = process.env
+const { PORT, COOKIE_SECRET } = process.env
 
 // Setup Express App
 const app = express()
@@ -34,16 +34,11 @@ app.use((req, res, next) => {
   next()
 })
 
-// Post site-wide alerts
-app.get('/api/alert', (req, res) => {
-  if (!SITE_ALERT) return res.sendStatus(204)
-  res.send({ alert: SITE_ALERT })
-})
-
 // Routes
 app.use('/registry', require('./routes/registry.js'))
 app.use('/auth', require('./routes/auth.js'))
-app.use('/api', passport.authenticate('jwt', { session: false }), require('./routes/api.js'))
+app.use('/api/public', require('./routes/publicAPI.js'))
+app.use('/api/secure', passport.authenticate('jwt', { session: false }), require('./routes/api.js'))
 
 // Connect to DB
 mongoose.connect(MONGO_URL, { useNewUrlParser: true })
