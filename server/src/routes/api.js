@@ -13,8 +13,8 @@ const router = Router() // eslint-disable-line
 router.use(fileUpload({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true }))
 
 router.get('/self', (req, res) => {
-  let { username, verified, admin } = req.user
-  res.send({ username, verified, admin })
+  let { id, username, verified, admin } = req.user
+  res.send({ id, username, verified, admin })
 })
 
 router.post('/upload', async (req, res) => {
