@@ -26,8 +26,11 @@ class Form extends Component {
     new: PropTypes.bool.isRequired,
   }
 
-  componentDidMount () {
-    
+  componentDidMount () { this.fetchGameVersions() }
+
+  async fetchGameVersions () {
+    let gameVersions = await (await fetch(`${BASE_URL}/api/public/gameversions`, { credentials: 'include' })).json()
+    this.setState({ gameVersions })
   }
 
   render () {
@@ -62,6 +65,21 @@ class Form extends Component {
           value={ this.state.description }
           onChange={ e => this.setState({ description: e.target.value.substring(0, 1000) }) }
         />
+
+        <div className='control'>
+          <label className='label'>Game Version</label>
+          <div className='select'>
+            <select onChange={ e => { this.setState({ gameVersion: JSON.parse(e.target.value) }) }}>
+              <option value='{}'>Select a version</option>
+              {
+                this.state.gameVersions.map(({ value, manifest }, i) =>
+                  <option key={manifest} value={ JSON.stringify({ value, manifest }) }>
+                    { value } { i === 0 ? '[LATEST]' : '' }
+                  </option>)
+              }
+            </select>
+          </div>
+        </div>
       </div>
     )
   }
