@@ -149,8 +149,10 @@ class Form extends Component {
       }, 1000)
     }
 
+    if (resp.status === 401 && this.props.new) return this.isError('name', 'This name is already taken')
+    if (resp.status === 401 && !this.props.new) return this.isError('name', 'You do not have permission to publish an update')
+
     let json = await resp.json()
-    console.log(json)
     if (resp.status === 403) {
       if (json.error === 'semver') return this.isError('version', `Version must be newer than ${json.version}`)
       if (json.error === 'verification') return this.isError('files', 'You must verify your account')
@@ -270,6 +272,12 @@ class Form extends Component {
 
         <div className='control'>
           <label className='label'>{ this.state.hasOculusFile ? 'Files' : 'File' }</label>
+
+          <p style={{ marginTop: '-5px', marginBottom: '10px' }}><i>
+            Files must be in a <code>.zip</code> file. The root of the <code>.zip</code> should correspond to the Beat Saber install directory.<br />
+            If you are uploading a plugin, you would need a <code>Plugins</code> directory inside the <code>.zip</code><br /><br />
+            REMEMBER: Everything uploaded will be public. If you need to obfuscate your DLLs, do it before uploading them.
+          </i></p>
 
           <div className='field'>
             <label className='checkbox'>
