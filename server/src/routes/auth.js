@@ -98,6 +98,39 @@ router.post('/password/change', passport.authenticate('jwt', { session: false })
 })
 
 // Change Password
+router.post('/email/change', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  let { email, password } = req.body
+
+  if (!email) return res.status(400).send({ field: 'email' })
+  if (!password) return res.status(400).send({ field: 'password' })
+
+  try {
+    let user = await Account.findById(req.user.id).exec()
+    let { error } = await user.authenticate(password)
+
+    if (error) {
+      if (error.name === 'IncorrectPasswordError') return res.sendStatus(401)
+
+      console.error(error)
+      return res.sendStatus(500)
+    }
+
+    let verifyToken = randomToken()
+    await user.set({ email, verifyToken, verified: false }).save()
+
+    // Send Verification Email
+    let { protocol, headers: { host } } = req
+    let verifyURL = `${protocol}://${host}/auth/verify/${verifyToken}`
+    mail.sendVerification(user.username, email, verifyURL)
+
+    res.sendStatus(200)
+  } catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+  }
+})
+
+// Change Password
 router.post('/password/reset', async (req, res) => {
   let { email } = req.body
 
