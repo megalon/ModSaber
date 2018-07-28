@@ -13,7 +13,10 @@ Beat Saber Mod Database
 * ~~Docker Compose Rules~~
 * Frontend UI
 * Write Proper Readme
-* Password Resets
+* ~~Password Resets~~
+* Settings page
+  * Change email
+  * Change password
 * Allow admins to publish new versions
   * Transfers mod to their namespace
   * Pops up a big alert because namespace changes are bad
@@ -46,6 +49,7 @@ Beat Saber Mod Database
 * ~~Login Page~~
   * ~~Username / password combo~~
   * ~~Use fetch API~~
+  * Password confirmations
 * ~~Register Page~~
   * ~~Same deal as login~~
 * Mod Page
