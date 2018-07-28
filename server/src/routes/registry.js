@@ -9,42 +9,6 @@ const { REDIS_HOST } = require('../constants.js')
 const router = Router() // eslint-disable-line
 const cache = require('express-redis-cache')({ host: REDIS_HOST })
 
-/**
- * @typedef {Object} ModShort
- * @property {string} name
- * @property {string[]} versions
- */
-
-/**
- * @param {any} mods Mods Model
- * @returns {ModShort[]}
- */
-const mapMods = mods => {
-  let final = []
-  for (let mod of mods) {
-    let found = final.find(x => x.name === mod.name)
-    if (!found) {
-      // Create new entry in the array
-      final = [...final, { name: mod.name, versions: [mod.version] }]
-    } else {
-      // Edit the existing entry
-      found.versions = [...found.versions, mod.version]
-        .sort(semver.rcompare)
-    }
-  }
-  return final
-}
-
-router.get('/', cache.route(10), async (req, res) => {
-  let mods = await Mod.find({}).exec()
-  res.send(mapMods(mods))
-})
-
-router.get('/approved', cache.route(10), async (req, res) => {
-  let mods = await Mod.find({ approved: true }).exec()
-  res.send(mapMods(mods))
-})
-
 router.get('/:name', async (req, res) => {
   let { name } = req.params
   let mods = await Mod.find({ name }).exec()
