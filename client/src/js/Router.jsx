@@ -10,6 +10,7 @@ const AsyncLogin = asyncComponent(() => import('./routes/Login.jsx'))
 const AsyncForgot = asyncComponent(() => import('./routes/Forgot.jsx'))
 const AsyncReset = asyncComponent(() => import('./routes/Reset.jsx'))
 const AsyncRegister = asyncComponent(() => import('./routes/Register.jsx'))
+const AsyncSettings = asyncComponent(() => import('./routes/Settings.jsx'))
 const AsyncPublish = asyncComponent(() => import('./routes/Publish.jsx'))
 const AsyncTransfer = asyncComponent(() => import('./routes/Transfer.jsx'))
 const AsyncMod = asyncComponent(() => import('./routes/Mod.jsx'))
@@ -24,6 +25,7 @@ class Router extends Component {
           <Route path='/forgot' component={ withContext(AsyncForgot) } />
           <Route path='/reset/:username/:resetToken' component={ withContext(AsyncReset) } />
           <Route path='/register' component={ withContext(AsyncRegister) } />
+          <Route path='/settings' component={ withContext(AsyncSettings) } />
           <Route path='/publish/:name?' component={ withContext(AsyncPublish) } />
           <Route path='/transfer/:name' component={ withContext(AsyncTransfer) } />
           <Route path='/mod/:name/:version?' component={ withContext(AsyncMod) } />
