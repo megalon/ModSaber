@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import * as ReactMarkdown from 'react-markdown'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
+import SweetAlert from 'sweetalert2-react'
 import PropTypes from 'prop-types'
 
 import { BASE_URL } from '../constants.js'
@@ -17,6 +18,12 @@ class Mod extends Component {
       loaded: false,
       mod: {},
       showControls: false,
+
+      showModal: false,
+      modalTitle: '',
+      modalText: '',
+      modalType: 'warning',
+      modalConfirm: null,
     }
   }
 
@@ -30,6 +37,29 @@ class Mod extends Component {
 
   componentDidUpdate (prevProps) {
     if (this.props.match.params !== prevProps.match.params) this.loadData()
+  }
+
+  showModal (title, text, type, onConfirm) {
+    this.setState({ modalTitle: title, modalText: text, modalType: type, modalConfirm: onConfirm }, () => {
+      this.setState({ showModal: true })
+    })
+  }
+
+  async unpublish () {
+    let { name, version } = this.state.mod
+    let body = new URLSearchParams()
+
+    body.set('name', name)
+    body.set('version', version)
+
+    await fetch(`${BASE_URL}/api/secure/unpublish`, {
+      method: 'POST',
+      credentials: 'include',
+      body,
+    })
+
+    this.setState({ showModal: false })
+    this.props.history.push(`/mod/${name}`)
   }
 
   async loadData () {
@@ -54,48 +84,74 @@ class Mod extends Component {
 
     let { mod } = this.state
     return (
-      <Layout history={ this.props.history } >
-        <Helmet>
-          <title>{ `ModSaber | ${mod.title}@${mod.version}` }</title>
-        </Helmet>
+      <Fragment>
+        <Layout history={ this.props.history } >
+          <Helmet>
+            <title>{ `ModSaber | ${mod.title}@${mod.version}` }</title>
+          </Helmet>
 
-        <div className='mod-titles'>
-          <h1 className='is-size-1 has-text-weight-semibold'>{ mod.title }</h1>
-          <span style={{ marginLeft: '20px', marginTop: '15px' }} className='tag is-link'>{ mod.tag }</span>
-        </div>
-        <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version } &#47;&#47; { mod.author }</code>
-        <hr />
+          <div className='mod-titles'>
+            <h1 className='is-size-1 has-text-weight-semibold'>{ mod.title }</h1>
+            <span style={{ marginLeft: '20px', marginTop: '15px' }} className='tag is-link'>{ mod.tag }</span>
+          </div>
+          <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version } &#47;&#47; { mod.author }</code>
+          <hr />
 
-        <div className='content'>
-          <div className='columns reverse-row-order'>
-            <div className='column'>
-              {
-                !mod.files ? null : Object.entries(mod.files).map(([key, value], i, arr) =>
-                  <a
-                    key={ i }
-                    href={ value.url }
-                    className='button is-link is-control'
-                  >
+          <div className='content'>
+            <div className='columns reverse-row-order'>
+              <div className='column'>
+                {
+                  !mod.files ? null : Object.entries(mod.files).map(([key, value], i, arr) =>
+                    <a
+                      key={ i }
+                      href={ value.url }
+                      className='button is-link is-control'
+                    >
                     Download{ arr.length > 1 ? ` (${key.toUpperCase()})` : '' }
-                  </a>
-                )
-              }
-              {
-                !this.state.showControls ? null :
-                  <Fragment>
-                    <Link to={ `/publish/${mod.name}` } className='button is-info  is-control'>Publish new Version</Link>
-                    <button className='button is-warning is-control'>Transfer Ownership</button>
-                    <button className='button is-danger is-control'>Unpublish</button>
-                  </Fragment>
-              }
-            </div>
+                    </a>
+                  )
+                }
+                {
+                  !this.state.showControls ? null :
+                    <Fragment>
+                      <Link to={ `/publish/${mod.name}` } className='button is-info  is-control'>Publish new Version</Link>
+                      <button className='button is-warning is-control'>Transfer Ownership</button>
+                      <button
+                        className='button is-danger is-control'
+                        onClick={ () => {
+                          this.showModal(`Unpublish ${this.state.mod.name}@${this.state.mod.version} ?`,
+                            'THIS CANNOT BE UNDONE', 'warning',
+                            () => { this.unpublish() }
+                          )
+                        } }
+                      >Unpublish</button>
+                    </Fragment>
+                }
+              </div>
 
-            <div className='column is-10'>
-              <ReactMarkdown source={ mod.description } />
+              <div className='column is-10'>
+                <ReactMarkdown source={ mod.description } />
+              </div>
             </div>
           </div>
-        </div>
-      </Layout>
+        </Layout>
+        <SweetAlert
+          key='alert'
+          show={ this.state.showModal }
+          title={ this.state.modalTitle }
+          text={ this.state.modalText }
+          type={ this.state.modalType }
+          showCancelButton
+          reverseButtons
+          confirmButtonText='Yes'
+          cancelButtonText='No'
+          confirmButtonColor='#ff3860'
+          onConfirm={ () => { this.state.modalConfirm() } }
+          onCancel={ () => { this.setState({ showModal: false }) } }
+          onEscapeKey={ () => { this.setState({ showModal: false }) } }
+        />
+
+      </Fragment>
     )
   }
 }
