@@ -16,7 +16,7 @@ class Mod extends Component {
     this.state = {
       loaded: false,
       mod: {},
-      showControls: true,
+      showControls: false,
     }
   }
 
@@ -63,7 +63,7 @@ class Mod extends Component {
           <h1 className='is-size-1 has-text-weight-semibold'>{ mod.title }</h1>
           <span style={{ marginLeft: '20px', marginTop: '15px' }} className='tag is-link'>{ mod.tag }</span>
         </div>
-        <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version }</code>
+        <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version } &#47;&#47; { mod.author }</code>
         <hr />
 
         <div className='content'>
@@ -74,8 +74,7 @@ class Mod extends Component {
                   <a
                     key={ i }
                     href={ value.url }
-                    className='button is-link is-fullwidth'
-                    style={{ marginBottom: '15px' }}
+                    className='button is-link is-control'
                   >
                     Download{ arr.length > 1 ? ` (${key.toUpperCase()})` : '' }
                   </a>
@@ -84,7 +83,9 @@ class Mod extends Component {
               {
                 !this.state.showControls ? null :
                   <Fragment>
-                    <Link to={ `/publish/${mod.name}` } className='button is-link is-fullwidth'>Publish new Version</Link>
+                    <Link to={ `/publish/${mod.name}` } className='button is-info  is-control'>Publish new Version</Link>
+                    <button className='button is-warning is-control'>Transfer Ownership</button>
+                    <button className='button is-danger is-control'>Unpublish</button>
                   </Fragment>
               }
             </div>
