@@ -23,4 +23,5 @@ export const AUTH = {
   INVALID_RESET_TOKEN: 'Invalid reset token',
   UNKNOWN_USERNAME: 'An account with that username was not found',
   UNKNOWN_EMAIL: 'An account with that email was not found',
+  MISSING_PASSWORDS: 'Please enter all three passwords',
 }

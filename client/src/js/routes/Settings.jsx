@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
 import Layout from '../components/Layout.jsx'
+import ChangePassword from '../components/ChangePassword.jsx'
 
 class Settings extends Component {
   static propTypes = {
@@ -30,6 +31,7 @@ class Settings extends Component {
 
             <div className='column'>
               <h2>Change Password</h2>
+              <ChangePassword {...this.props} />
             </div>
           </div>
         </div>
