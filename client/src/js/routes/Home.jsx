@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-import PropTypes from 'prop-types'
 
 import { BASE_URL } from '../constants.js'
-import Layout from '../components/Layout.jsx'
+import MainPage from '../components/MainPage.jsx'
 
 class Home extends Component {
   constructor (props) {
@@ -22,17 +21,24 @@ class Home extends Component {
     this.setState({ mods })
   }
 
-  static propTypes = { history: PropTypes.any }
-
   render () {
     return (
-      <Layout history={ this.props.history } >
+      <MainPage {...this.props}>
         <Helmet>
           <title>ModSaber</title>
         </Helmet>
 
-        <h1 className='is-size-1 has-text-weight-semibold'>ModSaber</h1>
-        <p><i>Beat Saber Mods Database</i></p>
+        {
+          this.state.mods.length > 0 ? null :
+            <Fragment>
+              <hr />
+              <p>
+                <b>Well this is embarrassing, it looks like there are no mods.</b><br />
+                <i>If this isn&#39;t supposed to be the case, please alert a site admin.</i><br /><br />
+                Otherwise, sign up and be the first to publish a mod!
+              </p>
+            </Fragment>
+        }
 
         {
           this.state.mods.map((mod, i) =>
@@ -49,7 +55,7 @@ class Home extends Component {
             </Fragment>
           )
         }
-      </Layout>
+      </MainPage>
     )
   }
 }
