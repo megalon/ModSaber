@@ -122,6 +122,32 @@ router.post('/password/reset', async (req, res) => {
   }
 })
 
+router.post('/reset', async (req, res) => {
+  let { username, newPassword, resetToken } = req.body
+
+  if (!username) return res.status(400).send({ field: 'username' })
+  if (!newPassword) return res.status(400).send({ field: 'newPassword' })
+  if (!resetToken) return res.status(400).send({ field: 'resetToken' })
+
+  let user = await Account.findOne({ username, resetToken }).exec()
+  if (!user) return res.sendStatus(401)
+
+  let changed = new Date()
+
+  await user.setPassword(newPassword)
+  await user.set({ resetToken: undefined })
+  await user.set({ changed })
+  await user.save()
+
+  let { id } = user
+  let expires = plusDays(7)
+
+  const token = jwt.sign({ id, issued: changed, expires }, JWT_SECRET)
+  res.cookie(COOKIE_NAME, token, { expires, httpOnly: true })
+
+  res.sendStatus(200)
+})
+
 // Logout Route
 router.get('/logout', (req, res) => {
   res.clearCookie(COOKIE_NAME)
