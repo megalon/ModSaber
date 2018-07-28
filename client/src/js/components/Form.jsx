@@ -145,7 +145,7 @@ class Form extends Component {
     if (resp.status === 200) {
       setTimeout(() => {
         // Sometimes needs time to finish
-        this.props.history.push(`/mod/${this.state.name}/${this.state.version}`)
+        this.props.history.push(`/mod/${this.state.name}/${semver.coerce(this.state.version)}`)
       }, 1000)
     }
 
