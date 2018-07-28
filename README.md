@@ -17,9 +17,6 @@ Beat Saber Mod Database
 * Settings page
   * Change email
   * Change password
-* Allow admins to publish new versions
-  * Transfers mod to their namespace
-  * Pops up a big alert because namespace changes are bad
 * Unpublish
   * Unpublished key in mod schema
   * Hidden from list all
@@ -40,12 +37,11 @@ Beat Saber Mod Database
   * ~~Logged in:~~
     * ~~Username (goes to settings)~~
     * ~~Log Out~~
-* Front Page
-  * Lists latest mods
-  * Fetch list of all mods
-  * Remove older versions
-  * Fetch info on all
-  * Display the newest 10
+* ~~Front Page~~
+  * ~~Lists latest mods~~
+  * ~~Fetch list of all mods~~
+  * ~~Remove older versions~~
+  * ~~Fetch info on all~~
 * ~~Login Page~~
   * ~~Username / password combo~~
   * ~~Use fetch API~~
@@ -55,7 +51,8 @@ Beat Saber Mod Database
 * Mod Page
   * ~~Lists all info about a mod~~
   * ~~Includes download link~~
-  * If logged in (or admin) show buttons to publish new version / unpublish
+  * ~~If logged in (or admin) show buttons to publish new version / unpublish~~
+    * Make these work
 * ~~Publish Page~~
   * ~~Form to publish a new mod~~
   * ~~Form fields:~~
