@@ -3,6 +3,7 @@ const mongoosePaginate = require('mongoose-paginate')
 const { Schema } = mongoose
 
 const Mod = new Schema({
+  created: { type: Date, required: true },
   name: {
     type: String,
     lowercase: true,

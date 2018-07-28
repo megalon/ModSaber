@@ -81,6 +81,9 @@ router.post('/upload', async (req, res) => {
   // Pull a list of all old versions
   let oldVersions = existing.map(x => x.version)
 
+  // Created at now
+  let created = new Date()
+
   try {
     await fs.ensureDir(path.join(STORE_PATH, name))
     await fs.writeFile(path.join(STORE_PATH, name, `${version}-steam.zip`), steam.data)
@@ -94,6 +97,7 @@ router.post('/upload', async (req, res) => {
       oldVersions,
       gameVersion,
       approved,
+      created,
       files: { steam: steamFiles, oculus: oculusFiles },
       dependsOn,
       conflictsWith,
