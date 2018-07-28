@@ -37,6 +37,11 @@ const mapMods = mods => {
   return final
 }
 
+// TODO: Refactor routes into two sections
+// Slim: lists all mods and their versions
+// Regular: Paginated, lists mods in canonical order.
+// I'm tired now so I'm gonna do this tomorrow
+
 router.get('/slim/new/:page?', cache.route(10), async (req, res) => {
   let page = Number.parseInt(req.params.page, 10) === Number.NaN ? 0 : parseInt(req.params.page, 10) || 0
   if (page < 0) page = 0
