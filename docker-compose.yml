@@ -31,7 +31,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - cdn:/usr/share/nginx/cdn:ro
     ports:
-      - '80:80'
+      - '1280:80'
   mongo:
     image: mongo:4
     restart: always
