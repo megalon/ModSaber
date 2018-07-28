@@ -2,12 +2,25 @@ html {
   background-color: hsl(0, 0%, 14%);
 }
 
+hr {
+  background-color: hsla(0, 0%, 96%, 0.29);
+}
+
+.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+  color: white;
+}
+
 .is-fullwidth {
   width: 100%;
 }
 
 .is-invis {
   display: none;
+}
+
+div.mod-titles {
+  display: flex;
+  align-items: center;
 }
 
 div.is-main {

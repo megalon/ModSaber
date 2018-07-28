@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import * as ReactMarkdown from 'react-markdown'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
@@ -14,6 +15,7 @@ class Mod extends Component {
     this.state = {
       loaded: false,
       mod: {},
+      showControls: true,
     }
   }
 
@@ -42,13 +44,24 @@ class Mod extends Component {
 
   render () {
     if (this.state.loaded && this.state.mod.name === undefined) return <NotFound history={ this.props.history } />
+
+    let { mod } = this.state
     return (
       <Layout history={ this.props.history } >
         <Helmet>
-          <title>{ `ModSaber | ${this.state.mod.title}` }</title>
+          <title>{ `ModSaber | ${mod.title}` }</title>
         </Helmet>
 
-        <h1 className='is-size-1 has-text-weight-semibold'>{ this.state.mod.title }</h1>
+        <div className='mod-titles'>
+          <h1 className='is-size-1 has-text-weight-semibold'>{ mod.title }</h1>
+          <span style={{ marginLeft: '20px', marginTop: '15px' }} className='tag is-link'>{ mod.tag }</span>
+        </div>
+        <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version }</code>
+        <hr />
+
+        <div className='content'>
+          <ReactMarkdown source={ mod.description } />
+        </div>
       </Layout>
     )
   }
