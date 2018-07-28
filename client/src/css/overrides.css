@@ -31,6 +31,12 @@ a.is-control, button.is-control {
   flex-direction: row-reverse;
 }
 
+div.home-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 div.mod-titles {
   display: flex;
   align-items: center;
