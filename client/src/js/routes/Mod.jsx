@@ -37,7 +37,7 @@ class Mod extends Component {
     let { name, version } = this.props.match.params
     let resp = await fetch(`${BASE_URL}/registry/${name}/${version ? version : ''}`)
 
-    if (resp.status !== 200) return this.setState({ loaded: true })
+    if (resp.status !== 200) return this.setState({ loaded: true, mod: {} })
 
     let mod = await resp.json()
     this.setState({ mod, loaded: true }, () => this.checkUser())
