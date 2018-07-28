@@ -6,6 +6,10 @@ hr {
   background-color: hsla(0, 0%, 96%, 0.29);
 }
 
+strong {
+  color: #f1f1f1;
+}
+
 .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
   color: white;
 }
