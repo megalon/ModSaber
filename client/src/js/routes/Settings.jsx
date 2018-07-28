@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
 import Layout from '../components/Layout.jsx'
+import ChangeEmail from '../components/ChangeEmail.jsx'
 import ChangePassword from '../components/ChangePassword.jsx'
 
 class Settings extends Component {
@@ -27,6 +28,7 @@ class Settings extends Component {
           <div className='columns'>
             <div className='column'>
               <h2>Change Email</h2>
+              <ChangeEmail {...this.props} />
             </div>
 
             <div className='column'>
