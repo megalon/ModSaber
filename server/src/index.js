@@ -13,7 +13,6 @@ const { PORT, COOKIE_SECRET } = process.env
 const app = express()
 app.set('trust proxy', true)
 require('./app/passport.js')
-app.use(morgan('combined'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cookieParser(COOKIE_SECRET))
@@ -22,6 +21,9 @@ app.use((req, res, next) => {
   res.removeHeader('X-Powered-By')
   next()
 })
+
+// Only log on dev server
+if (process.env.NODE_ENV === 'development') app.use(morgan('combined'))
 
 // Allow CORS on Dev Server
 app.use((req, res, next) => {
