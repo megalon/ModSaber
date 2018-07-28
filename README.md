@@ -9,10 +9,8 @@ Beat Saber Mod Database
 ## TODO:
 - [ ] Frontend UI
 - [ ] Write Proper Readme
+
 ## Frontend Plan
-- [ ] Settings page
-  - [ ] Change email
-  - [ ] Change password
 - [ ] Admin page
   - [ ] Promote / demote other admins
   - [ ] Add a new game version
