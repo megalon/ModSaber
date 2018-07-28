@@ -37,7 +37,7 @@ const mapMods = mods => {
   return final
 }
 
-router.get('/new/:page?', cache.route(10), async (req, res) => {
+router.get('/slim/new/:page?', cache.route(10), async (req, res) => {
   let page = Number.parseInt(req.params.page, 10) === Number.NaN ? 0 : parseInt(req.params.page, 10) || 0
   if (page < 0) page = 0
   page++
@@ -49,7 +49,7 @@ router.get('/new/:page?', cache.route(10), async (req, res) => {
   res.send({ mods, last })
 })
 
-router.get('/approved/:page?', cache.route(10), async (req, res) => {
+router.get('/slim/approved/:page?', cache.route(10), async (req, res) => {
   let page = Number.parseInt(req.params.page, 10) === Number.NaN ? 0 : parseInt(req.params.page, 10) || 0
   if (page < 0) page = 0
   page++
