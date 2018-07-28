@@ -110,6 +110,23 @@ router.post('/upload', async (req, res) => {
   }
 })
 
+router.post('/unpublish', async (req, res) => {
+  let { name, version } = req.body
+
+  // Validate Required Fields
+  if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+  if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
+
+  let mod = await Mod.findOne({ name, version }).exec()
+  if (!mod) return res.sendStatus(404)
+
+  // Only author and admins can unpublish
+  if (!((mod.author.id.equals(req.user._id.id) || req.user.admin))) return res.sendStatus(401)
+
+  await mod.set({ unpublished: true }).save()
+  res.sendStatus(200)
+})
+
 router.post('/gameversion', async (req, res) => {
   // Admins Only
   if (!req.user.admin) return res.sendStatus(401)
