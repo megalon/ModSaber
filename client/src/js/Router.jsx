@@ -7,6 +7,7 @@ import withContext from './components/WithContext.jsx'
 import Home from './routes/Home.jsx'
 import NotFound from './routes/NotFound.jsx'
 const AsyncLogin = asyncComponent(() => import('./routes/Login.jsx'))
+const AsyncForgot = asyncComponent(() => import('./routes/Forgot.jsx'))
 const AsyncRegister = asyncComponent(() => import('./routes/Register.jsx'))
 const AsyncPublish = asyncComponent(() => import('./routes/Publish.jsx'))
 const AsyncMod = asyncComponent(() => import('./routes/Mod.jsx'))
@@ -18,6 +19,7 @@ class Router extends Component {
         <Switch>
           <Route exact path='/' component={ Home } />
           <Route path='/login' component={ withContext(AsyncLogin) } />
+          <Route path='/forgot' component={ withContext(AsyncForgot) } />
           <Route path='/register' component={ withContext(AsyncRegister) } />
           <Route path='/publish/:name?' component={ withContext(AsyncPublish) } />
           <Route path='/mod/:name/:version?' component={ withContext(AsyncMod) } />

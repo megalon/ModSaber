@@ -90,6 +90,7 @@ class Login extends Component {
             >
               Login
             </button>
+            <Link className='button has-outline is-fullwidth' to='/forgot' style={{ marginTop: '8px' }}>Forgot password?</Link>
             <Link className='button has-outline is-fullwidth' to='/register' style={{ marginTop: '8px' }}>Don&#39;t have an account?</Link>
           </div>
         </div>

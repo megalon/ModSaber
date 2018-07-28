@@ -19,4 +19,5 @@ export const AUTH = {
   INVALID_USERNAME: 'Invalid Username',
   INVALID_EMAIL: 'Invalid Email',
   INVALID_PASSWORD: 'Invalid Password',
+  UNKNOWN_EMAIL: 'An account with that email was not found',
 }
