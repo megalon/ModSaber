@@ -21,6 +21,9 @@ Beat Saber Mod Database
   * Unpublished key in mod schema
   * Hidden from list all
   * 404s in registry
+* Admin page
+  * Promote / demote other admins
+  * Add a new game version
 
 ## Frontend Plan
 * ~~Navbar always at the top~~
