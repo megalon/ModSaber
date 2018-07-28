@@ -21,13 +21,13 @@ const { SITE_ALERT } = process.env
  * @param {any} mods Mods Model
  * @returns {ModShort[]}
  */
-const mapMods = mods => {
+const mapModsSlim = mods => {
   let final = []
   for (let mod of mods) {
     let found = final.find(x => x.name === mod.name)
     if (!found) {
       // Create new entry in the array
-      final = [...final, { name: mod.name, versions: [mod.version] }]
+      final = [...final, { name: mod.name, title: mod.title, versions: [mod.version] }]
     } else {
       // Edit the existing entry
       found.versions = [...found.versions, mod.version]
@@ -37,33 +37,14 @@ const mapMods = mods => {
   return final
 }
 
-// TODO: Refactor routes into two sections
-// Slim: lists all mods and their versions
-// Regular: Paginated, lists mods in canonical order.
-// I'm tired now so I'm gonna do this tomorrow
-
-router.get('/slim/new/:page?', cache.route(10), async (req, res) => {
-  let page = Number.parseInt(req.params.page, 10) === Number.NaN ? 0 : parseInt(req.params.page, 10) || 0
-  if (page < 0) page = 0
-  page++
-
-  let { docs, pages } = await Mod.paginate({}, { page, limit: 10 })
-  let mods = mapMods(docs)
-  let last = pages - 1
-
-  res.send({ mods, last })
+router.get('/slim/new', cache.route(10), async (req, res) => {
+  let mods = mapModsSlim(await Mod.find({}))
+  res.send(mods)
 })
 
-router.get('/slim/approved/:page?', cache.route(10), async (req, res) => {
-  let page = Number.parseInt(req.params.page, 10) === Number.NaN ? 0 : parseInt(req.params.page, 10) || 0
-  if (page < 0) page = 0
-  page++
-
-  let { docs, pages } = await Mod.paginate({ approved: true }, { page, limit: 10 })
-  let mods = mapMods(docs)
-  let last = pages - 1
-
-  res.send({ mods, last })
+router.get('/slim/approved', cache.route(10), async (req, res) => {
+  let mods = mapModsSlim(await Mod.find({ approved: true }))
+  res.send(mods)
 })
 
 // Post site-wide alerts
