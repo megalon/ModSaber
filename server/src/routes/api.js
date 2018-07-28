@@ -117,7 +117,7 @@ router.post('/unpublish', async (req, res) => {
   if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
   if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
 
-  let mod = await Mod.findOne({ name, version }).exec()
+  let mod = await Mod.findOne({ name, version, unpublished: false }).exec()
   if (!mod) return res.sendStatus(404)
 
   // Only author and admins can unpublish
