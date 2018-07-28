@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 
 import MainPage from '../components/MainPage.jsx'
 
-class Home extends Component {
+class PrivacyPolicy extends Component {
   render () {
     return (
       <MainPage {...this.props} title='Privacy'>
@@ -38,4 +38,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default PrivacyPolicy
