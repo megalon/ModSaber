@@ -18,7 +18,7 @@ router.get('/:name', async (req, res) => {
   res.redirect(`/registry/${name}/${latest.version}`)
 })
 
-router.get('/:name/:version', cache.route({ expire: { 200: 5 * 60, xxx: 1 } }), async (req, res) => {
+router.get('/:name/:version', cache.route({ expire: { 200: 10, xxx: 1 } }), async (req, res) => {
   let { name: n, version: v } = req.params
   let mod = await Mod.findOne({ name: n, version: v, unpublished: false }).exec()
 
