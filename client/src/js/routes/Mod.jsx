@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import * as ReactMarkdown from 'react-markdown'
 import { Helmet } from 'react-helmet'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { BASE_URL } from '../constants.js'
@@ -39,7 +40,13 @@ class Mod extends Component {
     if (resp.status !== 200) return this.setState({ loaded: true })
 
     let mod = await resp.json()
-    this.setState({ mod, loaded: true })
+    this.setState({ mod, loaded: true }, () => this.checkUser())
+  }
+
+  checkUser () {
+    let showControls = this.props.context.user.id === this.state.mod.authorID ||
+      this.props.context.user.admin
+    this.setState({ showControls })
   }
 
   render () {
@@ -49,7 +56,7 @@ class Mod extends Component {
     return (
       <Layout history={ this.props.history } >
         <Helmet>
-          <title>{ `ModSaber | ${mod.title}` }</title>
+          <title>{ `ModSaber | ${mod.title}@${mod.version}` }</title>
         </Helmet>
 
         <div className='mod-titles'>
@@ -60,7 +67,32 @@ class Mod extends Component {
         <hr />
 
         <div className='content'>
-          <ReactMarkdown source={ mod.description } />
+          <div className='columns reverse-row-order'>
+            <div className='column'>
+              {
+                !mod.files ? null : Object.entries(mod.files).map(([key, value], i, arr) =>
+                  <a
+                    key={ i }
+                    href={ value.url }
+                    className='button is-link is-fullwidth'
+                    style={{ marginBottom: '15px' }}
+                  >
+                    Download{ arr.length > 1 ? ` (${key.toUpperCase()})` : '' }
+                  </a>
+                )
+              }
+              {
+                !this.state.showControls ? null :
+                  <Fragment>
+                    <Link to={ `/publish/${mod.name}` } className='button is-link is-fullwidth'>Publish new Version</Link>
+                  </Fragment>
+              }
+            </div>
+
+            <div className='column is-10'>
+              <ReactMarkdown source={ mod.description } />
+            </div>
+          </div>
         </div>
       </Layout>
     )

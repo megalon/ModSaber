@@ -18,6 +18,10 @@ hr {
   display: none;
 }
 
+.reverse-row-order {
+  flex-direction: row-reverse;
+}
+
 div.mod-titles {
   display: flex;
   align-items: center;
