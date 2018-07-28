@@ -1,3 +1,5 @@
+const uuid = require('uuid/v4')
+
 /**
  * Extract JWT from Request Cookies
  * @param {Request} req HTTP Request
@@ -21,4 +23,10 @@ const waitForMS = ms => new Promise(resolve => {
   setTimeout(() => { resolve() }, ms)
 })
 
-module.exports = { cookieExtractor, plusDays, waitForMS }
+/**
+ * Generate a safe pseudo-random token
+ * @returns {string}
+ */
+const randomToken = () => uuid().replace(/-/g, '')
+
+module.exports = { cookieExtractor, plusDays, waitForMS, randomToken }

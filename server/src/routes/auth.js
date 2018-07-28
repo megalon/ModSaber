@@ -1,8 +1,7 @@
 const { Router } = require('express')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
-const uuid = require('uuid/v4')
-const { plusDays, waitForMS } = require('../app/helpers.js')
+const { plusDays, waitForMS, randomToken } = require('../app/helpers.js')
 const Account = require('../models/account.js')
 const mailDriver = require('../mail/drivers.js')
 
@@ -19,7 +18,7 @@ const mail = mailDriver(MAIL_DRIVER)
 // Authentication Routes
 router.post('/register', (req, res) => {
   let { username, password, email } = req.body
-  let verifyToken = uuid().replace(/-/g, '')
+  let verifyToken = randomToken()
 
   Account.register(new Account({ username, email, verifyToken }), password, (err, account) => {
     if (err) {
