@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate')
 const { Schema } = mongoose
 
 const Mod = new Schema({
@@ -22,5 +23,7 @@ const Mod = new Schema({
   dependsOn: [String],
   conflictsWith: [String],
 })
+
+Mod.plugin(mongoosePaginate)
 
 module.exports = mongoose.model('Mod', Mod)
