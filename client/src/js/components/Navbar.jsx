@@ -58,40 +58,24 @@ class Navbar extends Component {
             </div>
 
             <div className='navbar-end'>
-              <NavbarEnd
-                loggedIn={ this.props.context.loggedIn }
-                user={ this.props.context.user }
-                logout={ () => this.logout() }
-              />
+              {
+                !this.props.context.loggedIn ?
+                  <Link className='navbar-item' to='/login'><b>Login</b></Link> :
+                  <Fragment>
+                    {
+                      !this.props.context.user.admin ? null :
+                        <Link className='navbar-item' to='/admin'>Admin</Link>
+                    }
+                    <Link className='navbar-item' to='/settings'>{ this.props.context.user.username }</Link>
+                    <a className='navbar-item' onClick={ () => this.logout() }><b>Logout</b></a>
+                  </Fragment>
+              }
             </div>
           </div>
         </div>
       </nav>
     )
   }
-}
-
-const NavbarEnd = props => {
-  if (props.loggedIn) {
-    return (
-      <Fragment>
-        <Link className='navbar-item' to='/settings'>{ props.user.username }</Link>
-        <a className='navbar-item' onClick={ props.logout }><b>Logout</b></a>
-      </Fragment>
-    )
-  } else {
-    return (
-      <Fragment>
-        <Link className='navbar-item' to='/login'><b>Login</b></Link>
-      </Fragment>
-    )
-  }
-}
-
-NavbarEnd.propTypes = {
-  loggedIn: PropTypes.bool,
-  user: PropTypes.object,
-  logout: PropTypes.func,
 }
 
 export default Navbar
