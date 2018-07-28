@@ -2,7 +2,8 @@ const { Router } = require('express')
 const semver = require('semver')
 const Mod = require('../models/mod.js')
 const GameVersion = require('../models/gameversion.js')
-const { REDIS_HOST } = require('../constants.js')
+const { mapMod } = require('../app/api.js')
+const { REDIS_HOST, RESULTS_PER_PAGE } = require('../constants.js')
 
 // Setup Router
 const router = Router() // eslint-disable-line
@@ -36,6 +37,30 @@ const mapModsSlim = mods => {
   }
   return final
 }
+
+router.get('/all/new/:page?', cache.route(10), async (req, res) => {
+  let page = Number.parseInt(req.params.page, 10) === Number.NaN ? 0 : parseInt(req.params.page, 10) || 0
+  if (page < 0) page = 0
+  page++
+
+  let { docs, pages } = await Mod.paginate({}, { page, limit: RESULTS_PER_PAGE, sort: '-created' })
+  let mods = await Promise.all(docs.map(mod => mapMod(mod, req)))
+  let lastPage = pages - 1
+
+  res.send({ mods, lastPage })
+})
+
+router.get('/all/approved/:page?', cache.route(10), async (req, res) => {
+  let page = Number.parseInt(req.params.page, 10) === Number.NaN ? 0 : parseInt(req.params.page, 10) || 0
+  if (page < 0) page = 0
+  page++
+
+  let { docs, pages } = await Mod.paginate({ approved: true }, { page, limit: RESULTS_PER_PAGE, sort: '-created' })
+  let mods = await Promise.all(docs.map(mod => mapMod(mod, req)))
+  let lastPage = pages - 1
+
+  res.send({ mods, lastPage })
+})
 
 router.get('/slim/new', cache.route(10), async (req, res) => {
   let mods = mapModsSlim(await Mod.find({}))

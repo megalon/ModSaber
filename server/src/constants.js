@@ -12,4 +12,5 @@ module.exports = {
     FILE_WRONG_TYPE: 'file_wrong_type',
     GAMEVERSION_INVALID: 'gameversion_invalid',
   },
+  RESULTS_PER_PAGE: 5,
 }
