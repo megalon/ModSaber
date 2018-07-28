@@ -6,6 +6,7 @@ import withContext from './components/WithContext.jsx'
 
 import Home from './routes/Home.jsx'
 import NotFound from './routes/NotFound.jsx'
+const AsyncPrivacyPolicy = asyncComponent(() => import('./routes/PrivacyPolicy.jsx'))
 const AsyncLogin = asyncComponent(() => import('./routes/Login.jsx'))
 const AsyncForgot = asyncComponent(() => import('./routes/Forgot.jsx'))
 const AsyncReset = asyncComponent(() => import('./routes/Reset.jsx'))
@@ -21,6 +22,7 @@ class Router extends Component {
       <HashRouter>
         <Switch>
           <Route exact path='/' component={ Home } />
+          <Route path='/privacy' component={ withContext(AsyncPrivacyPolicy) } />
           <Route path='/login' component={ withContext(AsyncLogin) } />
           <Route path='/forgot' component={ withContext(AsyncForgot) } />
           <Route path='/reset/:username/:resetToken' component={ withContext(AsyncReset) } />
