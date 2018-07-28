@@ -44,4 +44,6 @@ app.use('/api/secure', passport.authenticate('jwt', { session: false }), require
 mongoose.connect(MONGO_URL, { useNewUrlParser: true })
 
 // Listen on port 3000
-app.listen(PORT || 3000)
+app.listen(PORT || 3000, () => {
+  console.log('ModSaber Backend: ONLINE') // eslint-disable-line
+})
