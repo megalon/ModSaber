@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const semver = require('semver')
+const Account = require('../models/account.js')
 const Mod = require('../models/mod.js')
 const GameVersion = require('../models/gameversion.js')
 const { mapMod } = require('../app/api.js')
@@ -20,22 +21,43 @@ const { SITE_ALERT } = process.env
 
 /**
  * @param {any} mods Mods Model
- * @returns {ModShort[]}
+ * @returns {Promise.<ModShort[]>}
  */
 const mapModsSlim = mods => {
   let final = []
+
   for (let mod of mods) {
     let found = final.find(x => x.name === mod.name)
     if (!found) {
       // Create new entry in the array
-      final = [...final, { name: mod.name, title: mod.title, versions: [mod.version] }]
+      final = [...final, {
+        name: mod.name,
+        title: mod.title,
+        author: mod.author,
+        created: new Date(mod.created),
+        versions: [mod.version],
+      }]
     } else {
       // Edit the existing entry
       found.versions = [...found.versions, mod.version]
         .sort(semver.rcompare)
+      if (found.versions[0] === mod.version) {
+        found.author = mod.author
+        found.created = new Date(mod.created)
+      }
     }
   }
-  return final
+
+  return Promise.all(
+    final
+      .sort((a, b) => b.created - a.created)
+      .map(async mod => {
+        let author = await Account.findById(mod.author)
+        mod.author = author ? author.username : ''
+        mod.created = undefined
+        return mod
+      })
+  )
 }
 
 router.get('/all/new/:page?', cache.route(10), async (req, res) => {
@@ -63,12 +85,12 @@ router.get('/all/approved/:page?', cache.route(10), async (req, res) => {
 })
 
 router.get('/slim/new', cache.route(10), async (req, res) => {
-  let mods = mapModsSlim(await Mod.find({}))
+  let mods = await mapModsSlim(await Mod.find({}))
   res.send(mods)
 })
 
 router.get('/slim/approved', cache.route(10), async (req, res) => {
-  let mods = mapModsSlim(await Mod.find({ approved: true }))
+  let mods = await mapModsSlim(await Mod.find({ approved: true }))
   res.send(mods)
 })
 
