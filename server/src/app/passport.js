@@ -22,6 +22,9 @@ passport.use(new JWTStrategy(
     Account.findById(payload.id)
       .then(user => {
         try {
+          // Check for token modifications
+          if (user.changed > new Date(payload.issued)) return cb(null, false)
+
           if (user.username === ADMIN_USERNAME) user.admin = true
           return cb(null, user)
         } catch (err) {

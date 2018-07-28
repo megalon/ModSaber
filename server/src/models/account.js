@@ -15,6 +15,7 @@ const Account = new Schema({
   password: String,
   verified: { type: Boolean, default: false },
   verifyToken: String,
+  changed: { type: Date, default: new Date() },
   admin: { type: Boolean, default: false },
 })
 

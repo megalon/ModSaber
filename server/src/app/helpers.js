@@ -12,4 +12,13 @@ const cookieExtractor = req => req && req.cookies ? req.cookies.jwt : null
  */
 const plusDays = days => new Date(new Date().setDate(new Date().getDate() + days))
 
-module.exports = { cookieExtractor, plusDays }
+/**
+ * Asynchronously Blocks for n milliseconds
+ * @param {number} ms n milliseconds
+ * @returns {Promise.<void>}
+ */
+const waitForMS = ms => new Promise(resolve => {
+  setTimeout(() => { resolve() }, ms)
+})
+
+module.exports = { cookieExtractor, plusDays, waitForMS }

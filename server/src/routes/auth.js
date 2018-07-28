@@ -2,7 +2,7 @@ const { Router } = require('express')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const uuid = require('uuid/v4')
-const { plusDays } = require('../app/helpers.js')
+const { plusDays, waitForMS } = require('../app/helpers.js')
 const Account = require('../models/account.js')
 const mailDriver = require('../mail/drivers.js')
 
@@ -37,9 +37,9 @@ router.post('/register', (req, res) => {
     let verifyURL = `${protocol}://${host}/auth/verify/${verifyToken}`
     mail.sendVerification(username, email, verifyURL)
 
-    let { id } = account
+    let { id, changed } = account
     let expires = plusDays(7)
-    const token = jwt.sign({ id, expires }, JWT_SECRET)
+    const token = jwt.sign({ id, issued: changed, expires }, JWT_SECRET)
     res.cookie(COOKIE_NAME, token, { expires, httpOnly: true })
 
     res.sendStatus(200)
@@ -48,9 +48,10 @@ router.post('/register', (req, res) => {
 
 router.post('/login', passport.authenticate('local', { session: false }), (req, res) => {
   let { id } = req.user
+  let issued = new Date()
   let expires = plusDays(7)
 
-  const token = jwt.sign({ id, expires }, JWT_SECRET)
+  const token = jwt.sign({ id, issued, expires }, JWT_SECRET)
   res.cookie(COOKIE_NAME, token, { expires, httpOnly: true })
 
   res.sendStatus(200)
@@ -64,6 +65,36 @@ router.get('/verify/:token', passport.authenticate('jwt', { session: false }), a
   if (req.user.verifyToken === token) await Account.findByIdAndUpdate(req.user.id, { $set: { verified: true } }).exec()
 
   res.redirect('/')
+})
+
+// Change Password
+router.post('/password/change', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  let { oldPassword, newPassword } = req.body
+
+  if (!oldPassword) return res.status(400).send({ field: 'oldPassword' })
+  if (!newPassword) return res.status(400).send({ field: 'newPassword' })
+
+  try {
+    let user = await Account.findById(req.user.id).exec()
+    await user.changePassword(oldPassword, newPassword)
+
+    let changed = new Date()
+    await user.set({ changed }).save()
+    await waitForMS(100)
+
+    let { id } = req.user
+    let expires = plusDays(7)
+
+    const token = jwt.sign({ id, issued: changed, expires }, JWT_SECRET)
+    res.cookie(COOKIE_NAME, token, { expires, httpOnly: true })
+
+    res.sendStatus(200)
+  } catch (err) {
+    if (err.name === 'IncorrectPasswordError') return res.sendStatus(401)
+
+    console.error(err)
+    res.sendStatus(500)
+  }
 })
 
 // Logout Route
