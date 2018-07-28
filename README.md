@@ -49,9 +49,9 @@ Beat Saber Mod Database
 * ~~Login Page~~
   * ~~Username / password combo~~
   * ~~Use fetch API~~
-  * Password confirmations
 * ~~Register Page~~
   * ~~Same deal as login~~
+  * ~~Password confirmations~~
 * Mod Page
   * ~~Lists all info about a mod~~
   * ~~Includes download link~~

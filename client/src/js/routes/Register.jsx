@@ -15,6 +15,7 @@ class Login extends Component {
       username: '',
       email: '',
       password: '',
+      passwordConfirm: '',
       error: '',
       loading: false,
     }
@@ -28,8 +29,13 @@ class Login extends Component {
   }
 
   async submitForm () {
+    let { username, email, password, passwordConfirm } = this.state
+
+    if (!username) return this.setState({ error: AUTH.INVALID_USERNAME, loading: false })
+    if (!email) return this.setState({ error: AUTH.INVALID_EMAIL, loading: false })
+    if (!password) return this.setState({ error: AUTH.INVALID_PASSWORD, loading: false })
+    if (password !== passwordConfirm) return this.setState({ error: AUTH.PASSWORD_MISMATCH, loading: false })
     this.setState({ loading: true })
-    let { username, email, password } = this.state
 
     let body = new URLSearchParams()
     body.set('username', username)
@@ -100,9 +106,18 @@ class Login extends Component {
               placeholder='Password'
               type='password'
               icon='lock'
-              prompt={ this.state.error }
               value={ this.state.password }
               onChange={ e => { this.setState({ password: e.target.value, error: '' }) }}
+              onEnter={ () => this.submitForm() }
+            />
+
+            <Field
+              placeholder='Password Confirmation'
+              type='password'
+              icon='lock'
+              prompt={ this.state.error }
+              value={ this.state.passwordConfirm }
+              onChange={ e => { this.setState({ passwordConfirm: e.target.value, error: '' }) }}
               onEnter={ () => this.submitForm() }
             />
 
