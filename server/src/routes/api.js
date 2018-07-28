@@ -6,6 +6,7 @@ const semver = require('semver')
 const slugify = require('slugify')
 const { errors, STORE_PATH } = require('../constants.js')
 const { processZIP } = require('../app/api.js')
+const Account = require('../models/account.js')
 const Mod = require('../models/mod.js')
 const GameVersion = require('../models/gameversion.js')
 
@@ -108,6 +109,28 @@ router.post('/upload', async (req, res) => {
     console.error(err)
     res.sendStatus(500)
   }
+})
+
+router.post('/transfer', async (req, res) => {
+  let { name, username } = req.body
+
+  // Validate Required Fields
+  if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+  if (!username) return res.status(400).send({ field: 'username', error: errors.MISSING })
+
+  let [mod] = (await Mod.find({ name, unpublished: false }).exec())
+    .sort((a, b) => semver.rcompare(a.version, b.version))
+
+  if (!mod) return res.sendStatus(404)
+
+  // Only author and admins can unpublish
+  if (!((mod.author.id.equals(req.user._id.id) || req.user.admin))) return res.sendStatus(401)
+
+  let newOwner = await Account.findOne({ username }).exec()
+  if (!newOwner) return res.sendStatus(403)
+
+  await mod.set({ author: newOwner._id }).save()
+  res.sendStatus(200)
 })
 
 router.post('/unpublish', async (req, res) => {
