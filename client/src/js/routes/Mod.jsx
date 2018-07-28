@@ -59,7 +59,7 @@ class Mod extends Component {
     })
 
     this.setState({ showModal: false })
-    this.props.history.push(`/mod/${name}`)
+    this.props.history.replace(`/mod/${name}`)
   }
 
   async loadData () {

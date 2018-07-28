@@ -16,7 +16,7 @@ class Publish extends Component {
       existing: {},
     }
 
-    if (!this.props.context.user.verified) this.props.history.push('')
+    if (!this.props.context.user.verified) this.props.history.replace('')
   }
 
   componentDidMount () { this.checkExisting() }
@@ -36,7 +36,7 @@ class Publish extends Component {
     let body = await resp.json()
 
     // User doesn't own this mod
-    if (body.authorID !== this.props.context.user.id) this.props.history.push('')
+    if (body.authorID !== this.props.context.user.id) this.props.history.replace('')
     this.setState({ checked: true, new: false, existing: body })
   }
 

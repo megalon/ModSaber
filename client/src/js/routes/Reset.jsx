@@ -17,7 +17,7 @@ class Reset extends Component {
       loading: false,
     }
 
-    if (this.props.context.loggedIn) this.props.history.push('')
+    if (this.props.context.loggedIn) this.props.history.replace('')
   }
 
   static propTypes = {
@@ -48,7 +48,7 @@ class Reset extends Component {
       if (resp.status === 401) return this.setState({ error: AUTH.INVALID_RESET_TOKEN, loading: false })
 
       this.props.context.refresh()
-      this.props.history.push('')
+      this.props.history.replace('')
     } catch (err) {
       console.log(err)
       return this.setState({ error: AUTH.ERROR_UNKNOWN, loading: false })

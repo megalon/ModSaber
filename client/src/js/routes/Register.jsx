@@ -20,7 +20,7 @@ class Login extends Component {
       loading: false,
     }
 
-    if (this.props.context.loggedIn) this.props.history.push('')
+    if (this.props.context.loggedIn) this.props.history.replace('')
   }
 
   static propTypes = {
@@ -65,7 +65,7 @@ class Login extends Component {
       }
 
       this.props.context.refresh()
-      this.props.history.push('')
+      this.props.history.replace('')
     } catch (err) {
       console.log(err)
       return this.setState({ error: AUTH.ERROR_UNKNOWN, loading: false })

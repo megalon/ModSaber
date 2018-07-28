@@ -18,7 +18,7 @@ class Forgot extends Component {
       success: false,
     }
 
-    if (this.props.context.loggedIn) this.props.history.push('')
+    if (this.props.context.loggedIn) this.props.history.replace('')
   }
 
   static propTypes = {
