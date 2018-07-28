@@ -20,4 +20,16 @@ const sendVerification = (username, email, url) => {
   )
 }
 
-module.exports = { sendMail, sendVerification }
+/**
+ * @param {string} username Username
+ * @param {string} email User's Email Address
+ * @param {string} url Reset Token URL
+ */
+const sendReset = (username, email, url) => {
+  sendMail(
+    email, 'Password Reset',
+    `Hello ${username}.\n\nTo reset your password please click the link below.\n${url}\n\nIf you did not request this, please ignore this email.`
+  )
+}
+
+module.exports = { sendMail, sendVerification, sendReset }

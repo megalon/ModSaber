@@ -96,6 +96,32 @@ router.post('/password/change', passport.authenticate('jwt', { session: false })
   }
 })
 
+// Change Password
+router.post('/password/reset', async (req, res) => {
+  let { email } = req.body
+
+  if (!email) return res.status(400).send({ field: 'email' })
+
+  try {
+    let user = await Account.findOne({ email }).exec()
+    if (!user) return res.sendStatus(404)
+
+    // Generate Token
+    let resetToken = randomToken()
+    await user.set({ resetToken }).save()
+
+    // Send Reset Email
+    let { protocol, headers: { host } } = req
+    let resetURL = `${protocol}://${host}/#/reset/${user.username}/${resetToken}`
+    mail.sendReset(user.username, user.email, resetURL)
+
+    res.sendStatus(200)
+  } catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+  }
+})
+
 // Logout Route
 router.get('/logout', (req, res) => {
   res.clearCookie(COOKIE_NAME)
