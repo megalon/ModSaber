@@ -34,6 +34,7 @@ const mapModsSlim = mods => {
         name: mod.name,
         title: mod.title,
         author: mod.author,
+        tag: mod.tag,
         created: new Date(mod.created),
         versions: [mod.version],
       }]

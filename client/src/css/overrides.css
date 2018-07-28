@@ -47,3 +47,11 @@ div.login-tile {
 div.publish-tile {
   flex-direction: column;
 }
+
+a.mod-link {
+  color: white;
+}
+
+a.mod-link:hover {
+  text-decoration: underline;
+}
