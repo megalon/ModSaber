@@ -14,6 +14,13 @@ Beat Saber Mod Database
 * Frontend UI
 * Write Proper Readme
 * Password Resets
+* Allow admins to publish new versions
+  * Transfers mod to their namespace
+  * Pops up a big alert because namespace changes are bad
+* Unpublish
+  * Unpublished key in mod schema
+  * Hidden from list all
+  * 404s in registry
 
 ## Frontend Plan
 * ~~Navbar always at the top~~
@@ -39,21 +46,19 @@ Beat Saber Mod Database
 * ~~Register Page~~
   * ~~Same deal as login~~
 * Mod Page
-  * Lists all info about a mod
-  * Includes download link
+  * ~~Lists all info about a mod~~
+  * ~~Includes download link~~
   * If logged in (or admin) show buttons to publish new version / unpublish
-  * Also show buttons to edit title / description
-* Publish Page
-  * Form to publish a new mod
-  * Form fields:
-    * Name (disabled if editing an existing mod)
-    * Version
-    * Title
-    * Description
-    * Game Version (Dropdown, lists from API endpoint)
-    * Checkbox (enables oculus upload)
-    * Steam Upload
-    * Oculus Upload (hidden by default)
-    * Depends on (textbox that creates a list, verifies mod exists first)
-    * Conflicts with (same as above)
-    * 
+* ~~Publish Page~~
+  * ~~Form to publish a new mod~~
+  * ~~Form fields:~~
+    * ~~Name (disabled if editing an existing mod)~~
+    * ~~Version~~
+    * ~~Title~~
+    * ~~Description~~
+    * ~~Game Version (Dropdown, lists from API endpoint)~~
+    * ~~Checkbox (enables oculus upload)~~
+    * ~~Steam Upload~~
+    * ~~Oculus Upload (hidden by default)~~
+    * ~~Depends on (textbox that creates a list, verifies mod exists first)~~
+    * ~~Conflicts with (same as above)~~
