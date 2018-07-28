@@ -88,9 +88,9 @@ class Login extends Component {
             />
 
             <Field
-              placeholder='E-Mail'
+              placeholder='Email'
               type='email'
-              icon='user'
+              icon='envelope'
               value={ this.state.email }
               onChange={ e => { this.setState({ email: e.target.value, error: '' }) }}
               onEnter={ () => this.submitForm() }
