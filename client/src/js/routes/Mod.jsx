@@ -114,8 +114,8 @@ class Mod extends Component {
                 {
                   !this.state.showControls ? null :
                     <Fragment>
-                      <Link to={ `/publish/${mod.name}` } className='button is-info  is-control'>Publish new Version</Link>
-                      <button className='button is-warning is-control'>Transfer Ownership</button>
+                      <Link to={ `/publish/${mod.name}` } className='button is-info is-control'>Publish new Version</Link>
+                      <Link to={ `/transfer/${mod.name}` } className='button is-warning is-control'>Transfer Ownership</Link>
                       <button
                         className='button is-danger is-control'
                         onClick={ () => {
