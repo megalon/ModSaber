@@ -20,7 +20,8 @@ router.post('/register', (req, res) => {
   let { username, password, email } = req.body
   let verifyToken = randomToken()
 
-  Account.register(new Account({ username, email, verifyToken }), password, (err, account) => {
+  let changed = new Date()
+  Account.register(new Account({ username, email, verifyToken, changed }), password, (err, account) => {
     if (err) {
       console.error(err)
       res.status(400)
@@ -36,7 +37,7 @@ router.post('/register', (req, res) => {
     let verifyURL = `${protocol}://${host}/auth/verify/${verifyToken}`
     mail.sendVerification(username, email, verifyURL)
 
-    let { id, changed } = account
+    let { id } = account
     let expires = plusDays(7)
     const token = jwt.sign({ id, issued: changed, expires }, JWT_SECRET)
     res.cookie(COOKIE_NAME, token, { expires, httpOnly: true })

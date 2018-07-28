@@ -23,7 +23,7 @@ const Account = new Schema({
   resetToken: String,
   verified: { type: Boolean, default: false },
   verifyToken: String,
-  changed: { type: Date, default: new Date() },
+  changed: { type: Date, required: true },
   admin: { type: Boolean, default: false },
 })
 
