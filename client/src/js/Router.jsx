@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 
-import asyncComponent from './components/AsyncComponent.jsx'
 import withContext from './components/WithContext.jsx'
 
 import Home from './routes/Home.jsx'
 import NotFound from './routes/NotFound.jsx'
-const AsyncFAQ = asyncComponent(() => import('./routes/FAQ.jsx'))
-const AsyncPrivacyPolicy = asyncComponent(() => import('./routes/PrivacyPolicy.jsx'))
-const AsyncLogin = asyncComponent(() => import('./routes/Login.jsx'))
-const AsyncForgot = asyncComponent(() => import('./routes/Forgot.jsx'))
-const AsyncReset = asyncComponent(() => import('./routes/Reset.jsx'))
-const AsyncRegister = asyncComponent(() => import('./routes/Register.jsx'))
-const AsyncSettings = asyncComponent(() => import('./routes/Settings.jsx'))
-const AsyncAdmin = asyncComponent(() => import('./routes/Admin.jsx'))
-const AsyncPublish = asyncComponent(() => import('./routes/Publish.jsx'))
-const AsyncTransfer = asyncComponent(() => import('./routes/Transfer.jsx'))
-const AsyncMod = asyncComponent(() => import('./routes/Mod.jsx'))
+import FAQ from './routes/FAQ.jsx'
+import PrivacyPolicy from './routes/PrivacyPolicy.jsx'
+import Login from './routes/Login.jsx'
+import Forgot from './routes/Forgot.jsx'
+import Reset from './routes/Reset.jsx'
+import Register from './routes/Register.jsx'
+import Settings from './routes/Settings.jsx'
+import Admin from './routes/Admin.jsx'
+import Publish from './routes/Publish.jsx'
+import Transfer from './routes/Transfer.jsx'
+import Mod from './routes/Mod.jsx'
 
 class Router extends Component {
   render () {
@@ -24,17 +23,17 @@ class Router extends Component {
       <HashRouter>
         <Switch>
           <Route exact path='/' component={ Home } />
-          <Route path='/faq' component={ withContext(AsyncFAQ) } />
-          <Route path='/privacy' component={ withContext(AsyncPrivacyPolicy) } />
-          <Route path='/login' component={ withContext(AsyncLogin) } />
-          <Route path='/forgot' component={ withContext(AsyncForgot) } />
-          <Route path='/reset/:username/:resetToken' component={ withContext(AsyncReset) } />
-          <Route path='/register' component={ withContext(AsyncRegister) } />
-          <Route path='/settings' component={ withContext(AsyncSettings) } />
-          <Route path='/admin' component={ withContext(AsyncAdmin) } />
-          <Route path='/publish/:name?' component={ withContext(AsyncPublish) } />
-          <Route path='/transfer/:name' component={ withContext(AsyncTransfer) } />
-          <Route path='/mod/:name/:version?' component={ withContext(AsyncMod) } />
+          <Route path='/faq' component={ withContext(FAQ) } />
+          <Route path='/privacy' component={ withContext(PrivacyPolicy) } />
+          <Route path='/login' component={ withContext(Login) } />
+          <Route path='/forgot' component={ withContext(Forgot) } />
+          <Route path='/reset/:username/:resetToken' component={ withContext(Reset) } />
+          <Route path='/register' component={ withContext(Register) } />
+          <Route path='/settings' component={ withContext(Settings) } />
+          <Route path='/admin' component={ withContext(Admin) } />
+          <Route path='/publish/:name?' component={ withContext(Publish) } />
+          <Route path='/transfer/:name' component={ withContext(Transfer) } />
+          <Route path='/mod/:name/:version?' component={ withContext(Mod) } />
           <Route path='/' component={ NotFound } />
         </Switch>
       </HashRouter>
