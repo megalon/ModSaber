@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import Layout from '../components/Layout.jsx'
 import AddGameVersion from '../components/AddGameVersion.jsx'
+import ManageAdmins from '../components/ManageAdmins.jsx'
 
 class Admin extends Component {
   static propTypes = {
@@ -30,7 +31,8 @@ class Admin extends Component {
         <div className='content'>
           <div className='columns'>
             <div className='column'>
-              <h2>Promote Admin</h2>
+              <h2>Manage Admins</h2>
+              <ManageAdmins {...this.props} />
             </div>
 
             <div className='column'>

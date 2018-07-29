@@ -7,20 +7,15 @@ Beat Saber Mod Database
 * Run `node .` to run the server on port `3000`
 
 ## TODO:
-- [ ] Frontend UI
+- [x] Frontend UI
 - [ ] Write Proper Readme
 - [ ] Disable autocomplete to non-login forms
-- [x] ~~Check .zip isn't blank~~
-  * ~~Also validate file types~~
-  * ~~Block `.exe` and other harmful ones etc~~
 - [ ] Add approval system
   * Admins can approve a mod (and revoke it later)
   * ~~Approved mods have their own API listings~~
 
 ## Frontend Plan
-- [ ] Admin page
-  - [ ] Promote / demote other admins
-  - [x] ~~Add a new game version~~
+* NONE RIGHT NOW \o/
 
 ## List of bugs
 * NONE RIGHT NOW \o/
