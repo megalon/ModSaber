@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { Helmet } from 'react-helmet'
-import SweetAlert from 'sweetalert2-react'
+
 import PropTypes from 'prop-types'
 
 import { BASE_URL, AUTH, sanitise } from '../constants.js'
+import SweetAlert from '../components/AsyncSwal.jsx'
 import Layout from '../components/Layout.jsx'
 import Field from '../components/Field.jsx'
 

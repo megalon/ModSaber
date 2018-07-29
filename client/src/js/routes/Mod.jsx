@@ -2,12 +2,12 @@ import React, { Component, Fragment } from 'react'
 import * as ReactMarkdown from 'react-markdown'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
-import SweetAlert from 'sweetalert2-react'
 import PropTypes from 'prop-types'
 
 import { BASE_URL } from '../constants.js'
 
 import NotFound from './NotFound.jsx'
+import SweetAlert from '../components/AsyncSwal.jsx'
 import Layout from '../components/Layout.jsx'
 
 class Mod extends Component {
