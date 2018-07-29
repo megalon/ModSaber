@@ -44,7 +44,12 @@ router.get('/admins', async (req, res) => {
     if (user) admins = [...admins, user]
   }
 
-  res.send(admins)
+  res.send(
+    admins.map(x => {
+      let { username, _id } = x
+      return { id: _id, username }
+    })
+  )
 })
 
 router.post('/admins/modify', async (req, res) => {
