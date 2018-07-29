@@ -54,7 +54,8 @@ class Publish extends Component {
         </Helmet>
 
         <h1 className='is-size-1 has-text-weight-semibold'>{ this.state.new ? 'Publish a Mod' : 'Publish an Update' }</h1>
-        <br />
+        <p><i>Add a new item to the ModSaber registry</i></p>
+        <hr />
 
         { this.state.checked ? <Form details={ this.state.existing } new={ this.state.new } history={ this.props.history } /> : null }
       </Layout>
