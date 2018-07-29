@@ -96,3 +96,7 @@ a.mod-link {
 a.mod-link:hover {
   text-decoration: underline;
 }
+
+.file-input {
+  display: none;
+}
