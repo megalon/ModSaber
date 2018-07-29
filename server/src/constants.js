@@ -13,6 +13,7 @@ module.exports = {
     FILE_BLANK: 'file_blank',
     FILE_CONTAINS_BLOCKED: 'file_contains_blocked',
     GAMEVERSION_INVALID: 'gameversion_invalid',
+    ACTION_INVALID: 'action_invalid',
   },
   RESULTS_PER_PAGE: 5,
   BLOCKED_EXTENSIONS: [

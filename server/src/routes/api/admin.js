@@ -47,4 +47,24 @@ router.get('/admins', async (req, res) => {
   res.send(admins)
 })
 
+router.post('/admins/modify', async (req, res) => {
+  // Admins Only
+  if (!req.user.admin) return res.sendStatus(401)
+
+  let { username, action } = req.body
+
+  // Validate Required Fields
+  if (!username) return res.status(400).send({ field: 'username', error: errors.MISSING })
+  if (!action) return res.status(400).send({ field: 'action', error: errors.MISSING })
+  if (!['promote', 'demote'].includes(action)) return res.status(400).send({ field: 'action', error: errors.ACTION_INVALID })
+
+  let user = await Account.findOne({ username }).exec()
+  if (!user) return res.sendStatus(404)
+
+  let admin = action === 'promote'
+  await user.set({ admin }).save()
+
+  res.sendStatus(200)
+})
+
 module.exports = router
