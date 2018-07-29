@@ -152,14 +152,18 @@ class Form extends Component {
     if (resp.status === 401 && this.props.new) return this.isError('name', 'This name is already taken')
     if (resp.status === 401 && !this.props.new) return this.isError('name', 'You do not have permission to publish an update')
 
-    let json = await resp.json()
-    if (resp.status === 403) {
-      if (json.error === 'semver') return this.isError('version', `Version must be newer than ${json.version}`)
-      if (json.error === 'verification') return this.isError('files', 'You must verify your account')
-    }
+    try {
+      let json = await resp.json()
+      if (resp.status === 403) {
+        if (json.error === 'semver') return this.isError('version', `Version must be newer than ${json.version}`)
+        if (json.error === 'verification') return this.isError('files', 'You must verify your account')
+      }
 
-    if (resp.status === 400) {
-      if (json.error === 'file_wrong_type') return this.isError('files', 'File is not a .zip')
+      if (resp.status === 400) {
+        if (json.error === 'file_wrong_type') return this.isError('files', 'File is not a .zip')
+      }
+    } catch (err) {
+      // Silently fail lol
     }
   }
 
