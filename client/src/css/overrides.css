@@ -6,6 +6,10 @@ hr {
   background-color: hsla(0, 0%, 96%, 0.29);
 }
 
+hr.is-dark {
+  background-color: hsla(0, 0%, 15%, 0.53);
+}
+
 strong {
   color: #f1f1f1;
 }
@@ -20,6 +24,24 @@ strong {
 
 .is-invis {
   display: none;
+}
+
+.gameversion-list > input {
+  border-radius: 0;
+  border-color: #6f6f6f !important;
+  border-width: 1px;
+  border-style: solid;
+
+  border-top: initial;
+}
+
+.gameversion-list > input:first-child {
+  border-radius: 4px 4px 0 0;
+  border-top: 1px solid #6f6f6f !important;
+}
+
+.gameversion-list > input:last-child {
+  border-radius: 0 0 4px 4px;
 }
 
 a.is-control, button.is-control {

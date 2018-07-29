@@ -12,6 +12,7 @@ export const sanitise = (username, length = 20) => username
 export const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : ''
 export const MESSAGE_UNVERIFIED = `Your account is unverified. You cannot upload mods without first verifying your account.
 Check the email address you used to sign up for an account. (Look in spam too)`
+
 export const AUTH = {
   ERROR_UNKNOWN: 'Something went wrong...',
   PASSWORD_MISMATCH: 'Passwords do not match',
@@ -24,4 +25,10 @@ export const AUTH = {
   UNKNOWN_USERNAME: 'An account with that username was not found',
   UNKNOWN_EMAIL: 'An account with that email was not found',
   MISSING_PASSWORDS: 'Please enter all three passwords',
+}
+
+export const ADMIN = {
+  MISSING_VERSION: 'Please input a version tag',
+  MISSING_MANIFEST: 'Please input a version manifest',
+  MANIFEST_WRONG_LENGTH: 'Invalid Manifest',
 }
