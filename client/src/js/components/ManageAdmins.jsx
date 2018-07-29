@@ -44,11 +44,13 @@ class ManageAdmins extends Component {
     body.set('username', username)
     body.set('action', action)
 
-    await fetch(`${BASE_URL}/api/secure/admins/modify`, {
+    let resp = await fetch(`${BASE_URL}/api/secure/admins/modify`, {
       method: 'POST',
       credentials: 'include',
       body,
     })
+
+    if (resp.status === 404) return this.setState({ loading: false, error: AUTH.UNKNOWN_USERNAME })
 
     this.setState({
       loading: false,
