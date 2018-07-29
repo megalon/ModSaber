@@ -22,6 +22,9 @@ passport.use(new JWTStrategy(
     Account.findById(payload.id)
       .then(user => {
         try {
+          // Reject if user not found
+          if (user === null) return cb(null, false)
+
           // Check for token modifications
           if (user.changed > new Date(payload.issued)) return cb(null, false)
 
