@@ -52,9 +52,15 @@ router.post('/upload', async (req, res) => {
   if (!mimes.includes(steam.mimetype)) return res.status(400).send({ field: 'steam', error: errors.FILE_WRONG_TYPE })
   if (oculus) if (!mimes.includes(oculus.mimetype)) return res.status(400).send({ field: 'oculus', error: errors.FILE_WRONG_TYPE })
 
-  // Process Uploaded Files
-  let steamFiles = await processZIP(steam.data)
-  let oculusFiles = !oculus ? undefined : await processZIP(oculus.data)
+  let steamFiles, oculusFiles
+  try {
+    // Process Uploaded Files
+    steamFiles = await processZIP(steam.data, 'steam')
+    oculusFiles = !oculus ? undefined : await processZIP(oculus.data, 'oculus')
+  } catch (err) {
+    // File contains errors
+    return res.status(400).send(err)
+  }
 
   let existing = (await Mod.find({ name }).exec())
     .sort((a, b) => semver.rcompare(a.version, b.version))

@@ -1,7 +1,9 @@
 const crypto = require('crypto')
+const path = require('path')
 const AdmZip = require('adm-zip')
 const Account = require('../models/account.js')
 const GameVersion = require('../models/gameversion.js')
+const { errors, BLOCKED_EXTENSIONS } = require('../constants.js')
 
 /**
  * Calculate the SHA-1 Hash of a File Buffer
@@ -31,11 +33,21 @@ const mapFileStructure = files => {
 }
 
 /**
+ * @param {string} field File field name
+ * @param {string} error Error Code
+ */
+function ZipException (field, error) { // eslint-disable-line
+  this.field = field
+  this.error = error
+}
+
+/**
  * Calculate the SHA-1 Hash of a File Buffer
  * @param {Buffer} data File Buffer
+ * @param {string} field File field name
  * @returns {Promise.<FileInfo[]>}
  */
-const processZIP = async data => {
+const processZIP = async (data, field) => {
   let zip = new AdmZip(data)
   let entries = zip.getEntries()
     .map(entry => new Promise(resolve => {
@@ -45,8 +57,16 @@ const processZIP = async data => {
       })
     }))
 
+  let filesArr = await Promise.all(entries)
+  if (filesArr.length === 0) throw new ZipException(field, errors.FILE_BLANK)
+
+  for (let file of filesArr) {
+    let { ext } = path.parse(file.path)
+    if (BLOCKED_EXTENSIONS.includes(ext)) throw new ZipException(field, errors.FILE_CONTAINS_BLOCKED)
+  }
+
+  let files = mapFileStructure(filesArr)
   let hash = await calculateHash(data)
-  let files = mapFileStructure(await Promise.all(entries))
   return { hash, files }
 }
 
