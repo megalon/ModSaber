@@ -157,6 +157,10 @@ class Form extends Component {
       if (json.error === 'semver') return this.isError('version', `Version must be newer than ${json.version}`)
       if (json.error === 'verification') return this.isError('files', 'You must verify your account')
     }
+
+    if (resp.status === 400) {
+      if (json.error === 'file_wrong_type') return this.isError('files', 'File is not a .zip')
+    }
   }
 
   render () {

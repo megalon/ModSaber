@@ -49,7 +49,7 @@ module.exports = {
 
     "accessor-pairs": "warn",
     "array-callback-return": "error",
-    "complexity": "warn",
+    "complexity": ["error", 30],
     "curly": ["error", "multi-line", "consistent"],
     "dot-location": ["error", "property"],
     "dot-notation": "error",
