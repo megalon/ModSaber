@@ -89,6 +89,8 @@ class Transfer extends Component {
             <Field
               label='Mod Name'
               type='text'
+              autoComplete='off'
+              autoCapitalize='off'
               value={ this.props.match.params.name }
               disabled
             />
@@ -96,6 +98,8 @@ class Transfer extends Component {
             <Field
               label='Mod Author'
               type='text'
+              autoComplete='off'
+              autoCapitalize='off'
               placeholder='Username'
               prompt={ this.state.error }
               value={ this.state.username }

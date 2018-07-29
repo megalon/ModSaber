@@ -13,6 +13,8 @@ const Field = props =>
         onChange={ props.onChange }
         onKeyPress={ e => { if (e.key === 'Enter') { props.onEnter() } } }
         value={ props.value }
+        autoComplete={ props.autoComplete }
+        autoCapitalize={ props.autoCapitalize }
       />
       {
         props.icon ?
@@ -34,6 +36,8 @@ Field.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   onEnter: PropTypes.func,
+  autoComplete: PropTypes.string,
+  autoCapitalize: PropTypes.string,
 }
 
 export default Field
@@ -79,6 +83,8 @@ export const FieldAddon = props =>
           onChange={ props.onChange }
           onKeyPress={ e => { if (e.key === 'Enter') { props.onEnter() } } }
           value={ props.value }
+          autoComplete={ props.autoComplete }
+          autoCapitalize={ props.autoCapitalize }
         />
       </div>
       <div className='control'>
@@ -104,4 +110,6 @@ FieldAddon.propTypes = {
   readOnly: PropTypes.bool,
   onChange: PropTypes.func,
   onEnter: PropTypes.func,
+  autoComplete: PropTypes.string,
+  autoCapitalize: PropTypes.string,
 }

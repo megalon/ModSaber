@@ -9,7 +9,7 @@ Beat Saber Mod Database
 ## TODO:
 - [x] Frontend UI
 - [ ] Write Proper Readme
-- [ ] Disable autocomplete to non-login forms
+- [x] Disable autocomplete to non-login forms
 - [ ] Add approval system
   * Admins can approve a mod (and revoke it later)
   * ~~Approved mods have their own API listings~~

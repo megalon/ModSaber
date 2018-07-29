@@ -70,6 +70,7 @@ class AddGameVersion extends Component {
         <Field
           label='Version Tag'
           type='text'
+          autoComplete='off'
           placeholder='0.11.1'
           icon='bookmark'
           value={ this.state.tag }
@@ -80,6 +81,7 @@ class AddGameVersion extends Component {
         <Field
           label='Version Manifest'
           type='text'
+          autoComplete='off'
           placeholder='6574193224879562324'
           icon='database'
           prompt={ this.state.error }

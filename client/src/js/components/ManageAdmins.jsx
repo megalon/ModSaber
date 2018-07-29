@@ -69,6 +69,8 @@ class ManageAdmins extends Component {
         <Field
           label='Username'
           type='text'
+          autoComplete='off'
+          autoCapitalize='off'
           placeholder='Username'
           icon='user'
           value={ this.state.username }

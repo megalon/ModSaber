@@ -175,6 +175,8 @@ class Form extends Component {
         <Field
           label='Mod Name'
           type='text'
+          autoComplete='off'
+          autoCapitalize='off'
           placeholder='Internal database name. Must be lowercase and alphanumeric.'
           prompt={ this.state.error.field === 'name' ? this.state.error.message : '' }
           value={ this.state.name }
@@ -185,6 +187,7 @@ class Form extends Component {
         <Field
           label='Version'
           type='text'
+          autoComplete='off'
           prompt={ this.state.error.field === 'version' ? this.state.error.message : '' }
           placeholder={ this.props.details.version ? this.props.details.version : 'Must follow semver (Google it)' }
           value={ this.state.version }
@@ -194,6 +197,7 @@ class Form extends Component {
         <Field
           label='Mod Title'
           type='text'
+          autoComplete='off'
           placeholder='Mod Title. Shown on pages and in the mod installer.'
           prompt={ this.state.error.field === 'title' ? this.state.error.message : '' }
           value={ this.state.title }
@@ -227,6 +231,8 @@ class Form extends Component {
         <FieldAddon
           label='Depends On [OPTIONAL]'
           type='text'
+          autoComplete='off'
+          autoCapitalize='off'
           prompt={ this.state.currentDependsOnError }
           button='Add Dependency'
           buttonClass='is-link'
@@ -255,6 +261,8 @@ class Form extends Component {
         <FieldAddon
           label='Conflicts With [OPTIONAL]'
           type='text'
+          autoComplete='off'
+          autoCapitalize='off'
           prompt={ this.state.currentconflictsWithError }
           button='Add Conflict'
           buttonClass='is-link'
