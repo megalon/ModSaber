@@ -10,9 +10,9 @@ Beat Saber Mod Database
 - [ ] Frontend UI
 - [ ] Write Proper Readme
 - [ ] Disable autocomplete to non-login forms
-- [ ] Check .zip isn't blank
-  * Also validate file types
-  * Block `.exe` and other harmful ones etc
+- [x] ~~Check .zip isn't blank~~
+  * ~~Also validate file types~~
+  * ~~Block `.exe` and other harmful ones etc~~
 - [ ] Add approval system
   * Admins can approve a mod (and revoke it later)
   * ~~Approved mods have their own API listings~~
