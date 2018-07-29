@@ -12,6 +12,10 @@ class Admin extends Component {
     match: PropTypes.any,
   }
 
+  componentDidMount () {
+    if (!this.props.context.user.admin) this.props.history.replace('')
+  }
+
   render () {
     return (
       <Layout history={ this.props.history }>

@@ -13,6 +13,10 @@ class Settings extends Component {
     match: PropTypes.any,
   }
 
+  componentDidMount () {
+    if (!this.props.context.loggedIn) this.props.history.replace('')
+  }
+
   render () {
     return (
       <Layout history={ this.props.history }>

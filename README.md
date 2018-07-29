@@ -13,12 +13,10 @@ Beat Saber Mod Database
 ## Frontend Plan
 - [ ] Admin page
   - [ ] Promote / demote other admins
-  - [ ] Add a new game version
+  - [x] ~~Add a new game version~~
 
 ## List of bugs
-* ~~`strong` elements are dark~~
-* Settings page doesn't check for login state
-* Admin page doesn't do this either
+* NONE RIGHT NOW \o/
 
 ## Backburner
 - [ ] Case-insensitive usernames
