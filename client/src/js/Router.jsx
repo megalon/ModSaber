@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 
+import asyncComponent from './components/AsyncComponent.jsx'
 import withContext from './components/WithContext.jsx'
 
-import Home from './routes/Home.jsx'
-import NotFound from './routes/NotFound.jsx'
-import FAQ from './routes/FAQ.jsx'
-import PrivacyPolicy from './routes/PrivacyPolicy.jsx'
-import Login from './routes/Login.jsx'
-import Forgot from './routes/Forgot.jsx'
-import Reset from './routes/Reset.jsx'
-import Register from './routes/Register.jsx'
-import Settings from './routes/Settings.jsx'
-import Admin from './routes/Admin.jsx'
-import Publish from './routes/Publish.jsx'
-import Transfer from './routes/Transfer.jsx'
-import Mod from './routes/Mod.jsx'
+const Home = asyncComponent(() => import('./routes/Home.jsx'))
+const NotFound = asyncComponent(() => import('./routes/NotFound.jsx'))
+const FAQ = asyncComponent(() => import('./routes/FAQ.jsx'))
+const PrivacyPolicy = asyncComponent(() => import('./routes/PrivacyPolicy.jsx'))
+const Login = asyncComponent(() => import('./routes/Login.jsx'))
+const Forgot = asyncComponent(() => import('./routes/Forgot.jsx'))
+const Reset = asyncComponent(() => import('./routes/Reset.jsx'))
+const Register = asyncComponent(() => import('./routes/Register.jsx'))
+const Settings = asyncComponent(() => import('./routes/Settings.jsx'))
+const Admin = asyncComponent(() => import('./routes/Admin.jsx'))
+const Publish = asyncComponent(() => import('./routes/Publish.jsx'))
+const Transfer = asyncComponent(() => import('./routes/Transfer.jsx'))
+const Mod = asyncComponent(() => import('./routes/Mod.jsx'))
 
 class Router extends Component {
   render () {
