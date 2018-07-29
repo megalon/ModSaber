@@ -1,31 +1,19 @@
 # ModSaber
 Beat Saber Mod Database
 
-## Setup
-* Install Node.js 8 or higher
-* Run `npm i` to install dependencies
-* Run `node .` to run the server on port `3000`
+## Deploying
+1. Install [Docker]() and [Docker Compose]()
+2. Clone the repo and copy `example.env` to `site.env`
+3. Fill in environment variables as denoted in `site.env`
+4. Pull external container dependencies with `docker-compose pull`
+5. Build ModSaber containers with `docker-compose build`
+6. Start the services with `docker-compose up -d`
+7. Configure a reverse proxy to listen to port `1280`. Make sure you set the max file upload to 10MB or higher
 
-## TODO:
-- [x] Frontend UI
-- [ ] Write Proper Readme
-- [x] Disable autocomplete to non-login forms
-- [ ] Add approval system
-  * Admins can approve a mod (and revoke it later)
-  * ~~Approved mods have their own API listings~~
+## API Routes
+Public API routes will be documented in the [Wiki](https://github.com/lolPants/ModSaber/wiki)
 
-## Frontend Plan
-* NONE RIGHT NOW \o/
-
-## List of bugs
-* NONE RIGHT NOW \o/
-
-## Backburner
-- [ ] Case-insensitive usernames
-  * Probably have an internal "display name" that is the caps of when you signed up.
-  * All other requests are done with the lowercase username
-- [ ] Dependencies and Conflicts with versions
-  * Use semver ranges
-- [ ] Support other file types
-  * Not mods get automatic versioning
-  * Tagged appropriately
+## Thanks :heart:
+* `Assistant#8431` - Helping design the platform and bug test.
+* `williams#0001` - Helping design the platform and bug test.
+* `! 🍆 Donne !#0069` - Helping bug test.
