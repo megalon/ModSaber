@@ -8,11 +8,13 @@ const { ADMIN_USERNAME } = process.env
 
 // Setup Router
 const router = Router() // eslint-disable-line
-
-router.post('/gameversion', async (req, res) => {
+router.use((req, res, next) => {
   // Admins Only
   if (!req.user.admin) return res.sendStatus(401)
+  else return next()
+})
 
+router.post('/gameversion', async (req, res) => {
   let { value, manifest, date } = req.body
 
   // Validate Required Fields
@@ -31,9 +33,6 @@ router.post('/gameversion', async (req, res) => {
 })
 
 router.get('/admins', async (req, res) => {
-  // Admins Only
-  if (!req.user.admin) return res.sendStatus(401)
-
   // Fetch all admins
   let admins = await Account.find({ admin: true }).exec()
 
@@ -53,9 +52,6 @@ router.get('/admins', async (req, res) => {
 })
 
 router.post('/admins/modify', async (req, res) => {
-  // Admins Only
-  if (!req.user.admin) return res.sendStatus(401)
-
   let { username, action } = req.body
 
   // Validate Required Fields
