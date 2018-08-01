@@ -10,7 +10,7 @@ const cache = require('express-redis-cache')({ host: REDIS_HOST })
 
 router.get('/:name', async (req, res) => {
   let { name } = req.params
-  let mods = await Mod.find({ name, unpublished: false }).exec()
+  let mods = await Mod.find({ name, unpublished: false, approved: true }).exec()
 
   if (mods.length === 0) return res.sendStatus(404)
   let [latest] = mods.sort((a, b) => a.name > b.name ? 1 : b.name > a.name ? -1 : 0 || semver.rcompare(a.version, b.version))
