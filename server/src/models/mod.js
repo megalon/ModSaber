@@ -24,6 +24,7 @@ const Mod = new Schema({
   files: Schema.Types.Mixed,
   dependsOn: [String],
   conflictsWith: [String],
+  weight: { type: Number, default: 1 },
 })
 
 Mod.plugin(mongoosePaginate)

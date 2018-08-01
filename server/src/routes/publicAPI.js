@@ -21,9 +21,10 @@ const { SITE_ALERT } = process.env
 
 /**
  * @param {any} mods Mods Model
+ * @param {boolean} [weighted] Include weights in the results
  * @returns {Promise.<ModShort[]>}
  */
-const mapModsSlim = mods => {
+const mapModsSlim = (mods, weighted = false) => {
   let final = []
 
   for (let mod of mods) {
@@ -37,6 +38,7 @@ const mapModsSlim = mods => {
         tag: mod.tag,
         created: new Date(mod.created),
         versions: [mod.version],
+        weight: weighted ? mod.weight : undefined,
       }]
     } else {
       // Edit the existing entry
@@ -45,6 +47,7 @@ const mapModsSlim = mods => {
       if (found.versions[0] === mod.version) {
         found.author = mod.author
         found.created = new Date(mod.created)
+        found.weight = weighted ? mod.weight : undefined
       }
     }
   }
@@ -91,7 +94,13 @@ router.get('/slim/new', cache.route(10), async (req, res) => {
 })
 
 router.get('/slim/approved', cache.route(10), async (req, res) => {
-  let mods = await mapModsSlim(await Mod.find({ approved: true, unpublished: false }))
+  let mods = (await mapModsSlim(await Mod.find({ approved: true, unpublished: false }), true))
+    .sort((a, b) => b.weight - a.weight)
+    .map(mod => {
+      mod.weight = undefined
+      return mod
+    })
+
   res.send(mods)
 })
 
