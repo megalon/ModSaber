@@ -4,7 +4,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom'
 import asyncComponent from './components/AsyncComponent.jsx'
 import withContext from './components/WithContext.jsx'
 
-const Home = asyncComponent(() => import('./routes/Home.jsx'))
+import Home from './routes/Home.jsx'
 const NotFound = asyncComponent(() => import('./routes/NotFound.jsx'))
 const FAQ = asyncComponent(() => import('./routes/FAQ.jsx'))
 const PrivacyPolicy = asyncComponent(() => import('./routes/PrivacyPolicy.jsx'))
