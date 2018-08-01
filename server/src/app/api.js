@@ -95,7 +95,7 @@ const processZIP = async (data, field) => {
  */
 const mapMod = async (mod, req) => {
   let { name, version, author: authorID, approved, title, description, tag,
-    gameVersion: gameVersionID, oldVersions, dependsOn, conflictsWith, files } = mod
+    gameVersion: gameVersionID, oldVersions, dependsOn, conflictsWith, files, weight } = mod
 
   // Insert file URLs to file object
   let { protocol, headers: { host } } = req
@@ -108,15 +108,23 @@ const mapMod = async (mod, req) => {
   // Lookup Game Version
   let gameVersion = (await GameVersion.findById(gameVersionID).exec()).value
 
+  // Construct return object
+  let final = { name, version, approved, title, description, tag, gameVersion, gameVersionID,
+    oldVersions, dependsOn, conflictsWith, files, weight }
+
   try {
     // Lookup author username from DB
     let author = (await Account.findById(authorID).exec()).username
-    return { name, version, author, authorID, approved, title, description,
-      tag, gameVersion, gameVersionID, oldVersions, dependsOn, conflictsWith, files }
+    final.author = author
+    final.authorID = authorID
+
+    return final
   } catch (err) {
     // Send default values
-    return { name, version, author: '', authorID: '0', approved, title, description,
-      tag, gameVersion, gameVersionID, oldVersions, dependsOn, conflictsWith, files }
+    final.author = ''
+    final.authorID = '0'
+
+    return final
   }
 }
 
