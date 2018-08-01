@@ -4,9 +4,16 @@ import PropTypes from 'prop-types'
 
 import Layout from '../components/Layout.jsx'
 import AddGameVersion from '../components/AddGameVersion.jsx'
-import ManageAdmins from '../components/ManageAdmins.jsx'
+import ViewPending from '../components/ManageAdmins.jsx'
+import ManageAdmins from '../components/ViewPending.jsx'
 
 class Admin extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = { manage: false }
+  }
+
   static propTypes = {
     context: PropTypes.any,
     history: PropTypes.any,
@@ -17,6 +24,11 @@ class Admin extends Component {
     if (!this.props.context.user.admin) this.props.history.replace('')
   }
 
+  toggleState () {
+    let manage = !this.state.manage
+    this.setState({ manage })
+  }
+
   render () {
     return (
       <Layout history={ this.props.history }>
@@ -24,15 +36,29 @@ class Admin extends Component {
           <title>ModSaber | Admin</title>
         </Helmet>
 
-        <h1 className='is-size-1 has-text-weight-semibold'>Admin Panel</h1>
-        <p><i>Welcome, { this.props.context.user.username }</i></p>
+        <div className='columns'>
+          <div className='column is-10'>
+            <h1 className='is-size-1 has-text-weight-semibold'>Admin Panel</h1>
+            <p><i>Beat Saber Mods Database</i></p>
+          </div>
+
+          <div className='column home-buttons'>
+            <button className='button is-dark is-inverted is-outlined is-control' onClick={ () => this.toggleState() }>
+              { this.state.manage ? 'View Pending Mods' : 'Manage Admins' }
+            </button>
+          </div>
+        </div>
         <hr />
 
         <div className='content'>
           <div className='columns'>
             <div className='column'>
-              <h2>Manage Admins</h2>
-              <ManageAdmins {...this.props} />
+              <h2>{ !this.state.manage ? 'View Pending Mods' : 'Manage Admins' }</h2>
+              {
+                this.state.manage ?
+                  <ViewPending {...this.props} /> :
+                  <ManageAdmins {...this.props} />
+              }
             </div>
 
             <div className='column'>
