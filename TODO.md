@@ -4,9 +4,7 @@ Here is a list of items floating around that need to get done at some point or a
 ## TODO:
 *This is a list of items that should be done before launch.*
 
-- [ ] Add approval system
-  * Admins can approve a mod (and revoke it later)
-  * ~~Approved mods have their own API listings~~
+* NONE RIGHT NOW \o/
 
 ## Backburner
 *These will probably get done eventually, but aren't quite important enough to do immediately. Some of these might end up being scrapped anyway.*
