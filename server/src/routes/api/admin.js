@@ -73,6 +73,12 @@ router.post('/approve/:name/:version', async (req, res) => {
   try {
     let { name, version } = req.params
 
+    // Remove all old approvals
+    let mods = await Mod.find({ name }).exec()
+    for (let mod of mods) {
+      await mod.set({ approved: false }).save() // eslint-disable-line
+    }
+
     let mod = await Mod.findOne({ name, version }).exec()
     if (!mod) return res.sendStatus(404)
 
