@@ -93,7 +93,7 @@ class Mod extends Component {
   async setWeight () {
     let { mod } = this.state
 
-    let input = prompt('Enter weight: (higher values are sorted at the top)', '1')
+    let input = prompt('Enter weight: (higher values are sorted at the top)', `${mod.weight}`)
     let weight = parseInt(input, 10)
 
     if (Number.isNaN(weight)) return alert('Invalid Weight')
@@ -106,6 +106,9 @@ class Mod extends Component {
       credentials: 'include',
       body,
     })
+
+    mod.weight = weight
+    this.setState({ mod })
   }
 
   render () {
