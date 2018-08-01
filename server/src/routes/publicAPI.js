@@ -95,6 +95,11 @@ router.get('/slim/approved', cache.route(10), async (req, res) => {
   res.send(mods)
 })
 
+router.get('/pending', cache.route(10), async (req, res) => {
+  let mods = await Mod.find({ approved: false, unpublished: false })
+  res.send(mods.map(x => ({ name: x.name, version: x.version })))
+})
+
 // Post site-wide alerts
 router.get('/alert', (req, res) => {
   if (!SITE_ALERT) return res.sendStatus(204)
