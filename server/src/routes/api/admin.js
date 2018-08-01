@@ -99,4 +99,26 @@ router.post('/revoke/:name/:version', async (req, res) => {
   }
 })
 
+router.post('/weight/:name/:version', async (req, res) => {
+  try {
+    let { name, version } = req.params
+    let { weight: w } = req.body
+
+    // Validate Weight Score
+    if (!w) return res.status(400).send({ field: 'weight', error: errors.WEIGHT_INVALID })
+
+    let weight = parseInt(w, 10)
+    if (Number.isNaN(weight)) return res.status(400).send({ field: 'weight', error: errors.WEIGHT_INVALID })
+
+    let mod = await Mod.findOne({ name, version }).exec()
+    if (!mod) return res.sendStatus(404)
+
+    await mod.set({ weight }).save()
+    res.sendStatus(200)
+  } catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+  }
+})
+
 module.exports = router

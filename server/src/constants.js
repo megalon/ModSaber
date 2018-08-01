@@ -14,6 +14,7 @@ module.exports = {
     FILE_CONTAINS_BLOCKED: 'file_contains_blocked',
     GAMEVERSION_INVALID: 'gameversion_invalid',
     ACTION_INVALID: 'action_invalid',
+    WEIGHT_INVALID: 'weight_invalid',
   },
   RESULTS_PER_PAGE: 5,
   BLOCKED_EXTENSIONS: [
