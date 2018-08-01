@@ -136,36 +136,40 @@ class Form extends Component {
       body.set('oculus', this.state.oculusFile)
     }
 
-    let resp = await fetch(`${BASE_URL}/api/secure/upload`, {
-      method: 'POST',
-      credentials: 'include',
-      body,
-    })
-
-    if (resp.status === 200) {
-      setTimeout(() => {
-        // Sometimes needs time to finish
-        this.props.history.push(`/mod/${this.state.name}/${semver.coerce(this.state.version)}`)
-      }, 1000)
-    }
-
-    if (resp.status === 401 && this.props.new) return this.isError('name', 'This name is already taken')
-    if (resp.status === 401 && !this.props.new) return this.isError('name', 'You do not have permission to publish an update')
-
     try {
-      let json = await resp.json()
-      if (resp.status === 403) {
-        if (json.error === 'semver') return this.isError('version', `Version must be newer than ${json.version}`)
-        if (json.error === 'verification') return this.isError('files', 'You must verify your account')
+      let resp = await fetch(`${BASE_URL}/api/secure/upload`, {
+        method: 'POST',
+        credentials: 'include',
+        body,
+      })
+
+      if (resp.status === 200) {
+        setTimeout(() => {
+        // Sometimes needs time to finish
+          this.props.history.push(`/mod/${this.state.name}/${semver.coerce(this.state.version)}`)
+        }, 1000)
       }
 
-      if (resp.status === 400) {
-        if (json.error === 'file_wrong_type') return this.isError('files', 'File is not a .zip')
-        if (json.error === 'file_blank') return this.isError('files', '.zip must contain at least one file')
-        if (json.error === 'file_contains_blocked') return this.isError('files', '.zip contains blocked files')
+      if (resp.status === 401 && this.props.new) return this.isError('name', 'This name is already taken')
+      if (resp.status === 401 && !this.props.new) return this.isError('name', 'You do not have permission to publish an update')
+
+      try {
+        let json = await resp.json()
+        if (resp.status === 403) {
+          if (json.error === 'semver') return this.isError('version', `Version must be newer than ${json.version}`)
+          if (json.error === 'verification') return this.isError('files', 'You must verify your account')
+        }
+
+        if (resp.status === 400) {
+          if (json.error === 'file_wrong_type') return this.isError('files', 'File is not a .zip')
+          if (json.error === 'file_blank') return this.isError('files', '.zip must contain at least one file')
+          if (json.error === 'file_contains_blocked') return this.isError('files', '.zip contains blocked files')
+        }
+      } catch (err) {
+      // Silently fail lol
       }
     } catch (err) {
-      // Silently fail lol
+      return this.isError('files', 'File cannot be greater than 10MB')
     }
   }
 
