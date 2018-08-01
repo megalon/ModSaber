@@ -81,7 +81,7 @@ class Mod extends Component {
 
   async toggleApproval () {
     let { mod } = this.state
-    await fetch(`http://localhost:3001/api/secure/${mod.approved ? 'revoke' : 'approve'}/${mod.name}/${mod.version}`, {
+    await fetch(`${BASE_URL}/api/secure/${mod.approved ? 'revoke' : 'approve'}/${mod.name}/${mod.version}`, {
       method: 'POST',
       credentials: 'include',
     })
