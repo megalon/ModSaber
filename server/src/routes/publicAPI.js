@@ -81,7 +81,7 @@ router.get('/all/approved/:page?', cache.route(10), async (req, res) => {
   if (page < 0) page = 0
   page++
 
-  let { docs, pages } = await Mod.paginate({ approved: true, unpublished: false }, { page, limit: RESULTS_PER_PAGE, sort: '-created' })
+  let { docs, pages } = await Mod.paginate({ approved: true, unpublished: false }, { page, limit: RESULTS_PER_PAGE, sort: '-weight' })
   let mods = await Promise.all(docs.map(mod => mapMod(mod, req)))
   let lastPage = pages - 1
 
