@@ -69,9 +69,6 @@ router.post('/upload', async (req, res) => {
     // Check SemVer is newer
     if (!semver.gt(version, previous.version)) return res.status(403).send({ error: 'semver', version: previous.version })
 
-    // Keep approved status
-    if (previous.approved) approved = true
-
     // Lookup game version
     try {
       gameVersion = (await GameVersion.findById(gameVersion).exec())._id
