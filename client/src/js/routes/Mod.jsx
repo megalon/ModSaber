@@ -79,6 +79,17 @@ class Mod extends Component {
     this.setState({ showControls })
   }
 
+  async toggleApproval () {
+    let { mod } = this.state
+    await fetch(`http://localhost:3001/api/secure/${mod.approved ? 'revoke' : 'approve'}/${mod.name}/${mod.version}`, {
+      method: 'POST',
+      credentials: 'include',
+    })
+
+    mod.approved = !mod.approved
+    this.setState({ mod })
+  }
+
   render () {
     if (this.state.loaded && this.state.mod.name === undefined) return <NotFound history={ this.props.history } />
 
@@ -119,6 +130,10 @@ class Mod extends Component {
                   !this.state.showControls ? null :
                     <Fragment>
                       <Link to={ `/publish/${mod.name}` } className='button is-info is-control'>Publish new Version</Link>
+                      <button
+                        className='button is-warning is-control'
+                        onClick={ () => this.toggleApproval() }
+                      >{ mod.approved ? 'Revoke Approval' : 'Approve' }</button>
                       <Link to={ `/transfer/${mod.name}` } className='button is-warning is-control'>Transfer Ownership</Link>
                       <button
                         className='button is-danger is-control'
