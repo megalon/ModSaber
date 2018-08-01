@@ -76,7 +76,7 @@ router.post('/approve/:name/:version', async (req, res) => {
     let mod = await Mod.findOne({ name, version }).exec()
     if (!mod) return res.sendStatus(404)
 
-    mod.set({ approved: true }).save()
+    await mod.set({ approved: true }).save()
     res.sendStatus(200)
   } catch (err) {
     console.error(err)
@@ -91,7 +91,7 @@ router.post('/revoke/:name/:version', async (req, res) => {
     let mod = await Mod.findOne({ name, version }).exec()
     if (!mod) return res.sendStatus(404)
 
-    mod.set({ approved: false }).save()
+    await mod.set({ approved: false }).save()
     res.sendStatus(200)
   } catch (err) {
     console.error(err)
