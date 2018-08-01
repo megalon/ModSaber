@@ -96,8 +96,17 @@ router.get('/slim/approved', cache.route(10), async (req, res) => {
 })
 
 router.get('/pending', cache.route(10), async (req, res) => {
-  let mods = await Mod.find({ approved: false, unpublished: false })
-  res.send(mods.map(x => ({ name: x.name, version: x.version })))
+  let search = await Mod.find({ approved: false, unpublished: false })
+  let mods = await Promise.all(search.map(async mod => {
+    let { name, version, author: authorID } = mod
+
+    let findAuthor = await Account.findById(authorID).exec()
+    let author = findAuthor ? findAuthor.username : ''
+
+    return { name, version, author }
+  }))
+
+  res.send(mods)
 })
 
 // Post site-wide alerts
