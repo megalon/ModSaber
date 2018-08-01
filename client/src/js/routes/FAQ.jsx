@@ -25,7 +25,7 @@ class FAQ extends Component {
         <h2 className='is-size-3 has-text-weight-semibold'>Does my mod have to be in a specific format?</h2>
         <p>
           <b>Yes</b>. Mods are required to be uploaded in a <code style={{ color: '#060606' }}>.zip</code> file
-  representing the Beat Saber Directory. This is explained in further detail on the publish page.
+          representing the Beat Saber Directory. This is explained in further detail on the publish page.
         </p><br />
 
         <h2 className='is-size-3 has-text-weight-semibold'>My mod is listed as unapproved. What does this mean?</h2>
@@ -43,7 +43,7 @@ class FAQ extends Component {
             <i className='fas fa-heart' />
           </span><br /><br />
 
-          A few other members of the Beat Saber modding community also have adminstrative access and can unpublish and transfer any mod.
+          A few other members of the Beat Saber Modding Community also have adminstrative access and can approve, transfer and unpublish any mod.
         </p><br />
       </MainPage>
     )

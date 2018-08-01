@@ -18,7 +18,7 @@ class PrivacyPolicy extends Component {
           with 25000 iterations, along with a random salt.<br />
 
           Emails are stored in <b>plain text</b>. This is so we can email you for verification and password resets.
-          We will never send you spam emails.
+          We will <b>never</b> send you spam emails.
         </p><br />
 
         <h2 className='is-size-3 has-text-weight-semibold'>Use of Cookies</h2>
@@ -31,7 +31,7 @@ class PrivacyPolicy extends Component {
         <p>
           Anything published to ModSaber will be publicly accessable and can be unpublished at any time.
           Unpublishing only removes references to an item in the database, the files will still be available to download.<br />
-          If you wish for a file to be deleted, please contact a site admin. Please do not upload anything you do not wish to be public.
+          <b>If you wish for a file to be deleted, please contact a site admin.</b> Please do not upload anything you do not wish to be public.
         </p><br />
       </MainPage>
     )
