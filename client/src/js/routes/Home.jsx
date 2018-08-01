@@ -17,7 +17,7 @@ class Home extends Component {
   componentDidMount () { this.loadMods() }
 
   async loadMods () {
-    let mods = await (await fetch(`${BASE_URL}/api/public/slim/new`)).json()
+    let mods = await (await fetch(`${BASE_URL}/api/public/slim/approved`)).json()
     this.setState({ mods })
   }
 
