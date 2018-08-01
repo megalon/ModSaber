@@ -74,6 +74,7 @@ const processZIP = async (data, field) => {
  * @typedef {Object} Mod
  * @property {string} name
  * @property {string} version
+ * @property {boolean} approved
  * @property {string} author
  * @property {string} authorID
  * @property {string} title
@@ -93,7 +94,8 @@ const processZIP = async (data, field) => {
  * @returns {Promise.<Mod>}
  */
 const mapMod = async (mod, req) => {
-  let { name, version, author: authorID, title, description, tag, gameVersion: gameVersionID, oldVersions, dependsOn, conflictsWith, files } = mod
+  let { name, version, author: authorID, approved, title, description, tag,
+    gameVersion: gameVersionID, oldVersions, dependsOn, conflictsWith, files } = mod
 
   // Insert file URLs to file object
   let { protocol, headers: { host } } = req
@@ -109,11 +111,11 @@ const mapMod = async (mod, req) => {
   try {
     // Lookup author username from DB
     let author = (await Account.findById(authorID).exec()).username
-    return { name, version, author, authorID, title, description,
+    return { name, version, author, authorID, approved, title, description,
       tag, gameVersion, gameVersionID, oldVersions, dependsOn, conflictsWith, files }
   } catch (err) {
     // Send default values
-    return { name, version, author: '', authorID: '0', title, description,
+    return { name, version, author: '', authorID: '0', approved, title, description,
       tag, gameVersion, gameVersionID, oldVersions, dependsOn, conflictsWith, files }
   }
 }
