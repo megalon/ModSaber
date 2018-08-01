@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const { errors } = require('../../constants.js')
 const Account = require('../../models/account.js')
+const Mod = require('../../models/mod.js')
 const GameVersion = require('../../models/gameversion.js')
 
 // Environment Variables
@@ -66,6 +67,36 @@ router.post('/admins/modify', async (req, res) => {
   await user.set({ admin }).save()
 
   res.sendStatus(200)
+})
+
+router.post('/approve/:name/:version', async (req, res) => {
+  try {
+    let { name, version } = req.params
+
+    let mod = await Mod.findOne({ name, version }).exec()
+    if (!mod) return res.sendStatus(404)
+
+    mod.set({ approved: true }).save()
+    res.sendStatus(200)
+  } catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+  }
+})
+
+router.post('/revoke/:name/:version', async (req, res) => {
+  try {
+    let { name, version } = req.params
+
+    let mod = await Mod.findOne({ name, version }).exec()
+    if (!mod) return res.sendStatus(404)
+
+    mod.set({ approved: false }).save()
+    res.sendStatus(200)
+  } catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+  }
 })
 
 module.exports = router
