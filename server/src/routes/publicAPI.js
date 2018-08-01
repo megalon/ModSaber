@@ -95,7 +95,7 @@ router.get('/slim/approved', cache.route(10), async (req, res) => {
   res.send(mods)
 })
 
-router.get('/pending', cache.route(10), async (req, res) => {
+router.get('/pending', async (req, res) => {
   let search = await Mod.find({ approved: false, unpublished: false })
   let mods = await Promise.all(search.map(async mod => {
     let { name, version, author: authorID } = mod
