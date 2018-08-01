@@ -90,6 +90,24 @@ class Mod extends Component {
     this.setState({ mod })
   }
 
+  async setWeight () {
+    let { mod } = this.state
+
+    let input = prompt('Enter weight: (higher values are sorted at the top)', '1')
+    let weight = parseInt(input, 10)
+
+    if (Number.isNaN(weight)) return alert('Invalid Weight')
+
+    let body = new URLSearchParams()
+    body.set('weight', weight)
+
+    await fetch(`${BASE_URL}/api/secure/weight/${mod.name}/${mod.version}`, {
+      method: 'POST',
+      credentials: 'include',
+      body,
+    })
+  }
+
   render () {
     if (this.state.loaded && this.state.mod.name === undefined) return <NotFound history={ this.props.history } />
 
@@ -130,11 +148,23 @@ class Mod extends Component {
                   !this.state.showControls ? null :
                     <Fragment>
                       <Link to={ `/publish/${mod.name}` } className='button is-info is-control'>Publish new Version</Link>
-                      <button
-                        className='button is-warning is-control'
-                        onClick={ () => this.toggleApproval() }
-                      >{ mod.approved ? 'Revoke Approval' : 'Approve' }</button>
+
+                      {
+                        !this.props.context.user.admin ? null :
+                          <Fragment>
+                            <button
+                              className='button is-warning is-control'
+                              onClick={ () => this.setWeight() }
+                            >Set Weight</button>
+                            <button
+                              className='button is-warning is-control'
+                              onClick={ () => this.toggleApproval() }
+                            >{ mod.approved ? 'Revoke Approval' : 'Approve' }</button>
+                          </Fragment>
+                      }
+
                       <Link to={ `/transfer/${mod.name}` } className='button is-warning is-control'>Transfer Ownership</Link>
+
                       <button
                         className='button is-danger is-control'
                         onClick={ () => {
