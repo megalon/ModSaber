@@ -25,7 +25,14 @@ class FAQ extends Component {
         <h2 className='is-size-3 has-text-weight-semibold'>Does my mod have to be in a specific format?</h2>
         <p>
           <b>Yes</b>. Mods are required to be uploaded in a <code style={{ color: '#060606' }}>.zip</code> file
-          representing the Beat Saber Directory. This is explained in further detail on the publish page.
+  representing the Beat Saber Directory. This is explained in further detail on the publish page.
+        </p><br />
+
+        <h2 className='is-size-3 has-text-weight-semibold'>My mod is listed as unapproved. What does this mean?</h2>
+        <p>
+          For security reasons, site admins have to approve new items uploaded to ModSaber to verify that nothing malicious got through the filter.
+          This can take up to 24 hours <i>(maybe longer if we&#39;re lazy)</i> so just give it time. If your mod doesn&#39;t pass the security checks,
+          it will be unpublished by an admin.
         </p><br />
 
         <h2 className='is-size-3 has-text-weight-semibold'>Who operates ModSaber?</h2>

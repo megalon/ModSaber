@@ -93,6 +93,10 @@ class Mod extends Component {
           <div className='mod-titles'>
             <h1 className='is-size-1 has-text-weight-semibold'>{ mod.title }</h1>
             <span style={{ marginLeft: '20px', marginTop: '15px' }} className='tag is-link'>{ mod.tag }</span>
+            {
+              mod.approved ? null :
+                <span style={{ marginLeft: '8px', marginTop: '15px' }} className='tag is-danger'>UNAPPROVED</span>
+            }
           </div>
           <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version } &#47;&#47; { mod.author }</code>
           <hr />
