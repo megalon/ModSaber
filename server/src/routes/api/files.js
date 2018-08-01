@@ -61,6 +61,8 @@ router.post('/upload', async (req, res) => {
     .sort((a, b) => semver.rcompare(a.version, b.version))
 
   let approved = false
+  let weight = 1
+
   if (existing.length > 0) {
     let [previous] = existing
     // Check they own the mod
@@ -68,6 +70,9 @@ router.post('/upload', async (req, res) => {
 
     // Check SemVer is newer
     if (!semver.gt(version, previous.version)) return res.status(403).send({ error: 'semver', version: previous.version })
+
+    // Keep Mod Weight
+    if (previous.weight) weight = previous.weight
 
     // Lookup game version
     try {
@@ -96,6 +101,7 @@ router.post('/upload', async (req, res) => {
       oldVersions,
       gameVersion,
       approved,
+      weight,
       created,
       files: { steam: steamFiles, oculus: oculusFiles },
       dependsOn,
