@@ -14,7 +14,7 @@ const Mod = new Schema({
   },
   title: { type: String, required: [true, "can't be blank"], maxlength: 50 },
   author: Schema.Types.ObjectId,
-  description: { type: String, default: '', maxlength: 1000 },
+  description: { type: String, default: '', maxlength: 10000 },
   approved: { type: Boolean, default: false },
   unpublished: { type: Boolean, default: false },
   tag: { type: String, enum: ['mod', 'saber', 'platform'], default: 'mod' },
