@@ -2,6 +2,10 @@ html {
   background-color: hsl(0, 0%, 14%);
 }
 
+a:hover {
+  color: #a7a7a7;
+}
+
 hr {
   background-color: hsla(0, 0%, 96%, 0.29);
 }
