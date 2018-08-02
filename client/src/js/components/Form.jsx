@@ -233,7 +233,7 @@ class Form extends Component {
         </div>
 
         <FieldAddon
-          label='Depends On [OPTIONAL]'
+          label="Depends On [WIP, DON'T USE THIS]"
           type='text'
           autoComplete='off'
           autoCapitalize='off'
@@ -263,7 +263,7 @@ class Form extends Component {
         }
 
         <FieldAddon
-          label='Conflicts With [OPTIONAL]'
+          label="Conflicts With [WIP, DON'T USE THIS]"
           type='text'
           autoComplete='off'
           autoCapitalize='off'
