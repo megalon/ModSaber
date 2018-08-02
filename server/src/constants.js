@@ -34,5 +34,8 @@ module.exports = {
     '.bash_profile',
     '.bashrc',
     '.profile',
+    '.zip',
+    '.rar',
+    '.tar.gz',
   ],
 }
