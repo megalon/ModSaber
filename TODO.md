@@ -21,8 +21,6 @@ Here is a list of items floating around that need to get done at some point or a
 - [ ] Support other file types
   * Not mods get automatic versioning
   * Tagged appropriately
-- [ ] Show upload timestamp
-  * Will help people to see when mods were published
 
 ## Known bugs to fix
 *These should be considered critial to get done.*

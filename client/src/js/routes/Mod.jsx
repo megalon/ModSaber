@@ -63,6 +63,8 @@ class Mod extends Component {
   }
 
   async loadData () {
+    const moment = await import('moment')
+
     this.setState({ loaded: false })
     let { name, version } = this.props.match.params
     let resp = await fetch(`${BASE_URL}/registry/${name}/${version ? version : ''}`)
@@ -70,6 +72,8 @@ class Mod extends Component {
     if (resp.status !== 200) return this.setState({ loaded: true, mod: {} })
 
     let mod = await resp.json()
+    mod.timestamp = moment(mod.published).format('YYYY-MM-DD hh:mm:ss ZZ')
+
     this.setState({ mod, loaded: true }, () => this.checkUser())
   }
 
@@ -130,7 +134,8 @@ class Mod extends Component {
                 <span style={{ marginLeft: '8px', marginTop: '15px' }} className='tag is-danger'>UNAPPROVED</span>
             }
           </div>
-          <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version } &#47;&#47; { mod.author }</code>
+          <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version } &#47;&#47; { mod.author }</code>&nbsp;
+          <code style={{ color: '#060606' }}>{ mod.timestamp }</code>
           <hr />
 
           <div className='content'>
