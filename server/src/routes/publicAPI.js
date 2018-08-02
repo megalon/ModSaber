@@ -88,6 +88,14 @@ router.get('/all/approved/:page?', cache.route(10), async (req, res) => {
   res.send({ mods, lastPage })
 })
 
+router.get('/temp/approved', cache.route(10), async (req, res) => {
+  let { docs, pages } = await Mod.paginate({ approved: true, unpublished: false }, { page: 1, limit: 999999, sort: '-weight' })
+  let mods = await Promise.all(docs.map(mod => mapMod(mod, req)))
+  let lastPage = pages - 1
+
+  res.send({ mods, lastPage })
+})
+
 router.get('/slim/new', cache.route(10), async (req, res) => {
   let mods = await mapModsSlim(await Mod.find({ unpublished: false }))
   res.send(mods)
