@@ -19,7 +19,6 @@ module.exports = {
   RESULTS_PER_PAGE: 5,
   BLOCKED_EXTENSIONS: [
     '.jar',
-    '.exe',
     '.msi',
     '.com',
     '.bat',
