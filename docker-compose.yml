@@ -39,6 +39,8 @@ services:
       - internal
     volumes:
       - mongo:/data/db:rw
+    ports:
+      - '27018:27017'
   redis:
     image: redis:alpine
     restart: 'always'
