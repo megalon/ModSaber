@@ -100,9 +100,11 @@ const mapMod = async (mod, req) => {
   // Insert file URLs to file object
   let { protocol, headers: { host } } = req
   let baseURL = `${protocol}://${host}/cdn`
-  for (let x of Object.entries(files)) {
+
+  let entries = Object.entries(files)
+  for (let x of entries) {
     let [key, value] = x
-    value.url = `${baseURL}/${name}/${version}-${key}.zip`
+    value.url = `${baseURL}/${name}/${version}-${entries.length === 1 ? 'default' : key}.zip`
   }
 
   // Lookup Game Version

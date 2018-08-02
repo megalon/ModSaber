@@ -23,8 +23,6 @@ Here is a list of items floating around that need to get done at some point or a
   * Tagged appropriately
 - [ ] Show upload timestamp
   * Will help people to see when mods were published
-- [ ] Clarify file name if only steam
-  * Users are idiots
 
 ## Known bugs to fix
 *These should be considered critial to get done.*
