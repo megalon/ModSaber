@@ -38,8 +38,12 @@ class FAQ extends Component {
         <h2 className='is-size-3 has-text-weight-semibold'>Who operates ModSaber?</h2>
         <p>
           ModSaber is developed and operated by <code style={{ color: '#060606' }}>lolPants#0001</code> on Discord.<br />
-          Beta testing and creative input was also provided by <code style={{ color: '#060606' }}>Assistant#8431</code>
-          and <code style={{ color: '#060606' }}>williams#0001</code> <span className='icon has-text-danger'>
+          Beta testing and creative input was also provided
+          by <code style={{ color: '#060606' }}>
+            Assistant#8431
+          </code> and <code style={{ color: '#060606' }}>
+            williams#0001
+          </code> <span className='icon has-text-danger'>
             <i className='fas fa-heart' />
           </span><br /><br />
 
