@@ -44,8 +44,10 @@ router.post('/upload', async (req, res) => {
   if (!steam) return res.status(400).send({ field: 'steam' })
 
   let mimes = ['application/zip', 'application/x-zip-compressed', 'multipart/x-zip']
-  if (!mimes.includes(steam.mimetype)) return res.status(400).send({ field: 'steam', error: errors.FILE_WRONG_TYPE })
-  if (oculus) if (!mimes.includes(oculus.mimetype)) return res.status(400).send({ field: 'oculus', error: errors.FILE_WRONG_TYPE })
+  if (!mimes.includes(steam.mimetype)) return res.status(400).send({ field: 'steam', error: errors.FILE_WRONG_TYPE, mime: steam.mimetype })
+  if (oculus) {
+    if (!mimes.includes(oculus.mimetype)) return res.status(400).send({ field: 'oculus', error: errors.FILE_WRONG_TYPE, mime: oculus.mimetype })
+  }
 
   let steamFiles, oculusFiles
   try {
