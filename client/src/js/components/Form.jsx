@@ -326,12 +326,13 @@ class Form extends Component {
             onChange={ e => this.setState({ oculusFile: e.target.files[0], error: {} }) }
           />
 
-          <p className='help is-danger'>
+          <p className='help is-danger' style={{ marginTop: '-7px' }}>
             { this.state.error.field === 'files' ? this.state.error.message : '' }
           </p>
         </div>
 
         <button
+          style={{ marginTop: '7px' }}
           disabled={ this.state.loading }
           className={ `button is-dark is-fullwidth ${this.state.loading ? 'is-loading' : ''}` }
           onClick={ () => this.submitForm() }
