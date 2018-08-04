@@ -213,7 +213,7 @@ class Form extends Component {
           type='text'
           placeholder='Long description text. Supports Markdown.'
           value={ this.state.description }
-          onChange={ e => this.setState({ description: e.target.value.substring(0, 1000) }) }
+          onChange={ e => this.setState({ description: e.target.value.substring(0, 10000) }) }
         />
 
         <div className='field'>
