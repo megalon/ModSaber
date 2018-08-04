@@ -36,6 +36,8 @@ class Form extends Component {
         message: '',
       },
       loading: false,
+
+      preview: null,
     }
 
     this.steamFile = React.createRef()
@@ -50,9 +52,28 @@ class Form extends Component {
 
   componentDidMount () { this.fetchGameVersions() }
 
+  componentWillUnmount () {
+    if (this.state.preview) this.state.preview.close()
+  }
+
   async fetchGameVersions () {
     let gameVersions = await (await fetch(`${BASE_URL}/api/public/gameversions`, { credentials: 'include' })).json()
     this.setState({ gameVersions, gameVersion: gameVersions[0] })
+  }
+
+  showPreviewWindow () {
+    if (this.state.preview) this.state.preview.close()
+    let preview = window.open('/#/preview', '', 'menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes,width=1280,height=720')
+    this.setState({ preview })
+  }
+
+  updateDescription (text) {
+    this.setState({ description: text })
+
+    let { preview } = this.state
+    if (!preview) return false
+
+    preview.postMessage(text, '*')
   }
 
   async addDependency () {
@@ -208,12 +229,14 @@ class Form extends Component {
           onChange={ e => this.setState({ title: e.target.value.substring(0, 50), error: {} }) }
         />
 
+        <label className='label' style={{ marginBottom: '0' }}>
+          Description <a onClick={ () => this.showPreviewWindow() }>[OPEN PREVIEW]</a>
+        </label>
         <FieldArea
-          label='Description'
           type='text'
           placeholder='Long description text. Supports Markdown.'
           value={ this.state.description }
-          onChange={ e => this.setState({ description: e.target.value.substring(0, 10000) }) }
+          onChange={ e => this.updateDescription(e.target.value.substring(0, 10000)) }
         />
 
         <div className='field'>

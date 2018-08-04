@@ -15,6 +15,7 @@ const Register = asyncComponent(() => import('./routes/Register.jsx'))
 const Settings = asyncComponent(() => import('./routes/Settings.jsx'))
 const Admin = asyncComponent(() => import('./routes/Admin.jsx'))
 const Publish = asyncComponent(() => import('./routes/Publish.jsx'))
+const Preview = asyncComponent(() => import('./routes/Preview.jsx'))
 const Transfer = asyncComponent(() => import('./routes/Transfer.jsx'))
 const Mod = asyncComponent(() => import('./routes/Mod.jsx'))
 
@@ -33,6 +34,7 @@ class Router extends Component {
           <Route path='/settings' component={ withContext(Settings) } />
           <Route path='/admin' component={ withContext(Admin) } />
           <Route path='/publish/:name?' component={ withContext(Publish) } />
+          <Route path='/preview' component={ withContext(Preview) } />
           <Route path='/transfer/:name' component={ withContext(Transfer) } />
           <Route path='/mod/:name/:version?' component={ withContext(Mod) } />
           <Route path='/' component={ NotFound } />
