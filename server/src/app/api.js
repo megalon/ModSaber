@@ -53,11 +53,11 @@ const processZIP = async (data, field) => {
     .map(entry => new Promise(resolve => {
       entry.getDataAsync(async buffer => {
         let hash = await calculateHash(buffer)
-        resolve({ path: entry.entryName, hash })
+        resolve({ path: entry.entryName, hash, isDir: entry.isDirectory })
       })
     }))
 
-  let filesArr = await Promise.all(entries)
+  let filesArr = (await Promise.all(entries)).filter(x => !x.isDir)
   if (filesArr.length === 0) throw new ZipException(field, errors.FILE_BLANK)
 
   for (let file of filesArr) {
