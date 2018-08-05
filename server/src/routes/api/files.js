@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs-extra')
 const { Router } = require('express')
 const fileUpload = require('express-fileupload')
+const fileType = require('file-type')
 const semver = require('semver')
 const slugify = require('slugify')
 const { errors, STORE_PATH } = require('../../constants.js')
@@ -43,10 +44,12 @@ router.post('/upload', async (req, res) => {
   // Validate Uploaded Files
   if (!steam) return res.status(400).send({ field: 'steam' })
 
-  let mimes = ['application/zip', 'application/x-zip-compressed', 'multipart/x-zip']
-  if (!mimes.includes(steam.mimetype)) return res.status(400).send({ field: 'steam', error: errors.FILE_WRONG_TYPE, mime: steam.mimetype })
+  let steamType = fileType(steam.data)
+  if (steamType.mime !== 'application/zip') return res.status(400).send({ field: 'steam', error: errors.FILE_WRONG_TYPE, mime: steamType.mime })
+
   if (oculus) {
-    if (!mimes.includes(oculus.mimetype)) return res.status(400).send({ field: 'oculus', error: errors.FILE_WRONG_TYPE, mime: oculus.mimetype })
+    let oculusType = fileType(oculus.data)
+    if (oculusType.mime !== 'application/zip') return res.status(400).send({ field: 'oculus', error: errors.FILE_WRONG_TYPE, mime: oculusType.mime })
   }
 
   let steamFiles, oculusFiles
