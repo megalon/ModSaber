@@ -144,6 +144,7 @@ router.get('/pending', async (req, res) => {
       break
     }
   }
+  filtered.sort((a, b) => new Date(a.created) - new Date(b.created))
 
   let mods = await Promise.all(filtered.map(async mod => {
     let { name, version, author: authorID } = mod
