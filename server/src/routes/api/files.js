@@ -121,6 +121,25 @@ router.post('/upload', async (req, res) => {
   }
 })
 
+router.post('/edit', async (req, res) => {
+  let { name, version, title, description } = req.body
+
+  // Validate Required Fields
+  if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+  if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
+  if (!title) return res.status(400).send({ field: 'title', error: errors.MISSING })
+  if (!description) return res.status(400).send({ field: 'description', error: errors.MISSING })
+
+  let mod = await Mod.findOne({ name, version }).exec()
+  if (!mod) return res.sendStatus(404)
+
+  // Only author and admins can unpublish
+  if (!((mod.author.id.equals(req.user._id.id) || req.user.admin))) return res.sendStatus(401)
+
+  await mod.set({ title, description }).save()
+  res.sendStatus(200)
+})
+
 router.post('/transfer', async (req, res) => {
   let { name, username } = req.body
 
