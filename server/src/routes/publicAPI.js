@@ -113,8 +113,39 @@ router.get('/slim/approved', cache.route(10), async (req, res) => {
 })
 
 router.get('/pending', async (req, res) => {
-  let search = await Mod.find({ approved: false, unpublished: false })
-  let mods = await Promise.all(search.map(async mod => {
+  let search = (await Mod.find({ unpublished: false }))
+    .sort((a, b) => semver.rcompare(a.version, b.version))
+
+  // Setup places to map data
+  let raw = {}
+  let filtered = []
+
+  // Map each mod into own objects
+  for (let mod of search) {
+    if (!raw[mod.name]) raw[mod.name] = []
+    raw[mod.name] = [...raw[mod.name], mod]
+  }
+
+  // Find the most recent unapproved entry
+  for (let pair of Object.entries(raw)) {
+    let [, value] = pair
+
+    for (let i in value) {
+      let mod = value[i]
+
+      // If the most recent version is approved, ignore
+      if (mod.approved && i === '0') break
+
+      // If a mod version is approved, ignore but continue
+      if (mod.approved) continue
+
+      // Find the first version that needs approval and stop searching
+      filtered = [...filtered, mod]
+      break
+    }
+  }
+
+  let mods = await Promise.all(filtered.map(async mod => {
     let { name, version, author: authorID } = mod
 
     let findAuthor = await Account.findById(authorID).exec()
