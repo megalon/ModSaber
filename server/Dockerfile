@@ -18,5 +18,6 @@ COPY . .
 # Start Node.js
 EXPOSE 3000
 VOLUME ["/usr/app/src/store"]
+VOLUME ["/usr/app/src/logs"]
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["node", "."]

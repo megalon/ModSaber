@@ -14,6 +14,7 @@ services:
       - site.env
     volumes:
       - cdn:/usr/app/src/store:rw
+      - ./logs:/usr/app/src/logs:rw
   frontend:
     image: modsaber-frontend
     build: 'client'
