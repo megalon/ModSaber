@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const passport = require('passport')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const log = require('./app/logger.js')
 
 // App Constants
 const { MONGO_URL } = require('./constants.js')
@@ -47,5 +48,6 @@ mongoose.connect(MONGO_URL, { useNewUrlParser: true })
 
 // Listen on port 3000
 app.listen(PORT || 3000, () => {
-  console.log('ModSaber Backend: ONLINE') // eslint-disable-line
+  log.info('------------------------')
+  log.info('ModSaber Backend: ONLINE')
 })
