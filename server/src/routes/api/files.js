@@ -10,6 +10,7 @@ const { processZIP } = require('../../app/api.js')
 const Account = require('../../models/account.js')
 const Mod = require('../../models/mod.js')
 const GameVersion = require('../../models/gameversion.js')
+const log = require('../../app/logger.js')
 
 // Setup Router
 const router = Router() // eslint-disable-line
@@ -114,6 +115,7 @@ router.post('/upload', async (req, res) => {
       conflictsWith,
     })
 
+    log.info(`Mod uploaded - ${name}@${version} [${req.user.username}]`)
     res.sendStatus(200)
   } catch (err) {
     console.error(err)
@@ -137,6 +139,8 @@ router.post('/edit', async (req, res) => {
   if (!((mod.author.id.equals(req.user._id.id) || req.user.admin))) return res.sendStatus(401)
 
   await mod.set({ title, description }).save()
+
+  log.info(`Mod edited - ${name}@${version} [${req.user.username}]`)
   res.sendStatus(200)
 })
 
@@ -159,6 +163,8 @@ router.post('/transfer', async (req, res) => {
   if (!newOwner) return res.sendStatus(403)
 
   await mod.set({ author: newOwner._id }).save()
+
+  log.info(`Mod transferred - Mod: ${name} to ${username} [${req.user.username}]`)
   res.sendStatus(200)
 })
 
@@ -176,6 +182,8 @@ router.post('/unpublish', async (req, res) => {
   if (!((mod.author.id.equals(req.user._id.id) || req.user.admin))) return res.sendStatus(401)
 
   await mod.set({ unpublished: true }).save()
+
+  log.info(`Mod unpublished - ${name}@${version} [${req.user.username}]`)
   res.sendStatus(200)
 })
 

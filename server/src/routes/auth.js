@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const { plusDays, waitForMS, randomToken } = require('../app/helpers.js')
 const Account = require('../models/account.js')
 const mailDriver = require('../mail/drivers.js')
+const log = require('../app/logger.js')
 
 // Setup Router
 const router = Router() // eslint-disable-line
@@ -42,28 +43,32 @@ router.post('/register', (req, res) => {
     const token = jwt.sign({ id, issued: changed, expires }, JWT_SECRET)
     res.cookie(COOKIE_NAME, token, { expires, httpOnly: true })
 
+    log.info(`Registering new account [${username}]`)
     res.sendStatus(200)
   })
 })
 
 router.post('/login', passport.authenticate('local', { session: false }), (req, res) => {
-  let { id } = req.user
+  let { id, username } = req.user
   let issued = new Date()
   let expires = plusDays(7)
 
   const token = jwt.sign({ id, issued, expires }, JWT_SECRET)
   res.cookie(COOKIE_NAME, token, { expires, httpOnly: true })
 
+  log.info(`Auth token issued for login [${username}]`)
   res.sendStatus(200)
 })
 
 // Verify Account
 router.get('/verify/:token', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user.verified) return res.redirect('/')
+  let { verified, verifyToken, id, username } = req.user
+  if (verified) return res.redirect('/')
 
   let { token } = req.params
-  if (req.user.verifyToken === token) await Account.findByIdAndUpdate(req.user.id, { $set: { verified: true } }).exec()
+  if (verifyToken === token) await Account.findByIdAndUpdate(id, { $set: { verified: true } }).exec()
 
+  log.info(`User account verified [${username}]`)
   res.redirect('/')
 })
 
@@ -82,12 +87,13 @@ router.post('/password/change', passport.authenticate('jwt', { session: false })
     await user.set({ changed }).save()
     await waitForMS(100)
 
-    let { id } = req.user
+    let { id, username } = req.user
     let expires = plusDays(7)
 
     const token = jwt.sign({ id, issued: changed, expires }, JWT_SECRET)
     res.cookie(COOKIE_NAME, token, { expires, httpOnly: true })
 
+    log.error(`User password changed [${username}]`)
     res.sendStatus(200)
   } catch (err) {
     if (err.name === 'IncorrectPasswordError') return res.sendStatus(401)
@@ -123,6 +129,7 @@ router.post('/email/change', passport.authenticate('jwt', { session: false }), a
     let verifyURL = `${protocol}://${host}/auth/verify/${verifyToken}`
     mail.sendVerification(user.username, email, verifyURL)
 
+    log.info(`User email changed [${req.user.username}]`)
     res.sendStatus(200)
   } catch (err) {
     console.error(err)

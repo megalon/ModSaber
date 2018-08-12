@@ -3,6 +3,7 @@ const { errors } = require('../../constants.js')
 const Account = require('../../models/account.js')
 const Mod = require('../../models/mod.js')
 const GameVersion = require('../../models/gameversion.js')
+const log = require('../../app/logger.js')
 
 // Environment Variables
 const { ADMIN_USERNAME } = process.env
@@ -26,6 +27,8 @@ router.post('/gameversion', async (req, res) => {
   try {
     date = new Date(Number.parseInt(date) ? Number.parseInt(date) : date)
     await GameVersion.create({ value, manifest, date })
+
+    log.info(`Game Version issued - Value: ${value} // Manifest: ${manifest} [${req.user.username}]`)
     res.sendStatus(200)
   } catch (err) {
     console.error(err)
@@ -66,6 +69,7 @@ router.post('/admins/modify', async (req, res) => {
   let admin = action === 'promote'
   await user.set({ admin }).save()
 
+  log.info(`Admin status modified - User: ${username} // Action - ${action} [${req.user.username}]`)
   res.sendStatus(200)
 })
 
@@ -83,6 +87,8 @@ router.post('/approve/:name/:version', async (req, res) => {
     if (!mod) return res.sendStatus(404)
 
     await mod.set({ approved: true }).save()
+
+    log.info(`Approval granted - Name: ${name} // Version: ${version} [${req.user.username}]`)
     res.sendStatus(200)
   } catch (err) {
     console.error(err)
@@ -98,6 +104,8 @@ router.post('/revoke/:name/:version', async (req, res) => {
     if (!mod) return res.sendStatus(404)
 
     await mod.set({ approved: false }).save()
+
+    log.info(`Approval revoked - Name: ${name} // Version: ${version} [${req.user.username}]`)
     res.sendStatus(200)
   } catch (err) {
     console.error(err)
@@ -120,6 +128,8 @@ router.post('/weight/:name/:version', async (req, res) => {
     if (!mod) return res.sendStatus(404)
 
     await mod.set({ weight }).save()
+
+    log.info(`Mod weight set - Name: ${name} // Version: ${version} // Weight: ${weight} [${req.user.username}]`)
     res.sendStatus(200)
   } catch (err) {
     console.error(err)
