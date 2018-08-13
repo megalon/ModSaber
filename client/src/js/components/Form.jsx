@@ -50,10 +50,37 @@ class Form extends Component {
     history: PropTypes.any,
   }
 
-  componentDidMount () { this.fetchGameVersions() }
+  componentDidMount () {
+    this.fetchGameVersions()
+
+    if (!this.props.details.name) {
+      let draft = localStorage.getItem('draft')
+      if (!draft) return true
+
+      let { name, version, title, description, set: s } = JSON.parse(draft)
+
+      let now = new Date()
+      let set = new Date(s)
+      set.setMinutes(set.getMinutes() + 5)
+      if (set < now) return true
+
+      this.setState({ name, version, title, description })
+    }
+  }
 
   componentWillUnmount () {
     if (this.state.preview) this.state.preview.close()
+  }
+
+  componentDidUpdate (_, prevState) {
+    let { name, version, title, description } = this.state
+
+    if (prevState.name !== name) {
+      localStorage.clear('draft')
+      return false
+    }
+
+    localStorage.setItem('draft', JSON.stringify({ name, version, title, description, set: new Date() }))
   }
 
   async fetchGameVersions () {
@@ -165,6 +192,7 @@ class Form extends Component {
       })
 
       if (resp.status === 200) {
+        localStorage.clear('draft')
         setTimeout(() => {
         // Sometimes needs time to finish
           this.props.history.push(`/mod/${this.state.name}/${semver.coerce(this.state.version)}`)
