@@ -30,6 +30,15 @@ strong {
   display: none;
 }
 
+.pagination-previous, .pagination-next, .pagination-link {
+  color: white;
+}
+
+.pagination-previous:hover, .pagination-next:hover, .pagination-link:hover {
+  background-color: whitesmoke;
+  color: #363636;
+}
+
 .gameversion-list > input {
   border-radius: 0;
   border-color: #6f6f6f !important;
