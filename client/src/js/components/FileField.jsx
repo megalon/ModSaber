@@ -10,10 +10,20 @@ class FileField extends Component {
     file: PropTypes.any.isRequired,
   }
 
+  handleDrop (e) {
+    e.preventDefault()
+    e.stopPropagation()
+    this.props.onChange({ target: e.nativeEvent.dataTransfer })
+  }
+
   render () {
     return (
       <div className={ `file has-name is-fullwidth ${this.props.isHidden ? 'is-invis' : ''}` } style={{ marginBottom: '10px' }}>
-        <label className='file-label'>
+        <label className='file-label'
+          onDrop={ e => this.handleDrop(e) }
+          onDragOver={ e => e.preventDefault() }
+          onDragEnter={ e => e.preventDefault() }
+        >
           <input
             className='file-input'
             type='file'
