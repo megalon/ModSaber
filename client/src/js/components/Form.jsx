@@ -211,9 +211,10 @@ class Form extends Component {
         }
 
         if (resp.status === 400) {
-          if (json.error === 'file_wrong_type') return this.isError('files', `File is not a .zip, you uploaded ${json.mime}`)
-          if (json.error === 'file_blank') return this.isError('files', '.zip must contain at least one file')
-          if (json.error === 'file_contains_blocked') return this.isError('files', '.zip contains blocked files')
+          let field = this.state.hasOculusFile ? json.field.charAt(0).toUpperCase() + json.field.slice(1) : 'Uploaded'
+          if (json.error === 'file_wrong_type') return this.isError('files', `${field} file is not a .zip, you uploaded ${json.mime}`)
+          if (json.error === 'file_blank') return this.isError('files', `${field} .zip must contain at least one file`)
+          if (json.error === 'file_contains_blocked') return this.isError('files', `${field} .zip contains blocked files`)
         }
       } catch (err) {
       // Silently fail lol
