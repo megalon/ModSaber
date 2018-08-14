@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import nothis from 'nothis/nothisAll'
 
 import { BASE_URL } from './constants.js'
 const { Provider, Consumer } = React.createContext()
@@ -7,53 +8,54 @@ const { Provider, Consumer } = React.createContext()
 export class UserProvider extends Component {
   constructor (props) {
     super(props)
+    nothis(this)
+  }
 
-    this.state = {
-      loggedIn: false,
-      user: {},
-      alert: null,
-    }
-
-    this.refresh()
+  state = {
+    loggedIn: false,
+    user: {},
+    alert: null,
   }
 
   static propTypes = {
     children: PropTypes.node.isRequired,
   }
 
-  refresh () {
-    this.loadUserState()
-    this.loadAlerts()
+  componentDidMount ({ refresh }) {
+    refresh()
   }
 
-  async loadUserState () {
+  refresh ({ loadUserState, loadAlerts }) {
+    loadUserState()
+    loadAlerts()
+  }
+
+  async loadUserState ({ setState }) {
     try {
       let user = await (await fetch(`${BASE_URL}/api/secure/self`, { credentials: 'include' })).json()
-      this.setState({ loggedIn: true, user })
+      setState({ loggedIn: true, user })
     } catch (err) {
-      this.setState({ loggedIn: false, user: {} })
+      setState({ loggedIn: false, user: {} })
     }
   }
 
-  async loadAlerts () {
+  async loadAlerts ({ setState }) {
     try {
       let { alert } = await (await fetch(`${BASE_URL}/api/public/alert`, { credentials: 'include' })).json()
-      this.setState({ alert })
+      setState({ alert })
     } catch (err) {
       // Silently Fail
     }
   }
 
-  render () {
-    const { children } = this.props
-
+  render ({ refresh, state, props: { children } }) {
     return (
       <Provider
         value={{
-          loggedIn: this.state.loggedIn,
-          user: this.state.user,
-          alert: this.state.alert,
-          refresh: () => { this.refresh() },
+          loggedIn: state.loggedIn,
+          user: state.user,
+          alert: state.alert,
+          refresh: () => { refresh() },
         }}
       >
         {children}
