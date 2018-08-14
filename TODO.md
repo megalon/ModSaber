@@ -7,6 +7,9 @@ Here is a list of items floating around that need to get done at some point or a
 - [ ] Dependencies and Conflicts with versions
   * Use semver ranges
 - [ ] One-liner short description for the mod installer
+- [ ] Refactor JSX files
+  * Organise into folders
+  * Add `NoThis` support to turn all classes pure
 
 ## Backburner
 *These will probably get done eventually, but aren't quite important enough to do immediately. Some of these might end up being scrapped anyway.*
