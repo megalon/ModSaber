@@ -1,23 +1,18 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import { UserConsumer } from '../Context.jsx'
 import { MESSAGE_UNVERIFIED } from '../constants.js'
 
-class Alert extends Component {
-  render () {
-    return (
-      <UserConsumer>
-        { ({ loggedIn, user: { verified }, alert }) => {
-          if (!verified && loggedIn) return <AlertBox text={ MESSAGE_UNVERIFIED } />
+const Alert = () =>
+  <UserConsumer>
+    { ({ loggedIn, user: { verified }, alert }) => {
+      if (!verified && loggedIn) return <AlertBox text={ MESSAGE_UNVERIFIED } />
 
-          if (alert) return <AlertBox text={ alert } />
-          else return null
-        } }
-      </UserConsumer>
-    )
-  }
-}
+      if (alert) return <AlertBox text={ alert } />
+      else return null
+    } }
+  </UserConsumer>
 
 const AlertBox = props => {
   let text = props.text.split('\n').map((line, i) => <span key={ i }>{ line }<br /></span>)

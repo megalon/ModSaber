@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 
 import asyncComponent from './components/AsyncComponent.jsx'
@@ -20,30 +20,25 @@ const Edit = asyncComponent(() => import('./routes/Edit.jsx'))
 const Transfer = asyncComponent(() => import('./routes/Transfer.jsx'))
 const Mod = asyncComponent(() => import('./routes/Mod.jsx'))
 
-class Router extends Component {
-  render () {
-    return (
-      <HashRouter>
-        <Switch>
-          <Route exact path='/' component={ Home } />
-          <Route path='/faq' component={ withContext(FAQ) } />
-          <Route path='/privacy' component={ withContext(PrivacyPolicy) } />
-          <Route path='/login' component={ withContext(Login) } />
-          <Route path='/forgot' component={ withContext(Forgot) } />
-          <Route path='/reset/:username/:resetToken' component={ withContext(Reset) } />
-          <Route path='/register' component={ withContext(Register) } />
-          <Route path='/settings' component={ withContext(Settings) } />
-          <Route path='/admin' component={ withContext(Admin) } />
-          <Route path='/publish/:name?' component={ withContext(Publish) } />
-          <Route path='/preview' component={ withContext(Preview) } />
-          <Route path='/edit/:name/:version' component={ withContext(Edit) } />
-          <Route path='/transfer/:name' component={ withContext(Transfer) } />
-          <Route path='/mod/:name/:version?' component={ withContext(Mod) } />
-          <Route path='/' component={ NotFound } />
-        </Switch>
-      </HashRouter>
-    )
-  }
-}
+const Router = () =>
+  <HashRouter>
+    <Switch>
+      <Route exact path='/' component={ Home } />
+      <Route path='/faq' component={ withContext(FAQ) } />
+      <Route path='/privacy' component={ withContext(PrivacyPolicy) } />
+      <Route path='/login' component={ withContext(Login) } />
+      <Route path='/forgot' component={ withContext(Forgot) } />
+      <Route path='/reset/:username/:resetToken' component={ withContext(Reset) } />
+      <Route path='/register' component={ withContext(Register) } />
+      <Route path='/settings' component={ withContext(Settings) } />
+      <Route path='/admin' component={ withContext(Admin) } />
+      <Route path='/publish/:name?' component={ withContext(Publish) } />
+      <Route path='/preview' component={ withContext(Preview) } />
+      <Route path='/edit/:name/:version' component={ withContext(Edit) } />
+      <Route path='/transfer/:name' component={ withContext(Transfer) } />
+      <Route path='/mod/:name/:version?' component={ withContext(Mod) } />
+      <Route path='/' component={ NotFound } />
+    </Switch>
+  </HashRouter>
 
 export default Router
