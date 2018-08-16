@@ -10,9 +10,6 @@ Here is a list of items floating around that need to get done at some point or a
   * API picks out the current release of the mod, saves that as a dependency
   * Mod installer 
 - [ ] One-liner short description for the mod installer
-- [ ] Refactor JSX files
-  * ~~Organise into folders~~
-  * Add `NoThis` support to turn all classes pure
 
 ## Big Refactor:
 - [ ] Add API Versioning

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import nothis from 'nothis/nothisAll'
 
 import { BASE_URL } from './constants.js'
 const { Provider, Consumer } = React.createContext()
@@ -8,47 +7,46 @@ const { Provider, Consumer } = React.createContext()
 export class UserProvider extends Component {
   constructor (props) {
     super(props)
-    nothis(this)
-  }
 
-  state = {
-    loggedIn: false,
-    user: {},
-    alert: null,
+    this.state = {
+      loggedIn: false,
+      user: {},
+      alert: null,
+    }
   }
 
   static propTypes = {
     children: PropTypes.node.isRequired,
   }
 
-  componentDidMount ({ refresh }) {
-    refresh()
+  componentDidMount () { this.refresh() }
+
+  refresh () {
+    this.loadUserState()
+    this.loadAlerts()
   }
 
-  refresh ({ loadUserState, loadAlerts }) {
-    loadUserState()
-    loadAlerts()
-  }
-
-  async loadUserState ({ setState }) {
+  async loadUserState () {
     try {
       let user = await (await fetch(`${BASE_URL}/api/secure/self`, { credentials: 'include' })).json()
-      setState({ loggedIn: true, user })
+      this.setState({ loggedIn: true, user })
     } catch (err) {
-      setState({ loggedIn: false, user: {} })
+      this.setState({ loggedIn: false, user: {} })
     }
   }
 
-  async loadAlerts ({ setState }) {
+  async loadAlerts () {
     try {
       let { alert } = await (await fetch(`${BASE_URL}/api/public/alert`, { credentials: 'include' })).json()
-      setState({ alert })
+      this.setState({ alert })
     } catch (err) {
       // Silently Fail
     }
   }
 
-  render ({ refresh, state, props: { children } }) {
+  render () {
+    let { refresh, state, props: { children } } = this
+
     return (
       <Provider
         value={{
