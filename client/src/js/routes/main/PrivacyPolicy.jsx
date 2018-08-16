@@ -1,7 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 
-import MainPage from '../../components/MainPage.jsx'
+import MainPage from '../../components/layout/MainPage.jsx'
 
 const PrivacyPolicy = props =>
   <MainPage {...props} title='Privacy'>

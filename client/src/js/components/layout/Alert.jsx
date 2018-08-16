@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { UserConsumer } from '../Context.jsx'
-import { MESSAGE_UNVERIFIED } from '../constants.js'
+import { MESSAGE_UNVERIFIED } from '../../constants'
+import { UserConsumer } from '../../Context.jsx'
 
 const Alert = () =>
   <UserConsumer>

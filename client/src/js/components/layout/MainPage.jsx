@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import Layout from '../components/Layout.jsx'
+import Layout from './Layout.jsx'
 
 const MainPage = props =>
   <Layout {...props} >

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { BASE_URL, ADMIN } from '../constants.js'
-import Field from './Field.jsx'
+import { BASE_URL, ADMIN } from '../../constants.js'
+import Field from '../form/Field.jsx'
 
 class AddGameVersion extends Component {
   constructor (props) {

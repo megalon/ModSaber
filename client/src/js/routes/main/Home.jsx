@@ -4,8 +4,8 @@ import { Helmet } from 'react-helmet'
 import * as chunk from 'chunk'
 
 import { BASE_URL } from '../../constants.js'
-import MainPage from '../../components/MainPage.jsx'
-import Paginator from '../../components/Paginator.jsx'
+import MainPage from '../../components/layout/MainPage.jsx'
+import Paginator from '../../components/layout/Paginator.jsx'
 
 class Home extends Component {
   constructor (props) {

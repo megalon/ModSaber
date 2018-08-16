@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as semver from 'semver'
 
-import { BASE_URL, sanitise } from '../constants.js'
+import { BASE_URL, sanitise } from '../../constants.js'
 import Field, { FieldArea, FieldAddon } from './Field.jsx'
 import FileField from './FileField.jsx'
 

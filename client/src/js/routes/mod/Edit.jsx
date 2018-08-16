@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
 import { BASE_URL } from '../../constants.js'
-import Layout from '../../components/Layout.jsx'
-import Field, { FieldArea } from '../../components/Field.jsx'
+import Layout from '../../components/layout/Layout.jsx'
+import Field, { FieldArea } from '../../components/form/Field.jsx'
 
 class Edit extends Component {
   constructor (props) {

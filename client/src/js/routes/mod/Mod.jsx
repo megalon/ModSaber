@@ -7,8 +7,8 @@ import PropTypes from 'prop-types'
 import { BASE_URL } from '../../constants.js'
 
 import NotFound from '../NotFound.jsx'
-import SweetAlert from '../../components/AsyncSwal.jsx'
-import Layout from '../../components/Layout.jsx'
+import SweetAlert from '../../components/hoc/AsyncSwal.jsx'
+import Layout from '../../components/layout/Layout.jsx'
 
 class Mod extends Component {
   constructor (props) {

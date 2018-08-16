@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
-import Layout from '../components/Layout.jsx'
+import Layout from '../components/layout/Layout.jsx'
 
 const NotFound = props =>
   <Layout history={ props.history } >

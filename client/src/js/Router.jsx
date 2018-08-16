@@ -1,8 +1,8 @@
 import React from 'react'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 
-import asyncComponent from './components/AsyncComponent.jsx'
-import withContext from './components/WithContext.jsx'
+import asyncComponent from './components/hoc/AsyncComponent.jsx'
+import withContext from './components/hoc/WithContext.jsx'
 
 import Home from './routes/main/Home.jsx'
 const NotFound = asyncComponent(() => import('./routes/NotFound.jsx'))

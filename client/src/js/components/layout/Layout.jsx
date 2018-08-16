@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import withContext from './WithContext.jsx'
+import withContext from '../hoc/WithContext.jsx'
 
 import navbar from './Navbar.jsx'
 import Alert from './Alert.jsx'

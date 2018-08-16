@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
 import { BASE_URL, AUTH, sanitise } from '../../constants.js'
-import SweetAlert from '../../components/AsyncSwal.jsx'
-import Layout from '../../components/Layout.jsx'
-import Field from '../../components/Field.jsx'
+import SweetAlert from '../../components/hoc/AsyncSwal.jsx'
+import Layout from '../../components/layout/Layout.jsx'
+import Field from '../../components/form/Field.jsx'
 
 class Transfer extends Component {
   constructor (props) {

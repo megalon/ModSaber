@@ -4,8 +4,8 @@ import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
 import { BASE_URL, AUTH, sanitise } from '../../constants.js'
-import Layout from '../../components/Layout.jsx'
-import Field from '../../components/Field.jsx'
+import Layout from '../../components/layout/Layout.jsx'
+import Field from '../../components/form/Field.jsx'
 
 class Login extends Component {
   constructor (props) {

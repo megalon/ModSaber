@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { BASE_URL, AUTH, sanitise } from '../constants.js'
-import Field from './Field.jsx'
+import { BASE_URL, AUTH, sanitise } from '../../constants.js'
+import Field from '../form/Field.jsx'
 
 class ManageAdmins extends Component {
   constructor (props) {

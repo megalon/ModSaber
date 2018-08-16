@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
 import { BASE_URL, AUTH } from '../../constants.js'
-import Layout from '../../components/Layout.jsx'
-import Field from '../../components/Field.jsx'
+import Layout from '../../components/layout/Layout.jsx'
+import Field from '../../components/form/Field.jsx'
 
 class Reset extends Component {
   constructor (props) {
