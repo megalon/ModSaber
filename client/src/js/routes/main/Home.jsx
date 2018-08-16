@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import * as chunk from 'chunk'
 
-import { BASE_URL } from '../constants.js'
-import MainPage from '../components/MainPage.jsx'
-import Paginator from '../components/Paginator.jsx'
+import { BASE_URL } from '../../constants.js'
+import MainPage from '../../components/MainPage.jsx'
+import Paginator from '../../components/Paginator.jsx'
 
 class Home extends Component {
   constructor (props) {

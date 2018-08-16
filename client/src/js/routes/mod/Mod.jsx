@@ -4,11 +4,11 @@ import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { BASE_URL } from '../constants.js'
+import { BASE_URL } from '../../constants.js'
 
-import NotFound from './NotFound.jsx'
-import SweetAlert from '../components/AsyncSwal.jsx'
-import Layout from '../components/Layout.jsx'
+import NotFound from '../NotFound.jsx'
+import SweetAlert from '../../components/AsyncSwal.jsx'
+import Layout from '../../components/Layout.jsx'
 
 class Mod extends Component {
   constructor (props) {

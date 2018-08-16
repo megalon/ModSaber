@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
-import Layout from '../components/Layout.jsx'
-import ChangeEmail from '../components/ChangeEmail.jsx'
-import ChangePassword from '../components/ChangePassword.jsx'
+import Layout from '../../components/Layout.jsx'
+import ChangeEmail from '../../components/ChangeEmail.jsx'
+import ChangePassword from '../../components/ChangePassword.jsx'
 
 class Settings extends Component {
   static propTypes = {

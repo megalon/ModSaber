@@ -4,21 +4,24 @@ import { HashRouter, Switch, Route } from 'react-router-dom'
 import asyncComponent from './components/AsyncComponent.jsx'
 import withContext from './components/WithContext.jsx'
 
-import Home from './routes/Home.jsx'
+import Home from './routes/main/Home.jsx'
 const NotFound = asyncComponent(() => import('./routes/NotFound.jsx'))
-const FAQ = asyncComponent(() => import('./routes/FAQ.jsx'))
-const PrivacyPolicy = asyncComponent(() => import('./routes/PrivacyPolicy.jsx'))
-const Login = asyncComponent(() => import('./routes/Login.jsx'))
-const Forgot = asyncComponent(() => import('./routes/Forgot.jsx'))
-const Reset = asyncComponent(() => import('./routes/Reset.jsx'))
-const Register = asyncComponent(() => import('./routes/Register.jsx'))
-const Settings = asyncComponent(() => import('./routes/Settings.jsx'))
-const Admin = asyncComponent(() => import('./routes/Admin.jsx'))
-const Publish = asyncComponent(() => import('./routes/Publish.jsx'))
-const Preview = asyncComponent(() => import('./routes/Preview.jsx'))
-const Edit = asyncComponent(() => import('./routes/Edit.jsx'))
-const Transfer = asyncComponent(() => import('./routes/Transfer.jsx'))
-const Mod = asyncComponent(() => import('./routes/Mod.jsx'))
+const FAQ = asyncComponent(() => import('./routes/main/FAQ.jsx'))
+const PrivacyPolicy = asyncComponent(() => import('./routes/main/PrivacyPolicy.jsx'))
+
+const Login = asyncComponent(() => import('./routes/login/Login.jsx'))
+const Forgot = asyncComponent(() => import('./routes/login/Forgot.jsx'))
+const Reset = asyncComponent(() => import('./routes/login/Reset.jsx'))
+const Register = asyncComponent(() => import('./routes/login/Register.jsx'))
+
+const Mod = asyncComponent(() => import('./routes/mod/Mod.jsx'))
+const Publish = asyncComponent(() => import('./routes/mod/Publish.jsx'))
+const Preview = asyncComponent(() => import('./routes/mod/Preview.jsx'))
+const Edit = asyncComponent(() => import('./routes/mod/Edit.jsx'))
+const Transfer = asyncComponent(() => import('./routes/mod/Transfer.jsx'))
+
+const Settings = asyncComponent(() => import('./routes/user/Settings.jsx'))
+const Admin = asyncComponent(() => import('./routes/user/Admin.jsx'))
 
 const Router = () =>
   <HashRouter>
@@ -26,17 +29,21 @@ const Router = () =>
       <Route exact path='/' component={ Home } />
       <Route path='/faq' component={ withContext(FAQ) } />
       <Route path='/privacy' component={ withContext(PrivacyPolicy) } />
+
       <Route path='/login' component={ withContext(Login) } />
       <Route path='/forgot' component={ withContext(Forgot) } />
       <Route path='/reset/:username/:resetToken' component={ withContext(Reset) } />
       <Route path='/register' component={ withContext(Register) } />
-      <Route path='/settings' component={ withContext(Settings) } />
-      <Route path='/admin' component={ withContext(Admin) } />
+
+      <Route path='/mod/:name/:version?' component={ withContext(Mod) } />
       <Route path='/publish/:name?' component={ withContext(Publish) } />
       <Route path='/preview' component={ withContext(Preview) } />
       <Route path='/edit/:name/:version' component={ withContext(Edit) } />
       <Route path='/transfer/:name' component={ withContext(Transfer) } />
-      <Route path='/mod/:name/:version?' component={ withContext(Mod) } />
+
+      <Route path='/settings' component={ withContext(Settings) } />
+      <Route path='/admin' component={ withContext(Admin) } />
+
       <Route path='/' component={ NotFound } />
     </Switch>
   </HashRouter>

@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
-import Layout from '../components/Layout.jsx'
-import AddGameVersion from '../components/AddGameVersion.jsx'
-import ViewPending from '../components/ManageAdmins.jsx'
-import ManageAdmins from '../components/ViewPending.jsx'
+import Layout from '../../components/Layout.jsx'
+import AddGameVersion from '../../components/AddGameVersion.jsx'
+import ViewPending from '../../components/ManageAdmins.jsx'
+import ManageAdmins from '../../components/ViewPending.jsx'
 
 class Admin extends Component {
   constructor (props) {

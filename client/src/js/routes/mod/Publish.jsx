@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
-import { BASE_URL } from '../constants.js'
-import Layout from '../components/Layout.jsx'
-import Form from '../components/Form.jsx'
+import { BASE_URL } from '../../constants.js'
+import Layout from '../../components/Layout.jsx'
+import Form from '../../components/Form.jsx'
 
 class Publish extends Component {
   constructor (props) {

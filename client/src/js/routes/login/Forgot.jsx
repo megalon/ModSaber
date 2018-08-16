@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
-import { BASE_URL, AUTH } from '../constants.js'
-import Layout from '../components/Layout.jsx'
-import Field from '../components/Field.jsx'
+import { BASE_URL, AUTH } from '../../constants.js'
+import Layout from '../../components/Layout.jsx'
+import Field from '../../components/Field.jsx'
 
 class Forgot extends Component {
   constructor (props) {
