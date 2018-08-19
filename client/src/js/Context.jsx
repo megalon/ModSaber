@@ -45,15 +45,15 @@ export class UserProvider extends Component {
   }
 
   render () {
-    let { refresh, state, props: { children } } = this
+    const { children } = this.props
 
     return (
       <Provider
         value={{
-          loggedIn: state.loggedIn,
-          user: state.user,
-          alert: state.alert,
-          refresh: () => { refresh() },
+          loggedIn: this.state.loggedIn,
+          user: this.state.user,
+          alert: this.state.alert,
+          refresh: () => { this.refresh() },
         }}
       >
         {children}
