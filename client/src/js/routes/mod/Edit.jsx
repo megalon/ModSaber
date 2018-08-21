@@ -57,7 +57,7 @@ class Edit extends Component {
   }
 
   updateDescription (text) {
-    this.setState({ description: text })
+    this.setState({ description: text, error: '' })
 
     let { preview } = this.state
     if (!preview) return false
@@ -134,7 +134,7 @@ class Edit extends Component {
                 placeholder='Mod Title. Shown on pages and in the mod installer.'
                 prompt={ this.state.error }
                 value={ this.state.title }
-                onChange={ e => this.setState({ title: e.target.value.substring(0, 50), error: {} }) }
+                onChange={ e => this.setState({ title: e.target.value.substring(0, 50), error: '' }) }
               />
 
               <label className='label' style={{ marginBottom: '0' }}>
