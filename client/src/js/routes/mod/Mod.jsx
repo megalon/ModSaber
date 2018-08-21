@@ -9,6 +9,7 @@ import { BASE_URL } from '../../constants.js'
 import NotFound from '../NotFound.jsx'
 import SweetAlert from '../../components/hoc/AsyncSwal.jsx'
 import Layout from '../../components/layout/Layout.jsx'
+import CodeBlock from '../../components/layout/CodeBlock.jsx'
 
 class Mod extends Component {
   constructor (props) {
@@ -189,7 +190,7 @@ class Mod extends Component {
               </div>
 
               <div className='column is-10'>
-                <ReactMarkdown source={ mod.description } />
+                <ReactMarkdown source={ mod.description } renderers={{ code: CodeBlock }} />
               </div>
             </div>
           </div>
