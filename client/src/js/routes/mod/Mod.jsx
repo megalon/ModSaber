@@ -25,6 +25,8 @@ class Mod extends Component {
       modalText: '',
       modalType: 'warning',
       modalConfirm: null,
+
+      gameVersions: [],
     }
   }
 
@@ -81,7 +83,12 @@ class Mod extends Component {
   checkUser () {
     let showControls = this.props.context.user.id === this.state.mod.authorID ||
       this.props.context.user.admin
-    this.setState({ showControls })
+    this.setState({ showControls }, () => this.fetchGameVersions())
+  }
+
+  async fetchGameVersions () {
+    let gameVersions = await (await fetch(`${BASE_URL}/api/public/gameversions`, { credentials: 'include' })).json()
+    this.setState({ gameVersions })
   }
 
   async toggleApproval () {
@@ -120,6 +127,10 @@ class Mod extends Component {
     if (this.state.loaded && this.state.mod.name === undefined) return <NotFound history={ this.props.history } />
 
     let { mod } = this.state
+    let isLatest = this.state.gameVersions[0] ?
+      mod.gameVersion === this.state.gameVersions[0].value :
+      false
+
     return (
       <Fragment>
         <Layout history={ this.props.history } >
@@ -136,7 +147,7 @@ class Mod extends Component {
             }
           </div>
           <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version } &#47;&#47; { mod.author }</code>&nbsp;
-          <code style={{ color: '#060606' }}>{ mod.gameVersion }</code>&nbsp;
+          <code style={{ color: isLatest ? '#060606' : '', fontWeight: isLatest ? '' : 'bold' }}>{ mod.gameVersion }</code>&nbsp;
           <code style={{ color: '#060606' }}>{ mod.timestamp }</code>
           <hr />
 
