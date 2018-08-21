@@ -135,6 +135,7 @@ class Mod extends Component {
             }
           </div>
           <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version } &#47;&#47; { mod.author }</code>&nbsp;
+          <code style={{ color: '#060606' }}>{ mod.gameVersion }</code>&nbsp;
           <code style={{ color: '#060606' }}>{ mod.timestamp }</code>
           <hr />
 
