@@ -19,6 +19,11 @@ class Preview extends Component {
   static propTypes = { history: PropTypes.any }
 
   render () {
+    const canUseDOM = !!(
+      (typeof window !== 'undefined' &&
+      window.document && window.document.createElement)
+    )
+
     return (
       <Fragment>
         <Helmet>
@@ -30,7 +35,11 @@ class Preview extends Component {
           <hr />
 
           <div className='content'>
-            <ReactMarkdown source={ this.state.text } renderers={{ code: CodeBlock }} />
+            {
+              canUseDOM ?
+                <ReactMarkdown source={ this.state.text } renderers={{ code: CodeBlock }} /> :
+                null
+            }
           </div>
         </div>
       </Fragment>
