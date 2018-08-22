@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { UserProvider } from './Context.jsx'
-import Router from './Router.jsx'
+import Routes from './Routes.jsx'
 
 const App = () =>
   <div className='has-text-white'>
     <UserProvider>
-      <Router />
+      <Routes />
     </UserProvider>
   </div>
 
