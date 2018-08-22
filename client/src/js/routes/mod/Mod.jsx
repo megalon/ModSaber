@@ -125,6 +125,7 @@ class Mod extends Component {
 
   render () {
     if (this.state.loaded && this.state.mod.name === undefined) return <NotFound history={ this.props.history } />
+    let { name, version } = this.props.match.params
 
     let { mod } = this.state
     let isLatest = this.state.gameVersions[0] ?
@@ -140,7 +141,9 @@ class Mod extends Component {
       <Fragment>
         <Layout history={ this.props.history } >
           <Helmet>
-            <title>{ `ModSaber | ${mod.title}@${mod.version}` }</title>
+            <title>{ this.state.loaded ?
+              `ModSaber | ${mod.name}@${mod.version}` :
+              `ModSaber | ${name}@${version}` }</title>
           </Helmet>
 
           <div className='mod-titles'>
