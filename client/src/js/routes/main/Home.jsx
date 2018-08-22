@@ -19,10 +19,29 @@ class Home extends Component {
 
   componentDidMount () { this.loadMods() }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (this.props.match.params !== prevProps.match.params) {
+      let pageProp = this.props.match.params.page || 0
+      const page = Math.min(Math.max(pageProp, 0), this.state.mods.length - 1)
+
+      this.setState({ page })
+      return undefined
+    }
+
+    if (prevState.page !== this.state.page) {
+      const history = this.state.page === 0 ? '/' : `/mods/${this.state.page}`
+      this.props.history.replace(history)
+    }
+  }
+
   async loadMods () {
     let mods = await (await fetch(`${BASE_URL}/api/public/slim/approved`)).json()
     mods = chunk(mods, 5)
-    this.setState({ mods })
+
+    let pageProp = this.props.match.params.page || 0
+    const page = Math.min(Math.max(pageProp, 0), mods.length - 1)
+
+    this.setState({ mods, page })
   }
 
   prevPage () {
@@ -53,7 +72,11 @@ class Home extends Component {
     return (
       <MainPage {...this.props}>
         <Helmet>
-          <title>ModSaber</title>
+          <title>{
+            this.state.page === 0 ?
+              'ModSaber' :
+              `ModSaber | Page ${this.state.page + 1}`
+          }</title>
         </Helmet>
 
         {

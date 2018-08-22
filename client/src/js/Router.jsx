@@ -27,6 +27,7 @@ const Router = () =>
   <HashRouter>
     <Switch>
       <Route exact path='/' component={ Home } />
+      <Route exact path='/mods/:page?' component={ Home } />
       <Route path='/faq' component={ withContext(FAQ) } />
       <Route path='/privacy' component={ withContext(PrivacyPolicy) } />
 
