@@ -21,8 +21,8 @@ services:
     restart: always
     networks:
       - proxy
-    logging:
-      driver: none
+    # logging:
+    #   driver: none
   proxy:
     image: nginx
     restart: always
