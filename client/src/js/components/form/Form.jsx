@@ -91,7 +91,7 @@ class Form extends Component {
 
   showPreviewWindow () {
     if (this.state.preview) this.state.preview.close()
-    let preview = window.open('/#/preview', '', 'menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes,width=1280,height=720')
+    let preview = window.open('/preview', '', 'menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes,width=1280,height=720')
     this.setState({ preview })
   }
 

@@ -153,7 +153,7 @@ router.post('/password/reset', async (req, res) => {
 
     // Send Reset Email
     let { protocol, headers: { host } } = req
-    let resetURL = `${protocol}://${host}/#/reset/${user.username}/${resetToken}`
+    let resetURL = `${protocol}://${host}/reset/${user.username}/${resetToken}`
     mail.sendReset(user.username, user.email, resetURL)
 
     res.sendStatus(200)
