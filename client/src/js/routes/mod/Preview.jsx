@@ -11,19 +11,24 @@ class Preview extends Component {
 
     this.state = { text: 'START TYPING TO SEE YOUR PREVIEW' }
 
-    window.addEventListener('message', ev => {
-      this.setState({ text: ev.data })
-    }, false)
+    if (this.canUseDOM) {
+      window.addEventListener('message', ev => {
+        this.setState({ text: ev.data })
+      }, false)
+    }
+  }
+
+  get canUseDOM () {
+    let canUseDOM = !!(
+      (typeof window !== 'undefined' &&
+      window.document && window.document.createElement)
+    )
+    return canUseDOM
   }
 
   static propTypes = { history: PropTypes.any }
 
   render () {
-    const canUseDOM = !!(
-      (typeof window !== 'undefined' &&
-      window.document && window.document.createElement)
-    )
-
     return (
       <Fragment>
         <Helmet>
@@ -36,7 +41,7 @@ class Preview extends Component {
 
           <div className='content'>
             {
-              canUseDOM ?
+              this.canUseDOM ?
                 <ReactMarkdown source={ this.state.text } renderers={{ code: CodeBlock }} /> :
                 null
             }
