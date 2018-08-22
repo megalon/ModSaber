@@ -131,6 +131,11 @@ class Mod extends Component {
       mod.gameVersion === this.state.gameVersions[0].value :
       false
 
+    const canUseDOM = !!(
+      (typeof window !== 'undefined' &&
+      window.document && window.document.createElement)
+    )
+
     return (
       <Fragment>
         <Layout history={ this.props.history } >
@@ -201,7 +206,11 @@ class Mod extends Component {
               </div>
 
               <div className='column is-10'>
-                <ReactMarkdown source={ mod.description } renderers={{ code: CodeBlock }} />
+                {
+                  canUseDOM ?
+                    <ReactMarkdown source={ mod.description } renderers={{ code: CodeBlock }} /> :
+                    null
+                }
               </div>
             </div>
           </div>
