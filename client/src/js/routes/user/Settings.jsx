@@ -13,8 +13,13 @@ class Settings extends Component {
     match: PropTypes.any,
   }
 
-  componentDidMount () {
-    if (!this.props.context.loggedIn) this.props.history.replace('')
+  componentDidUpdate () {
+    this.checkPermissions()
+  }
+
+  checkPermissions () {
+    // Check for logged in state
+    if (this.props.context.loggedIn === false) this.props.history.replace('')
   }
 
   render () {

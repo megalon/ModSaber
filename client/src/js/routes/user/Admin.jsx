@@ -20,13 +20,22 @@ class Admin extends Component {
     match: PropTypes.any,
   }
 
-  componentDidMount () {
-    if (!this.props.context.user.admin) this.props.history.replace('')
-  }
-
   toggleState () {
     let manage = !this.state.manage
     this.setState({ manage })
+  }
+
+  componentDidUpdate () {
+    this.checkPermissions()
+  }
+
+  checkPermissions () {
+    // Check for permissions
+    if (
+      (this.props.context.loggedIn &&
+      !this.props.context.user.admin) ||
+      this.props.context.loggedIn === false
+    ) this.props.history.replace('')
   }
 
   render () {

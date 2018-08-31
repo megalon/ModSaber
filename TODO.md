@@ -12,8 +12,6 @@ Here is a list of items floating around that need to get done at some point or a
 - [ ] My Mods page
   * Accessible in navbar
   * Lists all mods and versions (including old ones)
-- [ ] Fix admin redirecting always
-  * Probably a loading flow thing
 - [ ] Support other file types
   * Not mods get automatic versioning
   * Tagged appropriately

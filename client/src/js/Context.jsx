@@ -9,7 +9,7 @@ export class UserProvider extends Component {
     super(props)
 
     this.state = {
-      loggedIn: false,
+      loggedIn: null,
       user: {},
       alert: null,
     }
