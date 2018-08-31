@@ -3,6 +3,7 @@ import * as path from 'path'
 import Loadable from 'react-loadable'
 import express, { Router } from 'express'
 import serverRenderer from './middleware/renderer.js'
+import modMeta from './middleware/modmeta.js'
 import mongoose from 'mongoose'
 
 // Express App
@@ -21,6 +22,10 @@ router.use(express.static(
   path.resolve(__dirname, '..', 'build'),
   { maxAge: '30d' },
 ))
+
+// Handle mod metadata
+router.get('/mod/:name/:version?', modMeta, (req, res) => serverRenderer(req, res))
+// Handle other routes
 router.get('*', (req, res) => serverRenderer(req, res))
 
 // Tell the app to use the above rules

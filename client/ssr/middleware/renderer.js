@@ -1,5 +1,5 @@
 /* global __dirname */
-import React from 'react'
+import React, { Fragment } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
 import Helmet from 'react-helmet'
@@ -32,12 +32,16 @@ export default (req, res) => {
     // Render the app as a string
     const html = ReactDOMServer.renderToString(
       <Loadable.Capture report={ m => modules.push(m) }>
-        <StaticRouter location={ req.url } context={ context }>
-          <App />
-        </StaticRouter>
+        <Fragment>
+          <StaticRouter location={ req.url } context={ context }>
+            <App />
+          </StaticRouter>
+          { req.metaTags }
+        </Fragment>
       </Loadable.Capture>
     )
 
+    // Render Head Tags
     const helmet = Helmet.renderStatic()
 
     const extraChunks = extractAssets(manifest, modules)
