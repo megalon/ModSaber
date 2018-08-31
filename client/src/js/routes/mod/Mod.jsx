@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import * as ReactMarkdown from 'react-markdown'
-import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -10,6 +9,7 @@ import NotFound from '../NotFound.jsx'
 import SweetAlert from '../../components/hoc/AsyncSwal.jsx'
 import Layout from '../../components/layout/Layout.jsx'
 import CodeBlock from '../../components/layout/CodeBlock.jsx'
+import modMetaTags from '../../components/layout/ModMetaTags.jsx'
 
 class Mod extends Component {
   constructor (props) {
@@ -125,7 +125,6 @@ class Mod extends Component {
 
   render () {
     if (this.state.loaded && this.state.mod.name === undefined) return <NotFound history={ this.props.history } />
-    let { name, version } = this.props.match.params
 
     let { mod } = this.state
     let isLatest = this.state.gameVersions[0] ?
@@ -140,11 +139,11 @@ class Mod extends Component {
     return (
       <Fragment>
         <Layout history={ this.props.history } >
-          <Helmet>
-            <title>{ this.state.loaded ?
-              `ModSaber | ${mod.name}@${mod.version}` :
-              `ModSaber | ${name}@${version}` }</title>
-          </Helmet>
+          {
+            this.state.loaded ?
+              modMetaTags(mod.name, mod.version, mod.author, mod.title) :
+              null
+          }
 
           <div className='mod-titles'>
             <h1 className='is-size-1 has-text-weight-semibold'>{ mod.title }</h1>
