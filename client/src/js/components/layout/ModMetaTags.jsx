@@ -13,7 +13,7 @@ const modMetaTags = (name, version, author, title) =>
     <title>{ `ModSaber | ${name}@${version}` }</title>
     <meta content={ `${name}@${version} // ${author}` } property='og:site_name' />
     <meta content={ title } property='og:title' />
-    <meta content='View this mod on ModSaber for more info!' property='og:description' />
+    <meta content='View on ModSaber for more info!' property='og:description' />
     <meta content='/favicon.png' property='og:image' />
   </Helmet>
 
