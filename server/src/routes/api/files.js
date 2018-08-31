@@ -96,8 +96,8 @@ router.post('/upload', async (req, res) => {
 
   try {
     await fs.ensureDir(path.join(STORE_PATH, name))
-    await fs.writeFile(path.join(STORE_PATH, name, `${version}-${oculus ? 'steam' : 'default'}.zip`), steam.data)
-    if (oculus) await fs.writeFile(path.join(STORE_PATH, name, `${version}-oculus.zip`), oculus.data)
+    await fs.writeFile(path.join(STORE_PATH, name, `${name}-${version}${oculus ? '-steam' : ''}.zip`), steam.data)
+    if (oculus) await fs.writeFile(path.join(STORE_PATH, name, `${name}-${version}-oculus.zip`), oculus.data)
 
     await Mod.create({
       name,

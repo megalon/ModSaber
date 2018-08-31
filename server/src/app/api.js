@@ -104,7 +104,7 @@ const mapMod = async (mod, req) => {
   let entries = Object.entries(files)
   for (let x of entries) {
     let [key, value] = x
-    value.url = `${baseURL}/${name}/${version}-${entries.length === 1 ? 'default' : key}.zip`
+    value.url = `${baseURL}/${name}/${name}-${version}${entries.length === 1 ? '' : `-${key}`}.zip`
   }
 
   // Lookup Game Version
