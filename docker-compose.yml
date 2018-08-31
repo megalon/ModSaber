@@ -19,10 +19,11 @@ services:
     image: modsaber-frontend
     build: 'client'
     restart: always
+    depends_on:
+      - mongo
     networks:
+      - internal
       - proxy
-    # logging:
-    #   driver: none
   proxy:
     image: nginx
     restart: always
