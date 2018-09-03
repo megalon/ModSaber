@@ -52,6 +52,7 @@ class Login extends Component {
       if (resp.status === 400) {
         let { error, fields } = await resp.json()
 
+        if (error === 'UserExistsError') return this.setState({ error: AUTH.USER_EXISTS, loading: false })
         if (error === 'MissingUsernameError') return this.setState({ error: AUTH.INVALID_USERNAME, loading: false })
         if (error === 'MissingPasswordError') return this.setState({ error: AUTH.INVALID_PASSWORD, loading: false })
         if (error === 'ValidationError') {
