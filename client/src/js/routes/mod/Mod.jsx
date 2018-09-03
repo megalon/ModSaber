@@ -123,6 +123,26 @@ class Mod extends Component {
     this.setState({ mod })
   }
 
+  async setCategory () {
+    let { mod } = this.state
+
+    let category = prompt('Enter weight: (higher values are sorted at the top)', `${mod.category}`)
+
+    if (category.length > 25) return alert('Category must be less than 25 characters!')
+
+    let body = new URLSearchParams()
+    body.set('category', category)
+
+    await fetch(`${BASE_URL}/api/secure/category/${mod.name}/${mod.version}`, {
+      method: 'POST',
+      credentials: 'include',
+      body,
+    })
+
+    mod.category = category
+    this.setState({ mod })
+  }
+
   render () {
     if (this.state.loaded && this.state.mod.name === undefined) return <NotFound history={ this.props.history } />
 
@@ -154,8 +174,10 @@ class Mod extends Component {
             }
           </div>
           <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version } &#47;&#47; { mod.author }</code>&nbsp;
-          <code style={{ color: isLatest ? '#060606' : '', fontWeight: isLatest ? '' : 'bold' }}>{ mod.gameVersion }</code>&nbsp;
           <code style={{ color: '#060606' }}>{ mod.timestamp }</code>
+          <br style={{ lineHeight: '2em' }} />
+          <code style={{ color: isLatest ? '#060606' : '', fontWeight: isLatest ? '' : 'bold' }}>{ mod.gameVersion }</code>&nbsp;
+          <code style={{ color: '#060606' }}>{ mod.category || 'Other' }</code>
           <hr />
 
           <div className='content'>
@@ -185,6 +207,10 @@ class Mod extends Component {
                               className='button is-warning is-control'
                               onClick={ () => this.setWeight() }
                             >Set Weight</button>
+                            <button
+                              className='button is-warning is-control'
+                              onClick={ () => this.setCategory() }
+                            >Set Category</button>
                             <button
                               className='button is-warning is-control'
                               onClick={ () => this.toggleApproval() }
