@@ -16,30 +16,41 @@ POST /auth/email/change
 POST /auth/logout
 ```
 
-# `/api/public`
+# `/api/v1.0/mods`
 ```
-GET  /api/public/all/new/:page?
-GET  /api/public/all/approved/:page?
-GET  /api/public/temp/approved
-GET  /api/public/slim/new
-GET  /api/public/slim/approved
-GET  /api/public/pending
-GET  /api/public/alert
-GET  /api/public/gameversions
+GET  /api/v1.0/mods/pending
+GET  /api/v1.0/mods/new/:page?
+GET  /api/v1.0/mods/approved/:page?
+GET  /api/v1.0/slim/new
+GET  /api/v1.0/slim/approved
 ```
 
-# `/api/secure`
+# `/api/v1.0/site`
 ```
-GET  /api/secure/self
-POST /api/secure/upload
-POST /api/secure/edit
-POST /api/secure/transfer
-POST /api/secure/unpublish
-POST /api/secure/gameversion
-GET  /api/secure/admins
-POST /api/secure/admins/modify
-POST /api/secure/approve/:name/:version
-POST /api/secure/revoke/:name/:version
-POST /api/secure/weight/:name/:version
-POST /api/secure/category/:name/:version
+GET  /api/v1.0/site/alert
+GET  /api/v1.0/site/gameversions
+```
+
+# `/api/v1.0/users`
+```
+GET  /api/v1.0/users/self
+GET  /api/v1.0/users/admins
+POST /api/v1.0/users/admins
+```
+
+# `/api/v1.0/upload`
+```
+POST /api/v1.0/upload/publish
+POST /api/v1.0/upload/edit
+POST /api/v1.0/upload/transfer
+POST /api/v1.0/upload/unpublish
+```
+
+# `/api/v1.0/admin`
+```
+POST /api/v1.0/admin/gameversion
+POST /api/v1.0/admin/approve
+POST /api/v1.0/admin/revoke
+POST /api/v1.0/admin/weight
+POST /api/v1.0/admin/category
 ```
