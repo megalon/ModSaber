@@ -1,4 +1,8 @@
+const { post } = require('snekfetch')
 const uuid = require('uuid/v4')
+
+// Environment Variables
+const { APPROVAL_WEBHOOK } = process.env
 
 /**
  * Extract JWT from Request Cookies
@@ -83,4 +87,10 @@ const approvedPayload = (mod, user) =>
 const revokedPayload = (mod, user) =>
   generatePayload(mod, { title: '❌ Approval Revoked', body: `Revoked by \`${user}\`` })
 
-module.exports = { cookieExtractor, plusDays, waitForMS, randomToken, approvedPayload, revokedPayload }
+// Post Webhook
+const postWebhook = payload => {
+  if (APPROVAL_WEBHOOK !== undefined && APPROVAL_WEBHOOK !== '') return post(APPROVAL_WEBHOOK, { data: payload })
+  else return undefined
+}
+
+module.exports = { cookieExtractor, plusDays, waitForMS, randomToken, approvedPayload, revokedPayload, postWebhook }
