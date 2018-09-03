@@ -4,6 +4,7 @@ const Account = require('../../models/account.js')
 const Mod = require('../../models/mod.js')
 const GameVersion = require('../../models/gameversion.js')
 const log = require('../../app/logger.js')
+const { approvedPayload, revokedPayload, postWebhook } = require('../../app/helpers.js')
 
 // Environment Variables
 const { ADMIN_USERNAME } = process.env
@@ -88,6 +89,23 @@ router.post('/approve/:name/:version', async (req, res) => {
 
     await mod.set({ approved: true }).save()
 
+    try {
+      // Map Author
+      const payloadMod = {
+        name: mod.name,
+        version: mod.version,
+        title: mod.title,
+        author: (await Account.findById(mod.author).exec()).username || '',
+      }
+
+      // Post to webhook
+      const payload = approvedPayload(payloadMod, req.user.username)
+      await postWebhook(payload)
+    } catch (err) {
+      // Silently fail
+      console.error(err)
+    }
+
     log.info(`Approval granted - Name: ${name} // Version: ${version} [${req.user.username}]`)
     res.sendStatus(200)
   } catch (err) {
@@ -104,6 +122,23 @@ router.post('/revoke/:name/:version', async (req, res) => {
     if (!mod) return res.sendStatus(404)
 
     await mod.set({ approved: false }).save()
+
+    try {
+      // Map Author
+      const payloadMod = {
+        name: mod.name,
+        version: mod.version,
+        title: mod.title,
+        author: (await Account.findById(mod.author).exec()).username || '',
+      }
+
+      // Post to webhook
+      const payload = revokedPayload(payloadMod, req.user.username)
+      await postWebhook(payload)
+    } catch (err) {
+      // Silently fail
+      console.error(err)
+    }
 
     log.info(`Approval revoked - Name: ${name} // Version: ${version} [${req.user.username}]`)
     res.sendStatus(200)
