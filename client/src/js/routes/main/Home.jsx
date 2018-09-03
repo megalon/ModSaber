@@ -108,7 +108,7 @@ class Home extends Component {
                   <Link to={ `/mod/${mod.name}/${mod.versions[0]}` } className='mod-link'>
                     <span className='has-text-weight-bold'>{ mod.title }</span>
                   </Link>
-                  <span style={{ marginLeft: '14px', marginTop: '5px' }} className='tag is-link'>{ mod.tag }</span>
+                  <span style={{ marginLeft: '14px', marginTop: '5px' }} className='tag is-link'>{ mod.type }</span>
                 </h2>
 
                 <code style={{ color: '#060606' }}>{ mod.name }@{ mod.versions[0] } &#47;&#47; { mod.author }</code>

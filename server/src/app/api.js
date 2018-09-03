@@ -79,7 +79,8 @@ const processZIP = async (data, field) => {
  * @property {string} authorID
  * @property {string} title
  * @property {string} description
- * @property {string} tag
+ * @property {string} type
+ * @property {string} category
  * @property {string} gameVersion
  * @property {string} gameVersionID
  * @property {string[]} oldVersions
@@ -94,7 +95,7 @@ const processZIP = async (data, field) => {
  * @returns {Promise.<Mod>}
  */
 const mapMod = async (mod, req) => {
-  let { name, version, author: authorID, approved, title, description, tag, created,
+  let { name, version, author: authorID, approved, title, description, type, category, created,
     gameVersion: gameVersionID, oldVersions, dependsOn, conflictsWith, files, weight } = mod
 
   // Insert file URLs to file object
@@ -111,7 +112,7 @@ const mapMod = async (mod, req) => {
   let gameVersion = (await GameVersion.findById(gameVersionID).exec()).value
 
   // Construct return object
-  let final = { name, version, approved, title, description, type: tag, published: created,
+  let final = { name, version, approved, title, description, type, category, published: created,
     gameVersion, gameVersionID, oldVersions, dependsOn, conflictsWith, files, weight }
 
   try {

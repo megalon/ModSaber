@@ -34,7 +34,7 @@ const mapModsSlim = async mods => {
         name: mod.name,
         title: mod.title,
         author: mod.author,
-        tag: mod.tag,
+        type: mod.type,
         created: new Date(mod.created),
         versions: [mod.version],
         weight: mod.weight,
