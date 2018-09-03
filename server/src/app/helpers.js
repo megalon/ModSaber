@@ -29,4 +29,58 @@ const waitForMS = ms => new Promise(resolve => {
  */
 const randomToken = () => uuid().replace(/-/g, '')
 
-module.exports = { cookieExtractor, plusDays, waitForMS, randomToken }
+/**
+ * @typedef {Object} Mod
+ * @property {string} name Mod Name
+ * @property {string} version Mod Version
+ * @property {string} title Mod Title
+ * @property {string} author Mod Author
+ */
+
+/**
+ * @param {Mod} mod Mod Details
+ * @param {Object} field Field Options
+ * @param {string} field.title Field Title
+ * @param {string} field.body Field Body
+ * @returns {Object}
+ */
+const generatePayload = (mod, field) => ({
+  embeds: [
+    {
+      author: {
+        name: mod.title,
+      },
+      title: `${mod.name}@${mod.version} // ${mod.author}`,
+      url: `https://www.modsaber.ml/mod/${mod.name}/${mod.version}`,
+      color: 12822271,
+      thumbnail: {
+        url: 'https://www.modsaber.ml/favicon.png',
+      },
+      fields: [
+        {
+          name: field.title,
+          value: field.body,
+          inline: true,
+        },
+      ],
+    },
+  ],
+})
+
+/**
+ * @param {Mod} mod Mod Details
+ * @param {string} user Invoking User
+ * @returns {Object}
+ */
+const approvedPayload = (mod, user) =>
+  generatePayload(mod, { title: '✅ Mod Approved', body: `Approved by \`${user}\`` })
+
+/**
+ * @param {Mod} mod Mod Details
+ * @param {string} user Invoking User
+ * @returns {Object}
+ */
+const revokedPayload = (mod, user) =>
+  generatePayload(mod, { title: '❌ Approval Revoked', body: `Revoked by \`${user}\`` })
+
+module.exports = { cookieExtractor, plusDays, waitForMS, randomToken, approvedPayload, revokedPayload }
