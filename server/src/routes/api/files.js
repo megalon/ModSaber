@@ -68,6 +68,7 @@ router.post('/upload', async (req, res) => {
 
   let approved = false
   let weight = 1
+  let category = ''
 
   if (existing.length > 0) {
     let [previous] = existing
@@ -79,6 +80,9 @@ router.post('/upload', async (req, res) => {
 
     // Keep Mod Weight
     if (previous.weight) weight = previous.weight
+
+    // Keep Mod Category
+    if (previous.category) category = previous.category
 
     // Lookup game version
     try {
@@ -108,6 +112,7 @@ router.post('/upload', async (req, res) => {
       oldVersions,
       gameVersion,
       approved,
+      category,
       weight,
       created,
       files: { steam: steamFiles, oculus: oculusFiles },
