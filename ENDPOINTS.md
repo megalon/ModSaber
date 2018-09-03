@@ -41,4 +41,5 @@ POST /api/secure/admins/modify
 POST /api/secure/approve/:name/:version
 POST /api/secure/revoke/:name/:version
 POST /api/secure/weight/:name/:version
+POST /api/secure/category/:name/:version
 ```

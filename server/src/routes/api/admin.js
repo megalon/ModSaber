@@ -172,4 +172,27 @@ router.post('/weight/:name/:version', async (req, res) => {
   }
 })
 
+router.post('/category/:name/:version', async (req, res) => {
+  try {
+    let { name, version } = req.params
+    let { category } = req.body
+
+    // Validate Weight Score
+    if (!category) return res.status(400).send({ field: 'category', error: errors.MISSING })
+
+    if (category.length > 25) return res.status(400).send({ field: 'category', error: errors.CATEGORY_INVALID })
+
+    let mod = await Mod.findOne({ name, version }).exec()
+    if (!mod) return res.sendStatus(404)
+
+    await mod.set({ category }).save()
+
+    log.info(`Mod category set - Name: ${name} // Version: ${version} // Category: ${category} [${req.user.username}]`)
+    res.sendStatus(200)
+  } catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+  }
+})
+
 module.exports = router

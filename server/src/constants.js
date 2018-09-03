@@ -15,6 +15,7 @@ module.exports = {
     GAMEVERSION_INVALID: 'gameversion_invalid',
     ACTION_INVALID: 'action_invalid',
     WEIGHT_INVALID: 'weight_invalid',
+    CATEGORY_INVALID: 'category_invalid',
   },
   RESULTS_PER_PAGE: 5,
   BLOCKED_EXTENSIONS: [
