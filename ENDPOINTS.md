@@ -24,6 +24,14 @@ POST /api/v1.0/admin/set-weight
 POST /api/v1.0/admin/set-category
 ```
 
+# `/api/v1.0/files`
+```
+POST /api/v1.0/upload/publish
+POST /api/v1.0/upload/edit
+POST /api/v1.0/upload/transfer
+POST /api/v1.0/upload/unpublish
+```
+
 # `/api/v1.0/mods`
 ```
 GET  /api/v1.0/mods/pending
@@ -42,14 +50,6 @@ GET  /api/v1.0/slim/approved
 GET  /api/v1.0/site/alert
 GET  /api/v1.0/site/gameversions
 POST /api/v1.0/site/gameversions
-```
-
-# `/api/v1.0/upload`
-```
-POST /api/v1.0/upload/publish
-POST /api/v1.0/upload/edit
-POST /api/v1.0/upload/transfer
-POST /api/v1.0/upload/unpublish
 ```
 
 # `/api/v1.0/users`
