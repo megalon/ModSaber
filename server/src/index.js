@@ -36,6 +36,9 @@ app.use((req, res, next) => {
   next()
 })
 
+// LEGACY ENDPOINT
+app.use(require('./routes/legacy.js'))
+
 // Routes
 app.use('/registry', require('./routes/registry.js'))
 app.use('/auth', require('./routes/auth.js'))
