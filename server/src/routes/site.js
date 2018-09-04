@@ -39,6 +39,8 @@ router.post('/gameversions', requireLogin, requireAdmin, async (req, res) => {
     log.info(`Game Version issued - Value: ${value} // Manifest: ${manifest} [${req.user.username}]`)
     res.sendStatus(200)
   } catch (err) {
+    if (err.name === 'MongoError' && err.code === 11000) return res.sendStatus(400)
+
     console.error(err)
     return res.sendStatus(500)
   }
