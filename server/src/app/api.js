@@ -1,8 +1,6 @@
 const crypto = require('crypto')
 const path = require('path')
 const AdmZip = require('adm-zip')
-const Account = require('../models/account.js')
-const GameVersion = require('../models/gameversion.js')
 const { errors, BLOCKED_EXTENSIONS } = require('../constants.js')
 
 /**
@@ -70,65 +68,4 @@ const processZIP = async (data, field) => {
   return { hash, files }
 }
 
-/**
- * @typedef {Object} Mod
- * @property {string} name
- * @property {string} version
- * @property {boolean} approved
- * @property {string} author
- * @property {string} authorID
- * @property {string} title
- * @property {string} description
- * @property {string} type
- * @property {string} category
- * @property {string} gameVersion
- * @property {string} gameVersionID
- * @property {string[]} oldVersions
- * @property {string[]} dependsOn
- * @property {string[]} conflictsWith
- * @property {any} files
- */
-
-/**
- * @param {*} mod Mod Object
- * @param {Request} req HTTP Request
- * @returns {Promise.<Mod>}
- */
-const mapMod = async (mod, req) => {
-  let { name, version, author: authorID, approved, title, description, type, category, created,
-    gameVersion: gameVersionID, oldVersions, dependsOn, conflictsWith, files, weight } = mod
-
-  // Insert file URLs to file object
-  let { protocol, headers: { host } } = req
-  let baseURL = `${protocol}://${host}/cdn`
-
-  let entries = Object.entries(files)
-  for (let x of entries) {
-    let [key, value] = x
-    value.url = `${baseURL}/${name}/${name}-${version}${entries.length === 1 ? '' : `-${key}`}.zip`
-  }
-
-  // Lookup Game Version
-  let gameVersion = (await GameVersion.findById(gameVersionID).exec()).value
-
-  // Construct return object
-  let final = { name, version, approved, title, description, type, category, published: created,
-    gameVersion, gameVersionID, oldVersions, dependsOn, conflictsWith, files, weight }
-
-  try {
-    // Lookup author username from DB
-    let author = (await Account.findById(authorID).exec()).username
-    final.author = author
-    final.authorID = authorID
-
-    return final
-  } catch (err) {
-    // Send default values
-    final.author = ''
-    final.authorID = '0'
-
-    return final
-  }
-}
-
-module.exports = { calculateHash, processZIP, mapMod }
+module.exports = { calculateHash, processZIP }

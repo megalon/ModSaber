@@ -40,8 +40,15 @@ app.use((req, res, next) => {
 // Routes
 app.use('/registry', require('./routes/registry.js'))
 app.use('/auth', require('./routes/auth.js'))
-app.use('/api/public', require('./routes/publicAPI.js'))
-app.use('/api/secure', passport.authenticate('jwt', { session: false }), require('./routes/api.js'))
+
+// API Routes
+const API_VERSION = '1.0'
+// app.use(`/api/v${API_VERSION}/admin`, require('./routes/'))
+app.use(`/api/v${API_VERSION}/mods`, require('./routes/mods.js'))
+app.use(`/api/v${API_VERSION}/slim`, require('./routes/slim.js'))
+// app.use(`/api/v${API_VERSION}/site`, require('./routes/'))
+// app.use(`/api/v${API_VERSION}/upload`, require('./routes/'))
+// app.use(`/api/v${API_VERSION}/users`, require('./routes/'))
 
 // Connect to DB
 mongoose.connect(MONGO_URL, { useNewUrlParser: true })

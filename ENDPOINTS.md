@@ -30,6 +30,10 @@ POST /api/v1.0/admin/category
 GET  /api/v1.0/mods/pending
 GET  /api/v1.0/mods/new/:page?
 GET  /api/v1.0/mods/approved/:page?
+```
+
+# `/api/v1.0/slim`
+```
 GET  /api/v1.0/slim/new
 GET  /api/v1.0/slim/approved
 ```
