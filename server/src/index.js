@@ -1,7 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
-const passport = require('passport')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const log = require('./app/logger.js')
@@ -37,11 +36,21 @@ app.use((req, res, next) => {
   next()
 })
 
+// LEGACY ENDPOINT
+app.use(require('./routes/legacy.js'))
+
 // Routes
 app.use('/registry', require('./routes/registry.js'))
 app.use('/auth', require('./routes/auth.js'))
-app.use('/api/public', require('./routes/publicAPI.js'))
-app.use('/api/secure', passport.authenticate('jwt', { session: false }), require('./routes/api.js'))
+
+// API Routes
+const API_VERSION = '1.0'
+app.use(`/api/v${API_VERSION}/admin`, require('./routes/admin.js'))
+app.use(`/api/v${API_VERSION}/files`, require('./routes/files.js'))
+app.use(`/api/v${API_VERSION}/mods`, require('./routes/mods.js'))
+app.use(`/api/v${API_VERSION}/slim`, require('./routes/slim.js'))
+app.use(`/api/v${API_VERSION}/site`, require('./routes/site.js'))
+app.use(`/api/v${API_VERSION}/users`, require('./routes/users.js'))
 
 // Connect to DB
 mongoose.connect(MONGO_URL, { useNewUrlParser: true })

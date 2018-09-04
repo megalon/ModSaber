@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { BASE_URL, ADMIN } from '../../constants.js'
+import { API_URL, ADMIN } from '../../constants.js'
 import Field from '../form/Field.jsx'
 
 class AddGameVersion extends Component {
@@ -29,7 +29,7 @@ class AddGameVersion extends Component {
   componentDidMount () { this.fetchGameVersions() }
 
   async fetchGameVersions () {
-    let gameVersions = await (await fetch(`${BASE_URL}/api/public/gameversions`, { credentials: 'include' })).json()
+    let gameVersions = await (await fetch(`${API_URL}/site/gameversions`, { credentials: 'include' })).json()
     this.setState({ gameVersions, gameVersion: gameVersions[0] })
   }
 
@@ -48,7 +48,7 @@ class AddGameVersion extends Component {
     body.set('manifest', manifest)
     body.set('date', new Date().toString())
 
-    await fetch(`${BASE_URL}/api/secure/gameversion`, {
+    await fetch(`${API_URL}/site/gameversions`, {
       method: 'POST',
       credentials: 'include',
       body,

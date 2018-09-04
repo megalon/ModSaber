@@ -5,18 +5,22 @@ const fileUpload = require('express-fileupload')
 const fileType = require('file-type')
 const semver = require('semver')
 const slugify = require('slugify')
-const { errors, STORE_PATH } = require('../../constants.js')
-const { processZIP } = require('../../app/api.js')
-const Account = require('../../models/account.js')
-const Mod = require('../../models/mod.js')
-const GameVersion = require('../../models/gameversion.js')
-const log = require('../../app/logger.js')
+
+const Account = require('../models/account.js')
+const Mod = require('../models/mod.js')
+const GameVersion = require('../models/gameversion.js')
+
+const log = require('../app/logger.js')
+const { requireLogin } = require('../middleware/authorization.js')
+const { processZIP } = require('../app/upload.js')
+const { errors, STORE_PATH } = require('../constants.js')
 
 // Setup Router
 const router = Router() // eslint-disable-line
 router.use(fileUpload({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true }))
+router.use(requireLogin)
 
-router.post('/upload', async (req, res) => {
+router.post('/publish', async (req, res) => {
   // Refuse unverified accounts
   if (!req.user.verified) return res.status(403).send({ error: 'verification' })
 

@@ -1,82 +1,23 @@
 const { Router } = require('express')
-const { errors } = require('../../constants.js')
-const Account = require('../../models/account.js')
-const Mod = require('../../models/mod.js')
-const GameVersion = require('../../models/gameversion.js')
-const log = require('../../app/logger.js')
-const { approvedPayload, revokedPayload, postWebhook } = require('../../app/helpers.js')
-
-// Environment Variables
-const { ADMIN_USERNAME } = process.env
+const { errors } = require('../constants.js')
+const Account = require('../models/account.js')
+const Mod = require('../models/mod.js')
+const log = require('../app/logger.js')
+const { requireLogin, requireAdmin } = require('../middleware/authorization.js')
+const { approvedPayload, revokedPayload, postWebhook } = require('../app/helpers.js')
 
 // Setup Router
 const router = Router() // eslint-disable-line
-router.use((req, res, next) => {
-  // Admins Only
-  if (!req.user.admin) return res.sendStatus(401)
-  else return next()
-})
+router.use(requireLogin)
+router.use(requireAdmin)
 
-router.post('/gameversion', async (req, res) => {
-  let { value, manifest, date } = req.body
-
-  // Validate Required Fields
-  if (!value) return res.status(400).send({ field: 'value', error: errors.MISSING })
-  if (!manifest) return res.status(400).send({ field: 'manifest', error: errors.MISSING })
-  if (!date) return res.status(400).send({ field: 'date', error: errors.MISSING })
-
+router.post('/approve-mod', async (req, res) => {
   try {
-    date = new Date(Number.parseInt(date) ? Number.parseInt(date) : date)
-    await GameVersion.create({ value, manifest, date })
+    let { name, version } = req.body
 
-    log.info(`Game Version issued - Value: ${value} // Manifest: ${manifest} [${req.user.username}]`)
-    res.sendStatus(200)
-  } catch (err) {
-    console.error(err)
-    return res.sendStatus(500)
-  }
-})
-
-router.get('/admins', async (req, res) => {
-  // Fetch all admins
-  let admins = await Account.find({ admin: true }).exec()
-
-  // Add global admin to the mix
-  if (ADMIN_USERNAME) {
-    let user = await Account.findOne({ username: ADMIN_USERNAME }).exec()
-    user.admin = true
-    if (user) admins = [...admins, user]
-  }
-
-  res.send(
-    admins.map(x => {
-      let { username, _id } = x
-      return { id: _id, username }
-    })
-  )
-})
-
-router.post('/admins/modify', async (req, res) => {
-  let { username, action } = req.body
-
-  // Validate Required Fields
-  if (!username) return res.status(400).send({ field: 'username', error: errors.MISSING })
-  if (!action) return res.status(400).send({ field: 'action', error: errors.MISSING })
-  if (!['promote', 'demote'].includes(action)) return res.status(400).send({ field: 'action', error: errors.ACTION_INVALID })
-
-  let user = await Account.findOne({ username }).exec()
-  if (!user) return res.sendStatus(404)
-
-  let admin = action === 'promote'
-  await user.set({ admin }).save()
-
-  log.info(`Admin status modified - User: ${username} // Action - ${action} [${req.user.username}]`)
-  res.sendStatus(200)
-})
-
-router.post('/approve/:name/:version', async (req, res) => {
-  try {
-    let { name, version } = req.params
+    // Validate Required Fields
+    if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+    if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
 
     // Remove all old approvals
     let mods = await Mod.find({ name }).exec()
@@ -114,9 +55,13 @@ router.post('/approve/:name/:version', async (req, res) => {
   }
 })
 
-router.post('/revoke/:name/:version', async (req, res) => {
+router.post('/revoke-approval', async (req, res) => {
   try {
-    let { name, version } = req.params
+    let { name, version } = req.body
+
+    // Validate Required Fields
+    if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+    if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
 
     let mod = await Mod.findOne({ name, version }).exec()
     if (!mod) return res.sendStatus(404)
@@ -148,13 +93,16 @@ router.post('/revoke/:name/:version', async (req, res) => {
   }
 })
 
-router.post('/weight/:name/:version', async (req, res) => {
+router.post('/set-weight', async (req, res) => {
   try {
-    let { name, version } = req.params
-    let { weight: w } = req.body
+    let { name, version, weight: w } = req.body
+
+    // Validate Required Fields
+    if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+    if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
 
     // Validate Weight Score
-    if (!w) return res.status(400).send({ field: 'weight', error: errors.WEIGHT_INVALID })
+    if (!w) return res.status(400).send({ field: 'weight', error: errors.MISSING })
 
     let weight = parseInt(w, 10)
     if (Number.isNaN(weight)) return res.status(400).send({ field: 'weight', error: errors.WEIGHT_INVALID })
@@ -172,10 +120,13 @@ router.post('/weight/:name/:version', async (req, res) => {
   }
 })
 
-router.post('/category/:name/:version', async (req, res) => {
+router.post('/set-category', async (req, res) => {
   try {
-    let { name, version } = req.params
-    let { category } = req.body
+    let { name, version, category } = req.body
+
+    // Validate Required Fields
+    if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+    if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
 
     // Validate Weight Score
     if (!category) return res.status(400).send({ field: 'category', error: errors.MISSING })

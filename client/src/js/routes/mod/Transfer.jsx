@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
-import { BASE_URL, AUTH, sanitise } from '../../constants.js'
+import { API_URL, BASE_URL, AUTH, sanitise } from '../../constants.js'
 import SweetAlert from '../../components/hoc/AsyncSwal.jsx'
 import Layout from '../../components/layout/Layout.jsx'
 import Field from '../../components/form/Field.jsx'
@@ -62,13 +62,13 @@ class Transfer extends Component {
     body.set('name', name)
     body.set('username', username)
 
-    let resp = await fetch(`${BASE_URL}/api/secure/transfer`, {
+    let resp = await fetch(`${API_URL}/files/transfer`, {
       method: 'POST',
       credentials: 'include',
       body,
     })
 
-    if (resp.status === 403) this.setState({ error: AUTH.UNKNOWN_USERNAME, loading: false })
+    if (resp.status === 403) return this.setState({ error: AUTH.UNKNOWN_USERNAME, loading: false })
 
     this.props.history.replace(`/mod/${name}`)
   }

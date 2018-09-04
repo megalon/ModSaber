@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import * as chunk from 'chunk'
 
-import { BASE_URL } from '../../constants.js'
+import { API_URL } from '../../constants.js'
 import MainPage from '../../components/layout/MainPage.jsx'
 import Paginator from '../../components/layout/Paginator.jsx'
 
@@ -35,7 +35,7 @@ class Home extends Component {
   }
 
   async loadMods () {
-    let mods = await (await fetch(`${BASE_URL}/api/public/slim/approved`)).json()
+    let mods = await (await fetch(`${API_URL}/slim/approved`)).json()
     mods = chunk(mods, 5)
 
     let pageProp = this.props.match.params.page || 0

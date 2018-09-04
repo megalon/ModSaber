@@ -1,17 +1,68 @@
-const { Router } = require('express')
 const semver = require('semver')
 const Account = require('../models/account.js')
 const Mod = require('../models/mod.js')
 const GameVersion = require('../models/gameversion.js')
-const { mapMod } = require('../app/api.js')
-const { REDIS_HOST, RESULTS_PER_PAGE } = require('../constants.js')
 
-// Setup Router
-const router = Router() // eslint-disable-line
-const cache = require('express-redis-cache')({ host: REDIS_HOST })
+/**
+ * @typedef {Object} Mod
+ * @property {string} name
+ * @property {string} version
+ * @property {boolean} approved
+ * @property {string} author
+ * @property {string} authorID
+ * @property {string} title
+ * @property {string} description
+ * @property {string} type
+ * @property {string} category
+ * @property {string} gameVersion
+ * @property {string} gameVersionID
+ * @property {string[]} oldVersions
+ * @property {string[]} dependsOn
+ * @property {string[]} conflictsWith
+ * @property {any} files
+ */
 
-// Environment Variables
-const { SITE_ALERT } = process.env
+/**
+ * @param {*} mod Mod Object
+ * @param {Request} req HTTP Request
+ * @returns {Promise.<Mod>}
+ */
+const mapMod = async (mod, req) => {
+  let { name, version, author: authorID, approved, title, description, type, category, created,
+    gameVersion: gameVersionID, oldVersions, dependsOn, conflictsWith, files, weight } = mod
+
+  // Insert file URLs to file object
+  let { protocol, headers: { host } } = req
+  let baseURL = `${protocol}://${host}/cdn`
+
+  let entries = Object.entries(files)
+  for (let x of entries) {
+    let [key, value] = x
+    value.url = `${baseURL}/${name}/${name}-${version}${entries.length === 1 ? '' : `-${key}`}.zip`
+  }
+
+  // Lookup Game Version
+  let gameVersion = (await GameVersion.findById(gameVersionID).exec()).value
+
+  // Construct return object
+  let final = { name, version, approved, title, description, type, category, published: created,
+    gameVersion, gameVersionID, oldVersions, dependsOn, conflictsWith, files, weight }
+
+  try {
+    // Lookup author username from DB
+    let author = (await Account.findById(authorID).exec()).username
+    final.author = author
+    final.authorID = authorID
+
+    return final
+  } catch (err) {
+    // Send default values
+    final.author = ''
+    final.authorID = '0'
+
+    return final
+  }
+}
 
 /**
  * @typedef {Object} ModShort
@@ -75,50 +126,7 @@ const mapModsSlim = async mods => {
     })
 }
 
-router.get('/all/new/:page?', cache.route(10), async (req, res) => {
-  let page = Number.parseInt(req.params.page, 10) === Number.NaN ? 0 : parseInt(req.params.page, 10) || 0
-  if (page < 0) page = 0
-  page++
-
-  let { docs, pages } = await Mod.paginate({ unpublished: false }, { page, limit: RESULTS_PER_PAGE, sort: '-created' })
-  let mods = await Promise.all(docs.map(mod => mapMod(mod, req)))
-  let lastPage = pages - 1
-
-  res.send({ mods, lastPage })
-})
-
-router.get('/all/approved/:page?', cache.route(10), async (req, res) => {
-  let page = Number.parseInt(req.params.page, 10) === Number.NaN ? 0 : parseInt(req.params.page, 10) || 0
-  if (page < 0) page = 0
-  page++
-
-  let { docs, pages } = await Mod.paginate({ approved: true, unpublished: false }, { page, limit: RESULTS_PER_PAGE, sort: '-weight name' })
-  let mods = await Promise.all(docs.map(mod => mapMod(mod, req)))
-  let lastPage = pages - 1
-
-  res.send({ mods, lastPage })
-})
-
-router.get('/temp/approved', cache.route(10), async (req, res) => {
-  let { docs, pages } = await Mod.paginate({ approved: true, unpublished: false }, { page: 1, limit: 999999, sort: '-weight name' })
-  let mods = await Promise.all(docs.map(mod => mapMod(mod, req)))
-  let lastPage = pages - 1
-
-  res.send({ mods, lastPage })
-})
-
-router.get('/slim/new', cache.route(10), async (req, res) => {
-  let mods = await mapModsSlim(await Mod.find({ unpublished: false }))
-  res.send(mods)
-})
-
-router.get('/slim/approved', cache.route(10), async (req, res) => {
-  let mods = await mapModsSlim(await Mod.find({ approved: true, unpublished: false }), true)
-
-  res.send(mods)
-})
-
-router.get('/pending', async (req, res) => {
+const getPendingMods = async () => {
   let search = (await Mod.find({ unpublished: false }))
     .sort((a, b) => semver.rcompare(a.version, b.version))
 
@@ -152,7 +160,7 @@ router.get('/pending', async (req, res) => {
   }
   filtered.sort((a, b) => new Date(a.created) - new Date(b.created))
 
-  let mods = await Promise.all(filtered.map(async mod => {
+  return Promise.all(filtered.map(async mod => {
     let { name, version, author: authorID } = mod
 
     let findAuthor = await Account.findById(authorID).exec()
@@ -160,22 +168,6 @@ router.get('/pending', async (req, res) => {
 
     return { name, version, author }
   }))
+}
 
-  res.send(mods)
-})
-
-// Post site-wide alerts
-router.get('/alert', (req, res) => {
-  if (!SITE_ALERT) return res.sendStatus(204)
-  res.send({ alert: SITE_ALERT })
-})
-
-router.get('/gameversions', async (req, res) => {
-  let versions = (await GameVersion.find({}).exec())
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .map(x => ({ id: x._id, value: x.value, manifest: x.manifest }))
-
-  res.send(versions)
-})
-
-module.exports = router
+module.exports = { mapMod, mapModsSlim, getPendingMods }

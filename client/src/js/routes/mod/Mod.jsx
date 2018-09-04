@@ -3,7 +3,7 @@ import * as ReactMarkdown from 'react-markdown'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { BASE_URL } from '../../constants.js'
+import { API_URL, BASE_URL } from '../../constants.js'
 
 import NotFound from '../NotFound.jsx'
 import SweetAlert from '../../components/hoc/AsyncSwal.jsx'
@@ -55,7 +55,7 @@ class Mod extends Component {
     body.set('name', name)
     body.set('version', version)
 
-    await fetch(`${BASE_URL}/api/secure/unpublish`, {
+    await fetch(`${API_URL}/files/unpublish`, {
       method: 'POST',
       credentials: 'include',
       body,
@@ -87,15 +87,21 @@ class Mod extends Component {
   }
 
   async fetchGameVersions () {
-    let gameVersions = await (await fetch(`${BASE_URL}/api/public/gameversions`, { credentials: 'include' })).json()
+    let gameVersions = await (await fetch(`${API_URL}/site/gameversions`, { credentials: 'include' })).json()
     this.setState({ gameVersions })
   }
 
   async toggleApproval () {
     let { mod } = this.state
-    await fetch(`${BASE_URL}/api/secure/${mod.approved ? 'revoke' : 'approve'}/${mod.name}/${mod.version}`, {
+
+    const body = new URLSearchParams()
+    body.set('name', mod.name)
+    body.set('version', mod.version)
+
+    await fetch(`${API_URL}/admin/${mod.approved ? 'revoke-approval' : 'approve-mod'}`, {
       method: 'POST',
       credentials: 'include',
+      body,
     })
 
     mod.approved = !mod.approved
@@ -111,9 +117,11 @@ class Mod extends Component {
     if (Number.isNaN(weight)) return alert('Invalid Weight')
 
     let body = new URLSearchParams()
+    body.set('name', mod.name)
+    body.set('version', mod.version)
     body.set('weight', weight)
 
-    await fetch(`${BASE_URL}/api/secure/weight/${mod.name}/${mod.version}`, {
+    await fetch(`${API_URL}/admin/set-weight`, {
       method: 'POST',
       credentials: 'include',
       body,
@@ -131,9 +139,11 @@ class Mod extends Component {
     if (category.length > 25) return alert('Category must be less than 25 characters!')
 
     let body = new URLSearchParams()
+    body.set('name', mod.name)
+    body.set('version', mod.version)
     body.set('category', category)
 
-    await fetch(`${BASE_URL}/api/secure/category/${mod.name}/${mod.version}`, {
+    await fetch(`${API_URL}/admin/set-category`, {
       method: 'POST',
       credentials: 'include',
       body,

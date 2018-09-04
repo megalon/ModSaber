@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { BASE_URL } from '../../constants.js'
+import { API_URL } from '../../constants.js'
 
 class ViewPending extends Component {
   constructor (props) {
@@ -20,7 +20,7 @@ class ViewPending extends Component {
   componentDidMount () { this.loadPending() }
 
   async loadPending () {
-    let resp = await fetch(`${BASE_URL}/api/public/pending`)
+    let resp = await fetch(`${API_URL}/mods/pending`)
     let pending = await resp.json()
 
     this.setState({ pending })

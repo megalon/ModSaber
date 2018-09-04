@@ -10,6 +10,8 @@ export const sanitise = (username, length = 20) => username
   .substring(0, length)
 
 export const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : ''
+export const API_VERSION = '1.0'
+export const API_URL = `${BASE_URL}/api/v${API_VERSION}`
 export const MESSAGE_UNVERIFIED = `Your account is unverified. You cannot upload mods without first verifying your account.
 Check the email address you used to sign up for an account. (Look in spam too)`
 
