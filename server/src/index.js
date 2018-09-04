@@ -1,7 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
-const passport = require('passport')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const log = require('./app/logger.js')

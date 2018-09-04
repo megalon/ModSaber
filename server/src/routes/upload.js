@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs-extra')
+const passport = require('passport')
 const { Router } = require('express')
 const fileUpload = require('express-fileupload')
 const fileType = require('file-type')
@@ -17,6 +18,7 @@ const { errors, STORE_PATH } = require('../constants.js')
 // Setup Router
 const router = Router() // eslint-disable-line
 router.use(fileUpload({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true }))
+router.use(passport.authenticate('jwt', { session: false }))
 
 router.post('/publish', async (req, res) => {
   // Refuse unverified accounts
