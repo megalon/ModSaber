@@ -50,6 +50,7 @@ app.use(`/api/v${API_VERSION}/site`, require('./routes/site.js'))
 app.use(`/api/v${API_VERSION}/users`, require('./routes/users.js'))
 
 // Connect to DB
+mongoose.set('useCreateIndex', true)
 mongoose.connect(MONGO_URL, { useNewUrlParser: true })
 
 // Listen on port 3000
