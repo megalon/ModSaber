@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { BASE_URL } from './constants.js'
+import { API_URL } from './constants.js'
 const { Provider, Consumer } = React.createContext()
 
 export class UserProvider extends Component {
@@ -28,7 +28,7 @@ export class UserProvider extends Component {
 
   async loadUserState () {
     try {
-      let user = await (await fetch(`${BASE_URL}/api/secure/self`, { credentials: 'include' })).json()
+      let user = await (await fetch(`${API_URL}/users/self`, { credentials: 'include' })).json()
       this.setState({ loggedIn: true, user })
     } catch (err) {
       this.setState({ loggedIn: false, user: {} })
@@ -37,7 +37,7 @@ export class UserProvider extends Component {
 
   async loadAlerts () {
     try {
-      let { alert } = await (await fetch(`${BASE_URL}/api/public/alert`, { credentials: 'include' })).json()
+      let { alert } = await (await fetch(`${API_URL}/site/alert`, { credentials: 'include' })).json()
       this.setState({ alert })
     } catch (err) {
       // Silently Fail
