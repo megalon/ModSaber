@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
-import { BASE_URL } from '../../constants.js'
+import { API_URL, BASE_URL } from '../../constants.js'
 import Layout from '../../components/layout/Layout.jsx'
 import Field, { FieldArea } from '../../components/form/Field.jsx'
 
@@ -80,7 +80,7 @@ class Edit extends Component {
     body.set('title', title)
     body.set('description', description)
 
-    let resp = await fetch(`${BASE_URL}/api/secure/edit`, {
+    let resp = await fetch(`${API_URL}/files/edit`, {
       method: 'POST',
       credentials: 'include',
       body,

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as semver from 'semver'
 
-import { BASE_URL, sanitise } from '../../constants.js'
+import { BASE_URL, API_URL, sanitise } from '../../constants.js'
 import Field, { FieldArea, FieldAddon } from './Field.jsx'
 import FileField from './FileField.jsx'
 
@@ -85,7 +85,7 @@ class Form extends Component {
   }
 
   async fetchGameVersions () {
-    let gameVersions = await (await fetch(`${BASE_URL}/api/public/gameversions`, { credentials: 'include' })).json()
+    let gameVersions = await (await fetch(`${API_URL}/site/gameversions`, { credentials: 'include' })).json()
     this.setState({ gameVersions, gameVersion: gameVersions[0] })
   }
 
@@ -186,7 +186,7 @@ class Form extends Component {
     }
 
     try {
-      let resp = await fetch(`${BASE_URL}/api/secure/upload`, {
+      let resp = await fetch(`${API_URL}/files/publish`, {
         method: 'POST',
         credentials: 'include',
         body,
