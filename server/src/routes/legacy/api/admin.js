@@ -6,9 +6,6 @@ const GameVersion = require('../../models/gameversion.js')
 const log = require('../../app/logger.js')
 const { approvedPayload, revokedPayload, postWebhook } = require('../../app/helpers.js')
 
-// Environment Variables
-const { ADMIN_USERNAME } = process.env
-
 // Setup Router
 const router = Router() // eslint-disable-line
 router.use((req, res, next) => {
@@ -35,43 +32,6 @@ router.post('/gameversion', async (req, res) => {
     console.error(err)
     return res.sendStatus(500)
   }
-})
-
-router.get('/admins', async (req, res) => {
-  // Fetch all admins
-  let admins = await Account.find({ admin: true }).exec()
-
-  // Add global admin to the mix
-  if (ADMIN_USERNAME) {
-    let user = await Account.findOne({ username: ADMIN_USERNAME }).exec()
-    user.admin = true
-    if (user) admins = [...admins, user]
-  }
-
-  res.send(
-    admins.map(x => {
-      let { username, _id } = x
-      return { id: _id, username }
-    })
-  )
-})
-
-router.post('/admins/modify', async (req, res) => {
-  let { username, action } = req.body
-
-  // Validate Required Fields
-  if (!username) return res.status(400).send({ field: 'username', error: errors.MISSING })
-  if (!action) return res.status(400).send({ field: 'action', error: errors.MISSING })
-  if (!['promote', 'demote'].includes(action)) return res.status(400).send({ field: 'action', error: errors.ACTION_INVALID })
-
-  let user = await Account.findOne({ username }).exec()
-  if (!user) return res.sendStatus(404)
-
-  let admin = action === 'promote'
-  await user.set({ admin }).save()
-
-  log.info(`Admin status modified - User: ${username} // Action - ${action} [${req.user.username}]`)
-  res.sendStatus(200)
 })
 
 router.post('/approve/:name/:version', async (req, res) => {

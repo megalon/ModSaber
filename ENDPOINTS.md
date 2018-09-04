@@ -18,7 +18,6 @@ POST /auth/logout
 
 # `/api/v1.0/admin`
 ```
-POST /api/v1.0/admin/gameversion
 POST /api/v1.0/admin/approve
 POST /api/v1.0/admin/revoke
 POST /api/v1.0/admin/weight
@@ -42,6 +41,7 @@ GET  /api/v1.0/slim/approved
 ```
 GET  /api/v1.0/site/alert
 GET  /api/v1.0/site/gameversions
+POST /api/v1.0/site/gameversions
 ```
 
 # `/api/v1.0/upload`

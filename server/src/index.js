@@ -47,7 +47,7 @@ app.use(`/api/v${API_VERSION}/mods`, require('./routes/mods.js'))
 app.use(`/api/v${API_VERSION}/slim`, require('./routes/slim.js'))
 app.use(`/api/v${API_VERSION}/site`, require('./routes/site.js'))
 app.use(`/api/v${API_VERSION}/upload`, require('./routes/upload.js'))
-// app.use(`/api/v${API_VERSION}/users`, require('./routes/'))
+app.use(`/api/v${API_VERSION}/users`, require('./routes/users.js'))
 
 // Connect to DB
 mongoose.connect(MONGO_URL, { useNewUrlParser: true })

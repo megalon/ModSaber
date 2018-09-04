@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const semver = require('semver')
 const Mod = require('../models/mod.js')
-const { mapMod } = require('../app/api.js')
+const { mapMod } = require('../app/upload.js')
 const { REDIS_HOST } = require('../constants.js')
 
 // Setup Router
