@@ -48,7 +48,7 @@ class Navbar extends Component {
             <div className='navbar-start'>
               <a className='navbar-item' target='_blank' rel='noopener noreferrer'
                 href='https://github.com/Umbranoxio/BeatSaberModInstaller/releases'>Mod Installer</a>
-              <a className='navbar-item' target='_blank' rel='noopener noreferrer' href='https://discord.gg/ZY8T8ky'>Modding Discord</a>
+              <a className='navbar-item' target='_blank' rel='noopener noreferrer' href='https://discord.gg/beatsabermods'>Modding Discord</a>
               {
                 !this.props.context.loggedIn ?
                   null :
