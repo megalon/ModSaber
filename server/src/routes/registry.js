@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const semver = require('semver')
 const Mod = require('../models/mod.js')
-const { mapMod } = require('../app/upload.js')
+const { mapMod } = require('../app/mods.js')
 const { REDIS_HOST } = require('../constants.js')
 
 // Setup Router
@@ -23,7 +23,6 @@ router.get('/:name/:version', cache.route({ expire: { 200: 10, xxx: 1 } }), asyn
   let mod = await Mod.findOne({ name: n, version: v, unpublished: false }).exec()
 
   if (!mod) return res.sendStatus(404)
-
   res.send(await mapMod(mod, req))
 })
 
