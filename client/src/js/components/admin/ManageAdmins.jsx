@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { BASE_URL, AUTH, sanitise } from '../../constants.js'
+import { API_URL, AUTH, sanitise } from '../../constants.js'
 import Field from '../form/Field.jsx'
 
 class ManageAdmins extends Component {
@@ -29,7 +29,7 @@ class ManageAdmins extends Component {
   componentDidMount () { this.loadAdmins() }
 
   async loadAdmins () {
-    let admins = await (await fetch(`${BASE_URL}/api/secure/admins`, { credentials: 'include' })).json()
+    let admins = await (await fetch(`${API_URL}/users/admins`, { credentials: 'include' })).json()
     this.setState({ admins })
   }
 
@@ -44,7 +44,7 @@ class ManageAdmins extends Component {
     body.set('username', username)
     body.set('action', action)
 
-    let resp = await fetch(`${BASE_URL}/api/secure/admins/modify`, {
+    let resp = await fetch(`${API_URL}/users/admins`, {
       method: 'POST',
       credentials: 'include',
       body,
