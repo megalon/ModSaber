@@ -10,7 +10,7 @@ const { ADMIN_USERNAME } = process.env
 // Setup Router
 const router = Router() // eslint-disable-line
 
-router.get('/self', (req, res) => {
+router.get('/self', requireLogin, (req, res) => {
   let { id, username, verified, admin } = req.user
   res.send({ id, username, verified, admin })
 })
