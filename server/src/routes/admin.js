@@ -15,6 +15,10 @@ router.post('/approve-mod', async (req, res) => {
   try {
     let { name, version } = req.body
 
+    // Validate Required Fields
+    if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+    if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
+
     // Remove all old approvals
     let mods = await Mod.find({ name }).exec()
     for (let mod of mods) {
@@ -55,6 +59,10 @@ router.post('/revoke-approval', async (req, res) => {
   try {
     let { name, version } = req.body
 
+    // Validate Required Fields
+    if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+    if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
+
     let mod = await Mod.findOne({ name, version }).exec()
     if (!mod) return res.sendStatus(404)
 
@@ -89,8 +97,12 @@ router.post('/set-weight', async (req, res) => {
   try {
     let { name, version, weight: w } = req.body
 
+    // Validate Required Fields
+    if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+    if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
+
     // Validate Weight Score
-    if (!w) return res.status(400).send({ field: 'weight', error: errors.WEIGHT_INVALID })
+    if (!w) return res.status(400).send({ field: 'weight', error: errors.MISSING })
 
     let weight = parseInt(w, 10)
     if (Number.isNaN(weight)) return res.status(400).send({ field: 'weight', error: errors.WEIGHT_INVALID })
@@ -111,6 +123,10 @@ router.post('/set-weight', async (req, res) => {
 router.post('/set-category', async (req, res) => {
   try {
     let { name, version, category } = req.body
+
+    // Validate Required Fields
+    if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
+    if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
 
     // Validate Weight Score
     if (!category) return res.status(400).send({ field: 'category', error: errors.MISSING })
