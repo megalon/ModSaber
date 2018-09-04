@@ -18,10 +18,10 @@ POST /auth/logout
 
 # `/api/v1.0/admin`
 ```
-POST /api/v1.0/admin/approve
-POST /api/v1.0/admin/revoke
-POST /api/v1.0/admin/weight
-POST /api/v1.0/admin/category
+POST /api/v1.0/admin/approve-mod
+POST /api/v1.0/admin/revoke-approval
+POST /api/v1.0/admin/set-weight
+POST /api/v1.0/admin/set-category
 ```
 
 # `/api/v1.0/mods`
