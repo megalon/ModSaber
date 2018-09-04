@@ -20,4 +20,8 @@ router.get('/api/public/temp/approved', cache.route(10), async (req, res) => {
   }
 })
 
+router.get('/api/public/gameversions', (req, res) => {
+  res.redirect('/api/v1.0/site/gameversions')
+})
+
 module.exports = router
