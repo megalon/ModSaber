@@ -46,7 +46,7 @@ const API_VERSION = '1.0'
 // app.use(`/api/v${API_VERSION}/admin`, require('./routes/'))
 app.use(`/api/v${API_VERSION}/mods`, require('./routes/mods.js'))
 app.use(`/api/v${API_VERSION}/slim`, require('./routes/slim.js'))
-// app.use(`/api/v${API_VERSION}/site`, require('./routes/'))
+app.use(`/api/v${API_VERSION}/site`, require('./routes/site.js'))
 // app.use(`/api/v${API_VERSION}/upload`, require('./routes/'))
 // app.use(`/api/v${API_VERSION}/users`, require('./routes/'))
 
