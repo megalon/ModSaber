@@ -2,7 +2,6 @@ const { Router } = require('express')
 const { errors } = require('../../constants.js')
 const Account = require('../../models/account.js')
 const Mod = require('../../models/mod.js')
-const GameVersion = require('../../models/gameversion.js')
 const log = require('../../app/logger.js')
 const { approvedPayload, revokedPayload, postWebhook } = require('../../app/helpers.js')
 
@@ -12,26 +11,6 @@ router.use((req, res, next) => {
   // Admins Only
   if (!req.user.admin) return res.sendStatus(401)
   else return next()
-})
-
-router.post('/gameversion', async (req, res) => {
-  let { value, manifest, date } = req.body
-
-  // Validate Required Fields
-  if (!value) return res.status(400).send({ field: 'value', error: errors.MISSING })
-  if (!manifest) return res.status(400).send({ field: 'manifest', error: errors.MISSING })
-  if (!date) return res.status(400).send({ field: 'date', error: errors.MISSING })
-
-  try {
-    date = new Date(Number.parseInt(date) ? Number.parseInt(date) : date)
-    await GameVersion.create({ value, manifest, date })
-
-    log.info(`Game Version issued - Value: ${value} // Manifest: ${manifest} [${req.user.username}]`)
-    res.sendStatus(200)
-  } catch (err) {
-    console.error(err)
-    return res.sendStatus(500)
-  }
 })
 
 router.post('/approve/:name/:version', async (req, res) => {
