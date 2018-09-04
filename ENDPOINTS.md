@@ -26,10 +26,10 @@ POST /api/v1.0/admin/set-category
 
 # `/api/v1.0/files`
 ```
-POST /api/v1.0/upload/publish
-POST /api/v1.0/upload/edit
-POST /api/v1.0/upload/transfer
-POST /api/v1.0/upload/unpublish
+POST /api/v1.0/files/publish
+POST /api/v1.0/files/edit
+POST /api/v1.0/files/transfer
+POST /api/v1.0/files/unpublish
 ```
 
 # `/api/v1.0/mods`
