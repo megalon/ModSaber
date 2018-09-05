@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const Mod = require('../models/mod.js')
+const Mod = require('../models/Mod.js')
 const { mapMod, getPendingMods } = require('../app/mods.js')
 const { REDIS_HOST, RESULTS_PER_PAGE } = require('../constants.js')
 

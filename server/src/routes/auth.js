@@ -2,7 +2,7 @@ const { Router } = require('express')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const { plusDays, waitForMS, randomToken } = require('../app/helpers.js')
-const Account = require('../models/account.js')
+const Account = require('../models/Account.js')
 const mailDriver = require('../mail/drivers.js')
 const log = require('../app/logger.js')
 

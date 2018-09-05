@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { errors } = require('../constants.js')
 const log = require('../app/logger.js')
-const GameVersion = require('../models/gameversion.js')
+const GameVersion = require('../models/GameVersion.js')
 const { requireLogin, requireAdmin } = require('../middleware/authorization.js')
 
 // Setup Router

@@ -6,9 +6,9 @@ const fileType = require('file-type')
 const semver = require('semver')
 const slugify = require('slugify')
 
-const Account = require('../models/account.js')
-const Mod = require('../models/mod.js')
-const GameVersion = require('../models/gameversion.js')
+const Account = require('../models/Account.js')
+const Mod = require('../models/Mod.js')
+const GameVersion = require('../models/GameVersion.js')
 
 const log = require('../app/logger.js')
 const { requireLogin } = require('../middleware/authorization.js')

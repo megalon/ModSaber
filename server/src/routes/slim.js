@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const Mod = require('../models/mod.js')
+const Mod = require('../models/Mod.js')
 const { mapModsSlim } = require('../app/mods.js')
 const { REDIS_HOST } = require('../constants.js')
 

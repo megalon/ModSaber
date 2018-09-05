@@ -1,7 +1,7 @@
 const semver = require('semver')
-const Account = require('../models/account.js')
-const Mod = require('../models/mod.js')
-const GameVersion = require('../models/gameversion.js')
+const Account = require('../models/Account.js')
+const Mod = require('../models/Mod.js')
+const GameVersion = require('../models/GameVersion.js')
 
 /**
  * @typedef {Object} Mod

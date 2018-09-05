@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { errors } = require('../constants.js')
 const log = require('../app/logger.js')
-const Account = require('../models/account.js')
+const Account = require('../models/Account.js')
 const { requireLogin, requireAdmin } = require('../middleware/authorization.js')
 
 // Environment Variables
