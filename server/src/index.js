@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const log = require('./app/logger.js')
+const devCORS = require('./middleware/cors.js')
 
 // App Constants
 const { MONGO_URL } = require('./constants.js')
@@ -26,15 +27,7 @@ app.use((req, res, next) => {
 if (process.env.NODE_ENV === 'development') app.use(morgan('combined'))
 
 // Allow CORS on Dev Server
-app.use((req, res, next) => {
-  if (process.env.NODE_ENV === 'development') {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
-    res.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
-    res.set('Access-Control-Allow-Credentials', 'true')
-    res.set('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With')
-  }
-  next()
-})
+app.use(devCORS)
 
 // Routes
 app.use('/registry', require('./routes/registry.js'))
