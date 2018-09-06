@@ -97,10 +97,11 @@ router.post('/publish', async (req, res) => {
   }
 
   // Map deps and conflicts to remove versions
-  const d = dependsOn.map(x => x.split('@')).map(([a]) => a)
-  const c = conflictsWith.map(x => x.split('@')).map(([a]) => a)
+  const d = dependsOn.map(x => x.split('@')[0])
+  const c = conflictsWith.map(x => x.split('@')[0])
 
   // Check deps and conflicts don't overlap
+  if (d.includes(name) || c.includes(name)) return res.status(400).send({ field: 'dependsOn', error: errors.CONFLICTING_DEPS })
   for (let mod of d) {
     if (c.includes(mod)) return res.status(400).send({ field: 'dependsOn', error: errors.CONFLICTING_DEPS })
   }
