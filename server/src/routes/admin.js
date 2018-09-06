@@ -2,6 +2,7 @@ const { Router } = require('express')
 const { errors } = require('../constants.js')
 const Account = require('../models/Account.js')
 const Mod = require('../models/Mod.js')
+const GameVersion = require('../models/GameVersion.js')
 const log = require('../app/logger.js')
 const { requireLogin, requireAdmin } = require('../middleware/authorization.js')
 const { approvedPayload, revokedPayload, postWebhook } = require('../app/helpers.js')
@@ -19,11 +20,15 @@ router.post('/approve-mod', async (req, res) => {
     if (!name) return res.status(400).send({ field: 'name', error: errors.MISSING })
     if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
 
-    // Remove all old approvals
+    // Un-approve mods that are older than the latest game version
     let mods = await Mod.find({ name }).exec()
-    for (let mod of mods) {
-      await mod.set({ approved: false }).save() // eslint-disable-line
-    }
+    let tasks = mods.map(async mod => {
+      const [gameVersion] = (await GameVersion.find({}).exec()).sort((a, b) => b.date - a.date)
+
+      if (gameVersion._id !== mod.gameVersion) return mod.set({ approved: false }).save()
+      else return undefined
+    })
+    await Promise.all(tasks)
 
     let mod = await Mod.findOne({ name, version }).exec()
     if (!mod) return res.sendStatus(404)
