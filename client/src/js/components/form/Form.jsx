@@ -242,6 +242,7 @@ class Form extends Component {
         }, 1000)
       }
 
+      if (resp.status === 500) return this.isError('files', 'Something went wrong...')
       if (resp.status === 401 && this.props.new) return this.isError('name', 'This name is already taken')
       if (resp.status === 401 && !this.props.new) return this.isError('name', 'You do not have permission to publish an update')
 
