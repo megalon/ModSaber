@@ -7,7 +7,7 @@ Here is a list of items floating around that need to get done at some point or a
 - [ ] Dependencies and Conflicts with versions
   * Use semver versions
   * Internally use caret Ranges: `^1.2.3`
-  * API picks out the current release of the mod, saves that as a dependency
+  * API picks out the current release of the mod, saves that as a dependency 
   * Mod installer
 - [ ] My Mods page
   * Accessible in navbar
@@ -20,10 +20,10 @@ Here is a list of items floating around that need to get done at some point or a
   * Have search too
 
 ## Big Refactor:
-- [ ] Add API Versioning
+- [x] Add API Versioning
 - [ ] Remove old API endpoints (`/temp`)
-- [ ] Clean up API endpoint names
-- [ ] Keep Endpoint Consistency
+- [x] Clean up API endpoint names
+- [x] Keep Endpoint Consistency
   * Some endpoints use /:params
   * Some use body params
   * **PICK ONE AND STICK TO IT**
