@@ -39,6 +39,8 @@ class Form extends Component {
       loading: false,
 
       preview: null,
+
+      modsSlim: [],
     }
 
     this.steamFile = React.createRef()
@@ -53,6 +55,7 @@ class Form extends Component {
 
   componentDidMount () {
     this.fetchGameVersions()
+    this.loadSlimMods()
 
     if (!this.props.details.name) {
       let draft = localStorage.getItem('draft')
@@ -87,6 +90,11 @@ class Form extends Component {
   async fetchGameVersions () {
     let gameVersions = await (await fetch(`${API_URL}/site/gameversions`, { credentials: 'include' })).json()
     this.setState({ gameVersions, gameVersion: gameVersions[0] })
+  }
+
+  async loadSlimMods () {
+    let modsSlim = await (await fetch(`${API_URL}/slim/approved`, { credentials: 'include' })).json()
+    this.setState({ modsSlim })
   }
 
   showPreviewWindow () {
