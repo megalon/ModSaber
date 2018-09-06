@@ -39,6 +39,11 @@ const mapMod = async (mod, req) => {
   for (let x of entries) {
     let [key, value] = x
     value.url = `${baseURL}/${name}/${name}-${version}${entries.length === 1 ? '' : `-${key}`}.zip`
+
+    for (let [k, v] of Object.entries(value.files)) {
+      value.files[k.replace(/\\u002e/g, '.')] = v
+      value.files[k] = undefined
+    }
   }
 
   // Lookup Game Version

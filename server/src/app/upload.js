@@ -26,7 +26,10 @@ const calculateHash = data => new Promise(resolve => {
  */
 const mapFileStructure = files => {
   let final = {}
-  for (let file of files) { final[file.path] = file.hash }
+  for (let file of files) {
+    const key = file.path.replace(/\./g, '\\u002e')
+    final[key] = file.hash
+  }
   return final
 }
 
