@@ -119,6 +119,7 @@ class Form extends Component {
   searchMods (keyword, added) {
     const search = keyword === '' ? [] :
       this.state.modsSlim
+        .filter(x => x.name !== this.state.name)
         .filter(x => x.name.includes(keyword))
         .map(x => `${x.name}@${x.versions[0]}`)
         .filter(x => !added.includes(x))
