@@ -405,4 +405,22 @@ class Form extends Component {
   }
 }
 
+const InputDropdown = props =>
+  <div style={{ display: props.array.length === 0 ? 'none' : 'initial' }}>
+    <div className='input-dropdown'>
+      <div className='dropdown-content'>
+        {
+          props.array.map((x, i) =>
+            <span key={ i } className='input-dropdown-item' onClick={ () => props.onClick(x) }>{ x }</span>
+          )
+        }
+      </div>
+    </div>
+  </div>
+
+InputDropdown.propTypes = {
+  array: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired,
+}
+
 export default Form

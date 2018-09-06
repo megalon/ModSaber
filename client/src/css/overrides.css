@@ -23,6 +23,25 @@ strong {
   background: inherit !important;
 }
 
+.input-dropdown {
+  display: block;
+  transform: translate(0px, -10px);
+  min-width: 12rem;
+  padding-top: 4px;
+  position: absolute;
+  z-index: 100;
+}
+
+.input-dropdown-item {
+  color: #4a4a4a;
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  padding: 0.2rem 1rem;
+  position: relative;
+  font-family: monospace;
+}
+
 .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
   color: white;
 }
