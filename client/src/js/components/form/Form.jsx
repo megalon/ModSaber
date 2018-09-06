@@ -16,8 +16,12 @@ class Form extends Component {
       title: this.props.details.title || '',
       description: this.props.details.description || '',
       gameVersion: {},
+
       dependsOn: [],
+      dependsOnSuggestions: [],
+
       conflictsWith: [],
+      conflictsWithSuggestions: [],
 
       gameVersions: [],
 
@@ -36,8 +40,8 @@ class Form extends Component {
         field: '',
         message: '',
       },
-      loading: false,
 
+      loading: false,
       preview: null,
 
       modsSlim: [],
@@ -112,6 +116,27 @@ class Form extends Component {
     preview.postMessage(text, '*')
   }
 
+  searchMods (keyword, added) {
+    const search = keyword === '' ? [] :
+      this.state.modsSlim
+        .filter(x => x.name.includes(keyword))
+        .map(x => `${x.name}@${x.versions[0]}`)
+        .filter(x => !added.includes(x))
+        .slice(0, 5)
+
+    return search
+  }
+
+  updateDependencyForm (text) {
+    const search = this.searchMods(text, this.state.dependsOn)
+    this.setState({ currentDependsOn: text, currentDependsOnError: '', dependsOnSuggestions: search })
+  }
+
+  updateConflictForm (text) {
+    const search = this.searchMods(text, this.state.conflictsWith)
+    this.setState({ currentconflictsWith: text, currentconflictsWithError: '', conflictsWithSuggestions: search })
+  }
+
   async addDependency () {
     let { currentDependsOn, name } = this.state
     if (currentDependsOn === name) return this.setState({ currentDependsOnError: 'Cannot add self as a dependency' })
@@ -121,8 +146,12 @@ class Form extends Component {
       return this.setState({ currentDependsOnError: 'Cannot be a dependency and a conflict' })
     }
 
-    let resp = await fetch(`${BASE_URL}/registry/${currentDependsOn}`)
+    const [mod, version] = currentDependsOn.split('@')
+    let resp = await fetch(`${BASE_URL}/registry/${mod}/${version}`)
     if (resp.status === 404) return this.setState({ currentDependsOnError: 'Mod not found' })
+
+    let { approved } = await resp.json()
+    if (!approved) return this.setState({ currentDependsOnError: 'Mod not found' })
 
     this.setState(prevState => ({
       currentDependsOn: '',
@@ -146,8 +175,12 @@ class Form extends Component {
       return this.setState({ currentconflictsWithError: 'Cannot be a dependency and a conflict' })
     }
 
-    let resp = await fetch(`${BASE_URL}/registry/${currentconflictsWith}`)
+    const [mod, version] = currentconflictsWith.split('@')
+    let resp = await fetch(`${BASE_URL}/registry/${mod}/${version}`)
     if (resp.status === 404) return this.setState({ currentconflictsWithError: 'Mod not found' })
+
+    let { approved } = await resp.json()
+    if (!approved) return this.setState({ currentDependsOnError: 'Mod not found' })
 
     this.setState(prevState => ({
       currentconflictsWith: '',
@@ -294,7 +327,7 @@ class Form extends Component {
         </div>
 
         <FieldAddon
-          label="Depends On [WIP, DON'T USE THIS]"
+          label='Depends On'
           type='text'
           autoComplete='off'
           autoCapitalize='off'
@@ -304,7 +337,12 @@ class Form extends Component {
           onButtonPress={ () => { this.addDependency() } }
           onEnter={ () => { this.addDependency() } }
           value={ this.state.currentDependsOn }
-          onChange={ e => this.setState({ currentDependsOn: sanitise(e.target.value, 35), currentDependsOnError: '' }) }
+          onChange={ e => this.updateDependencyForm(sanitise(e.target.value, 35)) }
+        />
+
+        <InputDropdown
+          array={ this.state.dependsOnSuggestions }
+          onClick={ text => this.setState({ currentDependsOn: text, dependsOnSuggestions: [] }) }
         />
 
         {
@@ -324,7 +362,7 @@ class Form extends Component {
         }
 
         <FieldAddon
-          label="Conflicts With [WIP, DON'T USE THIS]"
+          label='Conflicts With'
           type='text'
           autoComplete='off'
           autoCapitalize='off'
@@ -334,7 +372,12 @@ class Form extends Component {
           onButtonPress={ () => { this.addConflict() } }
           onEnter={ () => { this.addConflict() } }
           value={ this.state.currentconflictsWith }
-          onChange={ e => this.setState({ currentconflictsWith: sanitise(e.target.value, 35), currentconflictsWithError: '' }) }
+          onChange={ e => this.updateConflictForm(sanitise(e.target.value, 35)) }
+        />
+
+        <InputDropdown
+          array={ this.state.conflictsWithSuggestions }
+          onClick={ text => this.setState({ currentconflictsWith: text, conflictsWithSuggestions: [] }) }
         />
 
         {
