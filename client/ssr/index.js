@@ -10,6 +10,14 @@ import mongoose from 'mongoose'
 const app = express()
 const router = Router() // eslint-disable-line
 
+// Proxy Support
+app.set('trust proxy', true)
+app.use((req, res, next) => {
+  res.set('X-Docker-Hostname', process.env.HOSTNAME)
+  res.removeHeader('X-Powered-By')
+  next()
+})
+
 // Connect to Mongo
 const MONGO_URL = process.env.NODE_ENV === 'development' ? 'mongodb://localhost:27017/modsaber' : 'mongodb://mongo:27017/modsaber'
 mongoose.connect(MONGO_URL, { useNewUrlParser: true })
