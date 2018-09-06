@@ -15,14 +15,23 @@ class Publish extends Component {
       new: true,
       existing: {},
     }
-
-    if (!this.props.context.user.verified) this.props.history.replace('')
   }
 
   componentDidMount () { this.checkExisting() }
 
+  checkPermissions () {
+    // Check for permissions
+    if (
+      (this.props.context.loggedIn && !this.props.context.user.verified) ||
+      this.props.context.loggedIn === false
+    ) this.props.history.replace('')
+  }
+
   componentDidUpdate (prevProps) {
-    if (this.props.match.params !== prevProps.match.params) this.checkExisting()
+    if (this.props.match.params !== prevProps.match.params) {
+      this.checkExisting()
+      this.checkPermissions()
+    }
   }
 
   async checkExisting () {
