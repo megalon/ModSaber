@@ -16,6 +16,7 @@ module.exports = {
     ACTION_INVALID: 'action_invalid',
     WEIGHT_INVALID: 'weight_invalid',
     CATEGORY_INVALID: 'category_invalid',
+    CONFLICTING_DEPS: 'conflicting_deps',
   },
   RESULTS_PER_PAGE: 5,
   BLOCKED_EXTENSIONS: [

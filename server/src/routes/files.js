@@ -96,6 +96,33 @@ router.post('/publish', async (req, res) => {
     }
   }
 
+  // Map deps and conflicts to remove versions
+  const d = dependsOn.map(x => x.split('@')).map(([a]) => a)
+  const c = conflictsWith.map(x => x.split('@')).map(([a]) => a)
+
+  // Check deps and conflicts don't overlap
+  for (let mod of d) {
+    if (c.includes(mod)) return res.status(400).send({ field: 'dependsOn', error: errors.CONFLICTING_DEPS })
+  }
+
+  // Map Dependencies
+  dependsOn = (await Promise.all(dependsOn.map(async x => {
+    const [n, v] = x.split('@')
+    const dep = await Mod.findOne({ name: n, version: v, approved: true, unpublished: false }).exec()
+    return dep
+  })))
+    .filter(x => x !== null)
+    .map(x => `${x.name}@^${x.version}`)
+
+  // Map Conflicts
+  conflictsWith = (await Promise.all(conflictsWith.map(async x => {
+    const [n, v] = x.split('@')
+    const dep = await Mod.findOne({ name: n, version: v, approved: true, unpublished: false }).exec()
+    return dep
+  })))
+    .filter(x => x !== null)
+    .map(x => `${x.name}@^${x.version}`)
+
   // Pull a list of all old versions
   let oldVersions = existing.map(x => x.version)
 
