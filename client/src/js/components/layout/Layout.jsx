@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import withContext from '../hoc/WithContext.jsx'
@@ -9,7 +9,7 @@ import Alert from './Alert.jsx'
 const Navbar = withContext(navbar)
 
 const Layout = props =>
-  <div>
+  <Fragment>
     <Navbar history={ props.history } />
 
     <div className='container'>
@@ -19,7 +19,7 @@ const Layout = props =>
         { props.children }
       </div>
     </div>
-  </div>
+  </Fragment>
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
