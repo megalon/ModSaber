@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import * as ReactMarkdown from 'react-markdown'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -8,7 +7,7 @@ import { API_URL, BASE_URL } from '../../constants.js'
 import NotFound from '../NotFound.jsx'
 import SweetAlert from '../../components/hoc/AsyncSwal.jsx'
 import Layout from '../../components/layout/Layout.jsx'
-import CodeBlock from '../../components/layout/CodeBlock.jsx'
+import MarkdownRenderer from '../../components/hoc/MarkdownRenderer.jsx'
 import modMetaTags from '../../components/layout/ModMetaTags.jsx'
 
 class Mod extends Component {
@@ -161,11 +160,6 @@ class Mod extends Component {
       mod.gameVersion === this.state.gameVersions[0].value :
       false
 
-    const canUseDOM = !!(
-      (typeof window !== 'undefined' &&
-      window.document && window.document.createElement)
-    )
-
     return (
       <Fragment>
         <Layout history={ this.props.history } >
@@ -244,11 +238,7 @@ class Mod extends Component {
               </div>
 
               <div className='column is-10'>
-                {
-                  canUseDOM ?
-                    <ReactMarkdown source={ mod.description } renderers={{ code: CodeBlock }} /> :
-                    null
-                }
+                <MarkdownRenderer source={ mod.description } />
               </div>
             </div>
           </div>

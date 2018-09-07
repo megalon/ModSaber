@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Helmet } from 'react-helmet'
-import * as ReactMarkdown from 'react-markdown'
 import PropTypes from 'prop-types'
 
-import CodeBlock from '../../components/layout/CodeBlock.jsx'
+import MarkdownRenderer from '../../components/hoc/MarkdownRenderer.jsx'
 
 class Preview extends Component {
   constructor (props) {
@@ -40,11 +39,7 @@ class Preview extends Component {
           <hr />
 
           <div className='content'>
-            {
-              this.canUseDOM ?
-                <ReactMarkdown source={ this.state.text } renderers={{ code: CodeBlock }} /> :
-                null
-            }
+            <MarkdownRenderer source={ this.state.text } />
           </div>
         </div>
       </Fragment>
