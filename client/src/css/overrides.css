@@ -39,6 +39,10 @@ kbd {
   background: inherit !important;
 }
 
+.content table thead td, .content table thead th {
+  color: #d8d8d8;
+}
+
 .input-dropdown {
   display: block;
   transform: translate(0px, -10px);
