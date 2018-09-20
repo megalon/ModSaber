@@ -34,6 +34,13 @@ Here is a list of items floating around that need to get done at some point or a
   * Add `/api/v1.0/mods/semver/:name/:range`
     * 404s on invalid name
     * Returns an empty array if no mods found
+- [ ] Project Versioning
+  * Start a `CHANGELOG.md` file
+  * Tag old versions based on dates and features
+  * Write them into the changelog
+- [ ] Public Release
+  * Open source the project
+  * Add template files
 
 ## Backburner
 *These will probably get done eventually, but aren't quite important enough to do immediately. Some of these might end up being scrapped anyway.*
