@@ -35,15 +35,6 @@ Here is a list of items floating around that need to get done at some point or a
     * 404s on invalid name
     * Returns an empty array if no mods found
 
-## Big Refactor:
-- [x] Add API Versioning
-- [ ] Remove old API endpoints (`/temp`)
-- [x] Clean up API endpoint names
-- [x] Keep Endpoint Consistency
-  * Some endpoints use /:params
-  * Some use body params
-  * **PICK ONE AND STICK TO IT**
-
 ## Backburner
 *These will probably get done eventually, but aren't quite important enough to do immediately. Some of these might end up being scrapped anyway.*
 
