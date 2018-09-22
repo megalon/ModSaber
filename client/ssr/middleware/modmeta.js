@@ -6,7 +6,7 @@ export default async (req, res, next) => {
 
   try {
     const mods = await mongoose.connection.db.collection('mods')
-    const query = version ? { name, version, unpublished: false, approved: true } : { name, unpublished: false, approved: true }
+    const query = version ? { name, version, unpublished: false } : { name, unpublished: false }
     const [mod] = await (await mods.find(query)).toArray()
 
     // Ignore for no mod
@@ -14,7 +14,6 @@ export default async (req, res, next) => {
 
     const accounts = await mongoose.connection.db.collection('accounts')
     const [author] = await (await accounts.find({ _id: mod.author })).toArray()
-    console.log(author)
 
     // Push meta tags to next middleware
     req.metaTags = modMetaTags(mod.name, mod.version, author.username || 'author', mod.title)
