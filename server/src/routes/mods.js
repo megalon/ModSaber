@@ -49,7 +49,16 @@ router.get('/versions/:name', cache.route(10), async (req, res) => {
 })
 
 router.get('/semver/:name/:range', cache.route(10), async (req, res) => {
-  res.sendStatus(501)
+  const { name, range } = req.params
+  const mods = await Mod.find({ name, unpublished: false }).exec()
+
+  if (mods.length === 0) return res.sendStatus(404)
+  const filtered = mods
+    .sort((a, b) => a.name > b.name ? 1 : b.name > a.name ? -1 : 0 || semver.rcompare(a.version, b.version))
+    .filter(mod => semver.satisfies(mod.version, range))
+
+  const mapped = await Promise.all(filtered.map(mod => mapMod(mod, req)))
+  res.send(mapped)
 })
 
 module.exports = router
