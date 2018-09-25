@@ -44,7 +44,7 @@ const Mods = props => {
             <tr>
               <td
                 className='is-size-3 has-text-weight-bold'
-                colSpan='3'
+                colSpan={ !props.showApprovals ? 3 : 4 }
                 style={{ paddingLeft: 0 }}
               >{ name }</td>
             </tr>
@@ -53,6 +53,7 @@ const Mods = props => {
               <th className='is-size-5 has-text-weight-bold' style={{ paddingLeft: '10px' }}>Name</th>
               <th className='is-size-5 has-text-weight-bold'>Author</th>
               <th className='is-size-5 has-text-weight-bold'>Version</th>
+              { !props.showApprovals ? null : <th className='is-size-5 has-text-weight-bold'>Approval Status</th> }
             </tr>
 
             { mods.map((mod, i) =>
@@ -70,6 +71,14 @@ const Mods = props => {
                 <td>
                   <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version }</code>
                 </td>
+
+                { !props.showApprovals ? null :
+                  <td>
+                    <span className={ `tag is-${mod.approved ? 'link' : 'danger'}` }>
+                      { mod.approved ? 'Approved' : 'UNAPPROVED' }
+                    </span>
+                  </td>
+                }
               </tr>
             ) }
           </Fragment>
@@ -91,6 +100,7 @@ Mods.propTypes = {
   mods: PropTypes.arrayOf(PropTypes.any),
   showMore: PropTypes.bool,
   showMoreClicked: PropTypes.func.isRequired,
+  showApprovals: PropTypes.bool,
 }
 
 export default Mods

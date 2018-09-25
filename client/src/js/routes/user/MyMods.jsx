@@ -76,7 +76,7 @@ class MyMods extends Component {
         </div>
         <hr />
 
-        <Mods mods={ mods } showMore={ true } />
+        <Mods mods={ mods } showMore showApprovals />
       </Layout>
     )
   }
