@@ -27,14 +27,6 @@ Here is a list of items floating around that need to get done at some point or a
     * Filter by: `type, version`
     * Have search too
 
-- [ ] DaNike's Endpoint Requests
-  * Add `/api/v1.0/mods/versions/:name`
-    * Returns all versions of a mod that match the name
-    * 404s on invalid name
-  * Add `/api/v1.0/mods/semver/:name/:range`
-    * 404s on invalid name
-    * Returns an empty array if no mods found
-
 - [ ] Project Versioning
   * ~~Start a `CHANGELOG.md` file~~
   * ~~Tag old versions based on dates and features~~

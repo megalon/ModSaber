@@ -37,6 +37,8 @@ POST /api/v1.0/files/unpublish
 GET  /api/v1.0/mods/pending
 GET  /api/v1.0/mods/new/:page?
 GET  /api/v1.0/mods/approved/:page?
+GET  /api/v1.0/mods/versions/:name
+GET  /api/v1.0/mods/semver/:name/:range
 ```
 
 # `/api/v1.0/slim`
