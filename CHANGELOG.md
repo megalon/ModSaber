@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.7.4] - 2018-09-25
+### Added
+- 'My Mods' page.  
+  Allows you to see all the mods you currently have published.
+- Autofocus to input fields around the site
+### Changed
+- Home page layout.  
+  Now groups mods by category, similar to the Mod Manager.
+
 ## [0.7.3] - 2018-09-25
 ### Added
 - This changelog! \o/

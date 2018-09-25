@@ -10,27 +10,12 @@ Here is a list of items floating around that need to get done at some point or a
   * ~~API picks out the current release of the mod, saves that as a dependency~~
   * Mod installer
 
-- [ ] My Mods page
-  * Accessible in navbar
-  * Lists all mods and versions (including old ones)
-  * **Potentially re-use homepage component but with other mods**
-
 - [ ] Main page overhaul
-  * Migrate endpoints
-    * Use the full endpoint to get more data about each mod
-    * Limit the number of mods to the top 5 (no groups)
-    * Show more option (shows groups)
-  * Grouping
-    * Groups show when searching
-    * Group in the same way as in the mod manager
+  * ~~Migrate endpoints~~
+  * ~~Grouping~~
   * Filters
     * Filter by: `type, version`
     * Have search too
-
-- [ ] Project Versioning
-  * ~~Start a `CHANGELOG.md` file~~
-  * ~~Tag old versions based on dates and features~~
-  * Write them into the changelog
 
 - [ ] Public Release
   * Open source the project
