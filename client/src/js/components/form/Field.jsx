@@ -9,6 +9,7 @@ const Field = props =>
         className='input'
         type={ props.type }
         placeholder={ props.placeholder }
+        autoFocus={ props.autofocus }
         disabled={ props.disabled }
         onChange={ props.onChange }
         onKeyPress={ e => { if (e.key === 'Enter') { props.onEnter() } } }
@@ -29,6 +30,7 @@ Field.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  autofocus: PropTypes.bool,
   type: PropTypes.string.isRequired,
   icon: PropTypes.string,
   prompt: PropTypes.string,
