@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 
@@ -76,7 +77,13 @@ class MyMods extends Component {
         </div>
         <hr />
 
-        <Mods mods={ mods } showMore showApprovals />
+        <Mods mods={ mods } showMore showApprovals>
+          <p>
+            <b>Looks like you don&#39;t have any mods!</b><br />
+            <i>If this isn&#39;t supposed to be the case, please alert a site admin.</i><br /><br />
+            Otherwise, why not <Link to='/publish'>publish a mod!</Link>
+          </p>
+        </Mods>
       </Layout>
     )
   }

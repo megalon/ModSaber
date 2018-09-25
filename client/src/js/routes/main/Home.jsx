@@ -42,7 +42,13 @@ class Home extends Component {
           mods={ this.state.mods }
           showMore={ this.state.showMore }
           showMoreClicked={ () => this.setState({ showMore: true }) }
-        />
+        >
+          <p>
+            <b>Well this is embarrassing, it looks like there are no mods.</b><br />
+            <i>If this isn&#39;t supposed to be the case, please alert a site admin.</i><br /><br />
+            Otherwise, sign up and be the first to publish a mod!
+          </p>
+        </Mods>
       </MainPage>
     )
   }

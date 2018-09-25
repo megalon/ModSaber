@@ -27,11 +27,7 @@ const Mods = props => {
   if (sliced.length === 0) {
     return (
       <Fragment>
-        <p>
-          <b>Well this is embarrassing, it looks like there are no mods.</b><br />
-          <i>If this isn&#39;t supposed to be the case, please alert a site admin.</i><br /><br />
-          Otherwise, sign up and be the first to publish a mod!
-        </p>
+        { props.children }
       </Fragment>
     )
   }
@@ -97,6 +93,7 @@ const Mods = props => {
 }
 
 Mods.propTypes = {
+  children: PropTypes.any,
   mods: PropTypes.arrayOf(PropTypes.any),
   showMore: PropTypes.bool,
   showMoreClicked: PropTypes.func.isRequired,
