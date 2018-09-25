@@ -20,6 +20,7 @@ import Edit from './routes/mod/Edit'
 import Transfer from './routes/mod/Transfer'
 
 import Settings from './routes/user/Settings'
+import MyMods from './routes/user/MyMods'
 import Admin from './routes/user/Admin'
 
 const Routes = () =>
@@ -41,6 +42,7 @@ const Routes = () =>
     <Route path='/transfer/:name' component={ withContext(Transfer) } />
 
     <Route path='/settings' component={ withContext(Settings) } />
+    <Route path='/my-mods' component={ withContext(MyMods) } />
     <Route path='/admin' component={ withContext(Admin) } />
 
     <Route path='/' component={ NotFound } />

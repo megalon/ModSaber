@@ -67,6 +67,7 @@ class Navbar extends Component {
                       !this.props.context.user.admin ? null :
                         <Link className='navbar-item' to='/admin'>Admin</Link>
                     }
+                    <Link className='navbar-item' to='/my-mods'>My Mods</Link>
                     <Link className='navbar-item' to='/settings'>{ this.props.context.user.username }</Link>
                     <a className='navbar-item' onClick={ () => this.logout() }><b>Logout</b></a>
                   </Fragment>

@@ -61,4 +61,8 @@ router.get('/semver/:name/:range', cache.route(10), async (req, res) => {
   res.send(mapped)
 })
 
+router.get('/mine', cache.route(10), (req, res) => {
+  res.sendStatus(501)
+})
+
 module.exports = router
