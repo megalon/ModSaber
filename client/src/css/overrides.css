@@ -39,7 +39,7 @@ kbd {
   background: inherit !important;
 }
 
-.content table thead td, .content table thead th {
+.content table thead td, .content table thead th, .content table th {
   color: #d8d8d8;
 }
 

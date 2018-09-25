@@ -1,10 +1,9 @@
-import React, { Component, Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react'
 import { Helmet } from 'react-helmet'
 
 import { API_URL } from '../../constants.js'
 import MainPage from '../../components/layout/MainPage.jsx'
-import Paginator from '../../components/layout/Paginator.jsx'
+import Mods from '../../components/layout/Mods.jsx'
 
 class Home extends Component {
   constructor (props) {
@@ -12,113 +11,38 @@ class Home extends Component {
 
     this.state = {
       mods: [],
-      page: 0,
+      showMore: false,
     }
   }
 
   componentDidMount () { this.loadMods() }
 
-  componentDidUpdate (prevProps, prevState) {
-    if (this.props.match.params !== prevProps.match.params) {
-      let pageProp = this.props.match.params.page || 0
-      const page = Math.min(Math.max(pageProp, 0), this.state.mods.length - 1)
-
-      this.setState({ page })
-      return undefined
-    }
-
-    if (prevState.page !== this.state.page) {
-      const history = this.state.page === 0 ? '/' : `/mods/${this.state.page}`
-      this.props.history.replace(history)
-    }
-  }
-
   async loadMods () {
     let { lastPage } = await (await fetch(`${API_URL}/mods/approved`)).json()
     const pages = Array.from(new Array(lastPage + 1)).map((_, i) => i)
 
-    const mods = await Promise.all(pages.map(async page => {
+    const multi = await Promise.all(pages.map(async page => {
       const resp = await (await fetch(`${API_URL}/mods/approved/${page}`)).json()
       return resp.mods
     }))
 
-    let pageProp = this.props.match.params.page || 0
-    const page = Math.min(Math.max(pageProp, 0), mods.length - 1)
-
-    this.setState({ mods, page })
-  }
-
-  prevPage () {
-    this.setState(({ page }) => {
-      page -= 1
-      if (page < 0) page = 0
-
-      return { page }
-    })
-  }
-
-  nextPage () {
-    this.setState(({ page }) => {
-      page += 1
-      if (page > this.state.mods.length - 1) page = this.state.mods.length - 1
-
-      return { page }
-    })
-  }
-
-  gotoPage (page) {
-    this.setState({ page })
+    const mods = [].concat(...multi)
+    this.setState({ mods })
   }
 
   render () {
-    let { mods } = this.state
-
     return (
       <MainPage {...this.props}>
         <Helmet>
-          <title>{
-            this.state.page === 0 ?
-              'ModSaber' :
-              `ModSaber | Page ${this.state.page + 1}`
-          }</title>
+          <title>ModSaber</title>
         </Helmet>
+        <hr/>
 
-        {
-          this.state.mods.length > 0 ? null :
-            <Fragment>
-              <hr />
-              <p>
-                <b>Well this is embarrassing, it looks like there are no mods.</b><br />
-                <i>If this isn&#39;t supposed to be the case, please alert a site admin.</i><br /><br />
-                Otherwise, sign up and be the first to publish a mod!
-              </p>
-            </Fragment>
-        }
-
-        <Paginator
-          max={ mods.length }
-          current={ this.state.page }
-          prev={ () => this.prevPage() }
-          next={ () => this.nextPage() }
-          goto={ i => this.gotoPage(i) }
+        <Mods
+          mods={ this.state.mods }
+          showMore={ this.state.showMore }
+          showMoreClicked={ () => this.setState({ showMore: true }) }
         />
-
-        {
-          mods.length === 0 ? null :
-            mods[this.state.page].map((mod, i) =>
-              <Fragment key={ i }>
-                <hr />
-                <h2 className='is-size-4' style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}>
-                  <Link to={ `/mod/${mod.name}/${mod.version}` } className='mod-link'>
-                    <span className='has-text-weight-bold'>{ mod.title }</span>
-                  </Link>
-                  <span style={{ marginLeft: '14px', marginTop: '5px' }} className='tag is-link'>{ mod.type }</span>
-                </h2>
-
-                <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version } &#47;&#47; { mod.author }</code>
-              </Fragment>
-            )
-        }
       </MainPage>
     )
   }
