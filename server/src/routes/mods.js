@@ -36,4 +36,12 @@ router.get('/approved/:page?', cache.route(10), async (req, res) => {
   res.send({ mods, lastPage })
 })
 
+router.get('/versions/:name', cache.route(10), async (req, res) => {
+  res.sendStatus(501)
+})
+
+router.get('/semver/:name/:range', cache.route(10), async (req, res) => {
+  res.sendStatus(501)
+})
+
 module.exports = router
