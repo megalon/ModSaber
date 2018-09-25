@@ -130,6 +130,7 @@ class Edit extends Component {
               <Field
                 label='Mod Title'
                 type='text'
+                autofocus
                 autoComplete='off'
                 placeholder='Mod Title. Shown on pages and in the mod installer.'
                 prompt={ this.state.error }

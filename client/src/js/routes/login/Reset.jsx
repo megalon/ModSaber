@@ -71,6 +71,7 @@ class Reset extends Component {
               placeholder='Password'
               type='password'
               icon='lock'
+              autofocus
               value={ this.state.password }
               onChange={ e => { this.setState({ password: e.target.value, error: '' }) }}
               onEnter={ () => this.submitForm() }

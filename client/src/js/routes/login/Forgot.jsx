@@ -68,6 +68,7 @@ class Forgot extends Component {
               placeholder='Email'
               type='email'
               icon='envelope'
+              autofocus
               value={ this.state.email }
               prompt={ this.state.error }
               onChange={ e => { this.setState({ email: e.target.value, error: '' }) }}

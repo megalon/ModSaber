@@ -89,6 +89,7 @@ class Login extends Component {
               placeholder='Username'
               type='text'
               icon='user'
+              autofocus
               value={ this.state.username }
               onChange={ e => { this.setState({ username: sanitise(e.target.value), error: '' }) }}
               onEnter={ () => this.submitForm() }

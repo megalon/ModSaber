@@ -97,6 +97,7 @@ class Transfer extends Component {
             <Field
               label='Mod Author'
               type='text'
+              autofocus
               autoComplete='off'
               autoCapitalize='off'
               placeholder='Username'

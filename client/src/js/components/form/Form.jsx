@@ -273,6 +273,7 @@ class Form extends Component {
         <Field
           label='Mod Name'
           type='text'
+          autofocus={ this.props.new }
           autoComplete='off'
           autoCapitalize='off'
           placeholder='Internal database name. Must be lowercase and alphanumeric.'
@@ -286,6 +287,7 @@ class Form extends Component {
           label='Version'
           type='text'
           autoComplete='off'
+          autofocus={ !this.props.new }
           prompt={ this.state.error.field === 'version' ? this.state.error.message : '' }
           placeholder={ this.props.details.version ? this.props.details.version : 'Must follow semver (Google it)' }
           value={ this.state.version }
