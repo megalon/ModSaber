@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-import * as chunk from 'chunk'
 
 import { API_URL } from '../../constants.js'
 import MainPage from '../../components/layout/MainPage.jsx'
@@ -35,8 +34,13 @@ class Home extends Component {
   }
 
   async loadMods () {
-    let mods = await (await fetch(`${API_URL}/slim/approved`)).json()
-    mods = chunk(mods, 5)
+    let { lastPage } = await (await fetch(`${API_URL}/mods/approved`)).json()
+    const pages = Array.from(new Array(lastPage + 1)).map((_, i) => i)
+
+    const mods = await Promise.all(pages.map(async page => {
+      const resp = await (await fetch(`${API_URL}/mods/approved/${page}`)).json()
+      return resp.mods
+    }))
 
     let pageProp = this.props.match.params.page || 0
     const page = Math.min(Math.max(pageProp, 0), mods.length - 1)
@@ -105,13 +109,13 @@ class Home extends Component {
               <Fragment key={ i }>
                 <hr />
                 <h2 className='is-size-4' style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}>
-                  <Link to={ `/mod/${mod.name}/${mod.versions[0]}` } className='mod-link'>
+                  <Link to={ `/mod/${mod.name}/${mod.version}` } className='mod-link'>
                     <span className='has-text-weight-bold'>{ mod.title }</span>
                   </Link>
                   <span style={{ marginLeft: '14px', marginTop: '5px' }} className='tag is-link'>{ mod.type }</span>
                 </h2>
 
-                <code style={{ color: '#060606' }}>{ mod.name }@{ mod.versions[0] } &#47;&#47; { mod.author }</code>
+                <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version } &#47;&#47; { mod.author }</code>
               </Fragment>
             )
         }
