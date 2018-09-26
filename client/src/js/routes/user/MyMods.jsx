@@ -41,7 +41,7 @@ class MyMods extends Component {
 
   filterMods (mods) {
     const map = new Map()
-    for (let mod of mods.slice().reverse()) { map.set(mod.name, mod) }
+    for (let mod of [...mods].reverse()) { map.set(mod.name, mod) }
     return [...map.values()].reverse()
   }
 
