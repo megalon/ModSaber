@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import Fuse from 'fuse.js'
 
 import Field from '../form/Field.jsx'
 
@@ -8,8 +9,19 @@ class Mods extends Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      search: '',
+    this.state = { search: '' }
+
+    this.fuseOptions = {
+      shouldSort: true,
+      threshold: 0.4,
+      location: 0,
+      distance: 50,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: [
+        'name',
+        'author',
+      ],
     }
   }
 
@@ -45,11 +57,17 @@ class Mods extends Component {
   }
 
   render () {
-    const filtered = this.props.mods
-    const categories = this.categorize(filtered)
-    const sliced = this.props.showMore ? categories : categories.slice(0, 1)
+    const filtered = this.state.search === '' ?
+      this.props.mods :
+      new Fuse(this.props.mods, this.fuseOptions)
+        .search(this.state.search)
 
-    if (sliced.length === 0) {
+    const categories = this.categorize(filtered)
+
+    const showMore = this.state.search === '' ? this.props.showMore : true
+    const sliced = showMore ? categories : categories.slice(0, 1)
+
+    if (this.props.mods.length === 0) {
       return (
         <Fragment>
           { this.props.children }
@@ -72,55 +90,55 @@ class Mods extends Component {
 
         <table className='is-fullwidth' style={{ marginTop: '-0.75rem' }}>
           <tbody>
-          { sliced.map(({ name, mods }) =>
-            <Fragment key={ name }>
-              <tr>
-                <td
-                  className='is-size-3 has-text-weight-bold'
-                  colSpan={ !this.props.showApprovals ? 3 : 4 }
-                  style={{ paddingLeft: 0 }}
-                >{ name }</td>
-              </tr>
-
-              <tr>
-                <th className='is-size-5 has-text-weight-bold' style={{ paddingLeft: '10px' }}>Name</th>
-                <th className='is-size-5 has-text-weight-bold'>Author</th>
-                <th className='is-size-5 has-text-weight-bold'>Version</th>
-                { !this.props.showApprovals ? null : <th className='is-size-5 has-text-weight-bold'>Approval Status</th> }
-              </tr>
-
-              { mods.map((mod, i) =>
-                <tr key={ i }>
-                  <td>
-                    <Link to={ `/mod/${mod.name}/${mod.version}` } className='mod-link'>
-                      <span>{ mod.title }</span>
-                    </Link>
-                  </td>
-
-                  <td>
-                    <code style={{ color: '#060606' }}>{ mod.author }</code>
-                  </td>
-
-                  <td>
-                    <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version }</code>
-                  </td>
-
-                  { !this.props.showApprovals ? null :
-                    <td>
-                      <span className={ `tag is-${mod.approved ? 'link' : 'danger'}` }>
-                        { mod.approved ? 'Approved' : 'UNAPPROVED' }
-                      </span>
-                    </td>
-                  }
+            { sliced.map(({ name, mods }) =>
+              <Fragment key={ name }>
+                <tr>
+                  <td
+                    className='is-size-3 has-text-weight-bold'
+                    colSpan={ !this.props.showApprovals ? 3 : 4 }
+                    style={{ paddingLeft: 0 }}
+                  >{ name }</td>
                 </tr>
-              ) }
-            </Fragment>
-          ) }
+
+                <tr>
+                  <th className='is-size-5 has-text-weight-bold' style={{ paddingLeft: '10px' }}>Name</th>
+                  <th className='is-size-5 has-text-weight-bold'>Author</th>
+                  <th className='is-size-5 has-text-weight-bold'>Version</th>
+                  { !this.props.showApprovals ? null : <th className='is-size-5 has-text-weight-bold'>Approval Status</th> }
+                </tr>
+
+                { mods.map((mod, i) =>
+                  <tr key={ i }>
+                    <td>
+                      <Link to={ `/mod/${mod.name}/${mod.version}` } className='mod-link'>
+                        <span>{ mod.title }</span>
+                      </Link>
+                    </td>
+
+                    <td>
+                      <code style={{ color: '#060606' }}>{ mod.author }</code>
+                    </td>
+
+                    <td>
+                      <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version }</code>
+                    </td>
+
+                    { !this.props.showApprovals ? null :
+                      <td>
+                        <span className={ `tag is-${mod.approved ? 'link' : 'danger'}` }>
+                          { mod.approved ? 'Approved' : 'UNAPPROVED' }
+                        </span>
+                      </td>
+                    }
+                  </tr>
+                ) }
+              </Fragment>
+            ) }
           </tbody>
         </table>
 
         {
-          this.props.showMore ? null :
+          showMore ? null :
             <button
               onClick={ () => this.props.showMoreClicked() }
               className='button is-fullwidth is-dark is-inverted is-outlined'

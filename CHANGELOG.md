@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Fuzzy searching to Mods list component
 ### Changed
 - Link colour, now has more visual contrast on the dark background
 ### Fixed
