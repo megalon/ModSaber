@@ -1,8 +1,8 @@
-# TODO List
+# ModSaber To-Do List
 Here is a list of items floating around that need to get done at some point or another.
 
-## TODO:
-*This is a list of items that should be done before launch.*
+## `// TODO`
+*List of items that are important and should get done before the next release.*
 
 - [ ] Dependencies and Conflicts with versions
   * ~~Use semver versions~~
@@ -10,16 +10,13 @@ Here is a list of items floating around that need to get done at some point or a
   * ~~API picks out the current release of the mod, saves that as a dependency~~
   * Mod installer
 
-- [ ] Main page overhaul
-  * ~~Migrate endpoints~~
-  * ~~Grouping~~
-  * Filters
-    * Filter by: `type, version`
-    * Have search too
-
 - [ ] Public Release
   * Open source the project
+  * Setup CI for linting
+  * Cleanup `README`
   * Add template files
+    * Issue Template
+    * Contributing guidelines
 
 ## Backburner
 *These will probably get done eventually, but aren't quite important enough to do immediately. Some of these might end up being scrapped anyway.*

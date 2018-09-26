@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.7.5] - 2018-09-26
 ### Added
 - Fuzzy searching to Mods list component
 ### Changed
