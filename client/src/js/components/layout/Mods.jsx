@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+import Field from '../form/Field.jsx'
+
 class Mods extends Component {
   constructor (props) {
     super(props)
@@ -39,11 +41,12 @@ class Mods extends Component {
       return a.name > b.name ? 1 : b.name > a.name ? -1 : 0
     })
 
-    return categories
+    return [...categories]
   }
 
   render () {
-    const categories = this.categorize(this.props.mods)
+    const filtered = this.props.mods
+    const categories = this.categorize(filtered)
     const sliced = this.props.showMore ? categories : categories.slice(0, 1)
 
     if (sliced.length === 0) {
@@ -55,8 +58,18 @@ class Mods extends Component {
     }
 
     return (
-      <div className='content' style={{ marginTop: '-20px' }}>
-        <table className='is-fullwidth'>
+      <div className='content'>
+
+        <Field
+          value={ this.state.search }
+          onChange={ e => this.setState({ search: e.target.value }) }
+          icon='search'
+          placeholder='Search mods...'
+          autoComplete='off'
+          autoCapitalize='off'
+        />
+
+        <table className='is-fullwidth' style={{ marginTop: '-0.75rem' }}>
           { sliced.map(({ name, mods }) =>
             <Fragment key={ name }>
               <tr>
