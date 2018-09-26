@@ -88,54 +88,16 @@ class Mods extends Component {
           autoCapitalize='off'
         />
 
-        <table className='is-fullwidth' style={{ marginTop: '-0.75rem' }}>
-          <tbody>
-            { sliced.map(({ name, mods }) =>
-              <Fragment key={ name }>
-                <tr>
-                  <td
-                    className='is-size-3 has-text-weight-bold'
-                    colSpan={ !this.props.showApprovals ? 3 : 4 }
-                    style={{ paddingLeft: 0 }}
-                  >{ name }</td>
-                </tr>
-
-                <tr>
-                  <th className='is-size-5 has-text-weight-bold' style={{ paddingLeft: '10px' }}>Name</th>
-                  <th className='is-size-5 has-text-weight-bold'>Author</th>
-                  <th className='is-size-5 has-text-weight-bold'>Version</th>
-                  { !this.props.showApprovals ? null : <th className='is-size-5 has-text-weight-bold'>Approval Status</th> }
-                </tr>
-
-                { mods.map((mod, i) =>
-                  <tr key={ i }>
-                    <td>
-                      <Link to={ `/mod/${mod.name}/${mod.version}` } className='mod-link'>
-                        <span>{ mod.title }</span>
-                      </Link>
-                    </td>
-
-                    <td>
-                      <code style={{ color: '#060606' }}>{ mod.author }</code>
-                    </td>
-
-                    <td>
-                      <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version }</code>
-                    </td>
-
-                    { !this.props.showApprovals ? null :
-                      <td>
-                        <span className={ `tag is-${mod.approved ? 'link' : 'danger'}` }>
-                          { mod.approved ? 'Approved' : 'UNAPPROVED' }
-                        </span>
-                      </td>
-                    }
-                  </tr>
-                ) }
-              </Fragment>
-            ) }
-          </tbody>
-        </table>
+        {
+          !(sliced.length === 0 && this.state.search !== '') ?
+            <ModsTable categories={ sliced } showApprovals={ this.props.showApprovals } /> :
+            <Fragment>
+              <p>
+                <b>No mods found!</b><br />
+                <i>Try refining your search term.</i>
+              </p>
+            </Fragment>
+        }
 
         {
           showMore ? null :
@@ -147,6 +109,61 @@ class Mods extends Component {
       </div>
     )
   }
+}
+
+const ModsTable = props =>
+  <table className='is-fullwidth' style={{ marginTop: '-0.75rem' }}>
+    <tbody>
+      { props.categories.map(({ name, mods }) =>
+        <Fragment key={ name }>
+          <tr>
+            <td
+              className='is-size-3 has-text-weight-bold'
+              colSpan={ !props.showApprovals ? 3 : 4 }
+              style={{ paddingLeft: 0 }}
+            >{ name }</td>
+          </tr>
+
+          <tr>
+            <th className='is-size-5 has-text-weight-bold' style={{ paddingLeft: '10px' }}>Name</th>
+            <th className='is-size-5 has-text-weight-bold'>Author</th>
+            <th className='is-size-5 has-text-weight-bold'>Version</th>
+            { !props.showApprovals ? null : <th className='is-size-5 has-text-weight-bold'>Approval Status</th> }
+          </tr>
+
+          { mods.map((mod, i) =>
+            <tr key={ i }>
+              <td>
+                <Link to={ `/mod/${mod.name}/${mod.version}` } className='mod-link'>
+                  <span>{ mod.title }</span>
+                </Link>
+              </td>
+
+              <td>
+                <code style={{ color: '#060606' }}>{ mod.author }</code>
+              </td>
+
+              <td>
+                <code style={{ color: '#060606' }}>{ mod.name }@{ mod.version }</code>
+              </td>
+
+              { !props.showApprovals ? null :
+                <td>
+                  <span className={ `tag is-${mod.approved ? 'link' : 'danger'}` }>
+                    { mod.approved ? 'Approved' : 'UNAPPROVED' }
+                  </span>
+                </td>
+              }
+            </tr>
+          ) }
+        </Fragment>
+      ) }
+    </tbody>
+  </table>
+
+ModsTable.propTypes = {
+  categories: PropTypes.any,
+  showApprovals: PropTypes.bool,
 }
 
 export default Mods
