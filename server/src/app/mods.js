@@ -42,8 +42,10 @@ const mapMod = async (mod, req) => {
 
     try {
       for (let [k, v] of Object.entries(value.files)) {
-        value.files[k.replace(/\\u002e/g, '.')] = v
+        const old = k
         value.files[k] = undefined
+
+        value.files[old.replace(/\\u002e/g, '.')] = v
       }
     } catch (err) {
       // Fail gracefully
