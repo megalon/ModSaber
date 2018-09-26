@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Link colour, now has more visual contrast on the dark background
 ### Fixed
 - My mods page having incorrect message when no mods have loaded
 - API results not showing file listings
