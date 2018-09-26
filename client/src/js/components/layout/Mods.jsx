@@ -61,6 +61,7 @@ class Mods extends Component {
       <div className='content'>
 
         <Field
+          type='text'
           value={ this.state.search }
           onChange={ e => this.setState({ search: e.target.value }) }
           icon='search'
@@ -70,6 +71,7 @@ class Mods extends Component {
         />
 
         <table className='is-fullwidth' style={{ marginTop: '-0.75rem' }}>
+          <tbody>
           { sliced.map(({ name, mods }) =>
             <Fragment key={ name }>
               <tr>
@@ -114,6 +116,7 @@ class Mods extends Component {
               ) }
             </Fragment>
           ) }
+          </tbody>
         </table>
 
         {
