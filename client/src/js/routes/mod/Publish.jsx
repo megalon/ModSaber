@@ -45,7 +45,10 @@ class Publish extends Component {
     let body = await resp.json()
 
     // User doesn't own this mod
-    if (body.authorID !== this.props.context.user.id) this.props.history.replace('')
+    if (
+      body.authorID !== this.props.context.user.id &&
+      !this.props.context.user.admin
+    ) this.props.history.replace('')
     this.setState({ checked: true, new: false, existing: body })
   }
 
