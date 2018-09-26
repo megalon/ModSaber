@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+### Fixed
+- My mods page having incorrect message when no mods have loaded
+- API results not showing file listings
+
 ## [0.7.4] - 2018-09-25
 ### Added
 - 'My Mods' page.  
