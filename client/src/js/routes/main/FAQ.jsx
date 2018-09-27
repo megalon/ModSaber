@@ -15,6 +15,11 @@ const FAQ = props =>
       ModSaber is a repository for Beat Saber mods. Its aim is to organise mod releases and integrate directly with the Mod Installer.
     </p><br />
 
+    <h2 className='is-size-3 has-text-weight-semibold'>Can I contribute to the development of ModSaber?</h2>
+    <p>
+      Yes you can! See the <a href='https://github.com/lolPants/ModSaber' target='_blank' rel='noopener noreferrer'>GitHub repo</a> for more info.
+    </p><br />
+
     <h2 className='is-size-3 has-text-weight-semibold'>How do I publish my mod?</h2>
     <p>
       Sign up for an account and verify by email, then you will be able to publish mods.
