@@ -39,6 +39,7 @@ GET  /api/v1.0/mods/new/:page?
 GET  /api/v1.0/mods/approved/:page?
 GET  /api/v1.0/mods/versions/:name
 GET  /api/v1.0/mods/semver/:name/:range
+GET  /api/v1.0/mods/by-user/:username
 ```
 
 # `/api/v1.0/slim`

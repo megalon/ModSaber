@@ -1,8 +1,8 @@
 const { Router } = require('express')
 const semver = require('semver')
+const Account = require('../models/Account.js')
 const Mod = require('../models/Mod.js')
 const { mapMod, getPendingMods } = require('../app/mods.js')
-const { requireLogin } = require('../middleware/authorization.js')
 const { REDIS_HOST, RESULTS_PER_PAGE } = require('../constants.js')
 
 // Setup Router
@@ -62,8 +62,12 @@ router.get('/semver/:name/:range', cache.route(10), async (req, res) => {
   res.send(mapped)
 })
 
-router.get('/mine', requireLogin, cache.route(10), async (req, res) => {
-  const mods = await Mod.find({ author: req.user.id, unpublished: false }).exec()
+router.get('/by-user/:username', cache.route(10), async (req, res) => {
+  const { username } = req.params
+  const author = await Account.findOne({ username }).exec()
+
+  if (!author) return res.sendStatus(404)
+  const mods = await Mod.find({ author: author._id, unpublished: false }).exec()
 
   const sorted = mods.sort((a, b) => a.name > b.name ? 1 : b.name > a.name ? -1 : 0 || semver.rcompare(a.version, b.version))
   const mapped = await Promise.all(sorted.map(mod => mapMod(mod, req)))
