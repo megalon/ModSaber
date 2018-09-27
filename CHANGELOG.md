@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+### Added
+- Ability to change site alert class from `SITE_ALERT_STYLE` env variable
+
 ## [1.0.0] 2018-09-27
 **Public release!**  
 No changes to document. The only changes made were to do with the handling of the repo.

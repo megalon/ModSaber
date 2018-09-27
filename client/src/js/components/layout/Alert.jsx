@@ -9,7 +9,7 @@ const Alert = () =>
     { ({ loggedIn, user: { verified }, alert }) => {
       if (!verified && loggedIn) return <AlertBox text={ MESSAGE_UNVERIFIED } />
 
-      if (alert) return <AlertBox text={ alert } />
+      if (alert) return <AlertBox text={ alert.text } style={ alert.style } />
       else return null
     } }
   </UserConsumer>
@@ -18,12 +18,15 @@ const AlertBox = props => {
   let text = props.text.split('\n').map((line, i) => <span key={ i }>{ line }<br /></span>)
 
   return (
-    <article className='message is-warning'>
+    <article className={ `message is-${props.style}` }>
       <div className='message-body'>{ text }</div>
     </article>
   )
 }
 
-AlertBox.propTypes = { text: PropTypes.string.isRequired }
+AlertBox.propTypes = {
+  text: PropTypes.string.isRequired,
+  style: PropTypes.string.isRequired,
+}
 
 export default Alert
