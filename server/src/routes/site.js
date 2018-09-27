@@ -8,12 +8,12 @@ const { requireLogin, requireAdmin } = require('../middleware/authorization.js')
 const router = Router() // eslint-disable-line
 
 // Environment Variables
-const { SITE_ALERT } = process.env
+const { SITE_ALERT, SITE_ALERT_STYLE } = process.env
 
 // Post site-wide alerts
 router.get('/alert', (req, res) => {
   if (!SITE_ALERT) return res.sendStatus(204)
-  res.send({ alert: SITE_ALERT })
+  res.send({ text: SITE_ALERT, style: SITE_ALERT_STYLE ? SITE_ALERT_STYLE : 'warning' })
 })
 
 router.get('/gameversions', async (req, res) => {
