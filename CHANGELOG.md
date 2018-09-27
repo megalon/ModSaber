@@ -1,23 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
-### Changed
-- `/mods/mine` --> `/mods/by-user/:username`  
-  Updated MyMods page to accommodate  
-  Paves the way for a mod author page
-### Fixed
-- Publish autofill for unapproved mods based on version
-- Column widths on mod page causing content to overflow
-
-## [0.7.5] - 2018-09-26
+## [0.7.5] - 2018-09-27
 ### Added
 - Fuzzy searching to Mods list component
 ### Changed
 - Link colour, now has more visual contrast on the dark background
+- `/mods/mine` --> `/mods/by-user/:username`  
+  Updated MyMods page to accommodate  
+  Paves the way for a mod author page
 ### Fixed
 - My mods page having incorrect message when no mods have loaded
 - API results not showing file listings
+- Publish autofill for unapproved mods based on version
+- Column widths on mod page causing content to overflow
 
 ## [0.7.4] - 2018-09-25
 ### Added
