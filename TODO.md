@@ -4,13 +4,7 @@ Here is a list of items floating around that need to get done at some point or a
 ## `// TODO`
 *List of items that are important and should get done before the next release.*
 
-- [ ] Public Release
-  * Open source the project
-  * Setup CI for linting
-  * Cleanup `README`
-  * Add template files
-    * Issue Template
-    * Contributing guidelines
+* NONE RIGHT NOW \o/
 
 ## Backburner
 *These will probably get done eventually, but aren't quite important enough to do immediately. Some of these might end up being scrapped anyway.*

@@ -1,6 +1,9 @@
 # ModSaber
 Beat Saber Mod Database
 
+## Contributing
+See the [contribution guidelines](https://github.com/lolPants/ModSaber/blob/master/.github/CONTRIBUTING.md).
+
 ## Deploying
 1. Install [Docker]() and [Docker Compose]()
 2. Clone the repo and copy `example.env` to `site.env`
@@ -14,6 +17,8 @@ Beat Saber Mod Database
 Public API routes will be documented in the [Wiki](https://github.com/lolPants/ModSaber/wiki)
 
 ## Thanks :heart:
-* `Assistant#8431` - Helping design the platform and bug test.
-* `williams#0001` - Helping design the platform and bug test.
-* `! 🍆 Donne !#0069` - Helping bug test.
+| | |
+| --- | --- |
+| `Assistant#8431` | Helping design the platform and bug test |
+| `williums#0001` | Helping design the platform and bug test |
+| `Umbranox#6671` | Feedback, security consultant, writing the Mod Manager |

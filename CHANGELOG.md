@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.0] 2018-09-27
+**Public release!**  
+No changes to document. The only changes made were to do with the handling of the repo.
+
 ## [0.7.5] - 2018-09-27
 ### Added
 - Fuzzy searching to Mods list component

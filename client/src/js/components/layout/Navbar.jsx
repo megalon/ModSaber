@@ -29,7 +29,7 @@ class Navbar extends Component {
       <nav className='navbar has-shadow is-light is-fixed-top'>
         <div className='container'>
           <div className='navbar-brand'>
-            <Link className='navbar-item' to='/'><b>ModSaber <sup style={{ fontWeight: 'initial', fontStyle: 'italic' }}>BETA</sup></b></Link>
+            <Link className='navbar-item' to='/'><b>ModSaber</b></Link>
 
             <a
               onClick={ () => this.setState({ active: !this.state.active }) }
