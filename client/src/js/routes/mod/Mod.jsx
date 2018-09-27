@@ -202,7 +202,7 @@ class Mod extends Component {
                   !this.state.showControls ? null :
                     <Fragment>
                       <Link to={ `/edit/${mod.name}/${mod.version}` } className='button is-info is-control'>Edit</Link>
-                      <Link to={ `/publish/${mod.name}` } className='button is-info is-control'>Publish new Version</Link>
+                      <Link to={ `/publish/${mod.name}/${mod.version}` } className='button is-info is-control'>Publish new Version</Link>
 
                       {
                         !this.props.context.user.admin ? null :

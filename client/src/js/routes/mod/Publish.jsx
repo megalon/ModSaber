@@ -36,10 +36,10 @@ class Publish extends Component {
 
   async checkExisting () {
     this.setState({ checked: false, new: true, existing: {} })
-    let { name } = this.props.match.params
+    let { name, version } = this.props.match.params
     if (!name) return this.setState({ checked: true })
 
-    let resp = await fetch(`${BASE_URL}/registry/${name}`)
+    let resp = await fetch(`${BASE_URL}/registry/${name}${version ? `/${version}` : ''}`)
     if (resp.status === 404) return this.setState({ checked: true, existing: { name } })
 
     let body = await resp.json()

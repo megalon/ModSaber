@@ -36,7 +36,7 @@ const Routes = () =>
     <Route path='/register' component={ withContext(Register) } />
 
     <Route path='/mod/:name/:version?' component={ withContext(Mod) } />
-    <Route path='/publish/:name?' component={ withContext(Publish) } />
+    <Route path='/publish/:name?/:version?' component={ withContext(Publish) } />
     <Route path='/preview' component={ withContext(Preview) } />
     <Route path='/edit/:name/:version' component={ withContext(Edit) } />
     <Route path='/transfer/:name' component={ withContext(Transfer) } />
