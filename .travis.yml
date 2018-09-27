@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - '10'
+  - '8'
+git:
+  depth: 3
+before_install:
+  - npm i -g npm
+env:
+  - TEST_DIR=client
+  - TEST_DIR=server
+script: cd $TEST_DIR && npm ci && npm run test
