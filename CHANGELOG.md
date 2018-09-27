@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Fixed
 - Publish autofill for unapproved mods based on version
+- Column widths on mod page causing content to overflow
 
 ## [0.7.5] - 2018-09-26
 ### Added

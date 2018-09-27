@@ -186,7 +186,7 @@ class Mod extends Component {
 
           <div className='content'>
             <div className='columns reverse-row-order'>
-              <div className='column'>
+              <div className='column is-2-desktop is-3-tablet'>
                 {
                   !mod.files ? null : Object.entries(mod.files).map(([key, value], i, arr) =>
                     <a
@@ -237,7 +237,7 @@ class Mod extends Component {
                 }
               </div>
 
-              <div className='column is-10'>
+              <div className='column'>
                 <MarkdownRenderer source={ mod.description } />
               </div>
             </div>
