@@ -4,12 +4,6 @@ Here is a list of items floating around that need to get done at some point or a
 ## `// TODO`
 *List of items that are important and should get done before the next release.*
 
-- [ ] Dependencies and Conflicts with versions
-  * ~~Use semver versions~~
-  * ~~Internally use caret Ranges: `^1.2.3`~~
-  * ~~API picks out the current release of the mod, saves that as a dependency~~
-  * Mod installer
-
 - [ ] Public Release
   * Open source the project
   * Setup CI for linting
@@ -33,6 +27,11 @@ Here is a list of items floating around that need to get done at some point or a
 
 - [ ] Admin Guidelines
   * Potentially bring on more admins
+
+- [ ] Mod author page
+  * Re-use mods component
+  * Lists mods by a specific user
+  * Mods page links to the author page
 
 ## Known bugs to fix
 *These should be considered critial to get done.*

@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- `/mods/mine` --> `/mods/by-user/:username`  
+  Updated MyMods page to accommodate  
+  Paves the way for a mod author page
 ### Fixed
 - Publish autofill for unapproved mods based on version
 - Column widths on mod page causing content to overflow

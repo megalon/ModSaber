@@ -25,8 +25,9 @@ class MyMods extends Component {
     match: PropTypes.any,
   }
 
-  componentDidUpdate () {
+  componentDidUpdate (prevProps) {
     this.checkPermissions()
+    if (this.props.context.user !== prevProps.context.user) this.loadMods()
   }
 
   checkPermissions () {
@@ -35,7 +36,9 @@ class MyMods extends Component {
   }
 
   async loadMods () {
-    let mods = await (await fetch(`${API_URL}/mods/mine`, { credentials: 'include' })).json()
+    if (!this.props.context.loggedIn) return undefined
+
+    let mods = await (await fetch(`${API_URL}/mods/by-user/${this.props.context.user.username}`, { credentials: 'include' })).json()
     this.setState({ mods })
   }
 
