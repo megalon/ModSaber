@@ -1,5 +1,6 @@
 const redisCache = require('express-redis-cache')
-const { CACHE_DRIVER, REDIS_HOST } = require('../constants.js')
+const { REDIS_HOST } = require('../constants.js')
+const { CACHE_DRIVER } = process.env
 
 // Check cache driver
 const cache = CACHE_DRIVER === 'none' ?
