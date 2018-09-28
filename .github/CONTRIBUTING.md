@@ -2,7 +2,7 @@
 If you wish to contribute to the ModSaber codebase, feel free to fork the repository and submit a pull request. We use ESLint to enforce a consistent coding style, so having that set up in your editor of choice is a great boon to your development process.
 
 ## Submit bug reports or feature requests
-Just use the GitHub issue tracker to submit your bug reports and feature requests. If you are submitting a bug report, please follow the [issue template](https://github.com/lolPants/ModSaber/issues/new).
+Just use the GitHub issue tracker to submit your bug reports and feature requests. When submitting, please use the [issue templates](https://github.com/lolPants/ModSaber/issues/new/choose).
 
 ## Development Prerequisites
 - Node.js (>=8.0.0) and `npm`
