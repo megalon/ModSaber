@@ -26,6 +26,10 @@ strong {
   color: #f1f1f1;
 }
 
+div.content blockquote p {
+  color: #363636 !important;
+}
+
 kbd {
   background-color: #72767d;
   box-shadow: inset 0 -4px 0 rgba(35,39,42,.6);

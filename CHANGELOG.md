@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 - Ability to skip caching layer by setting `CACHE_DRIVER` to `none`
 ### Changed
 - Server can now load environment variables from `.env` file
+### Fixed
+- Fixed text colour in `blockquote` elements
 
 ## [1.0.0] 2018-09-27
 **Public release!**  
