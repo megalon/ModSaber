@@ -2,11 +2,10 @@ const { Router } = require('express')
 const semver = require('semver')
 const Mod = require('../models/Mod.js')
 const { mapMod } = require('../app/mods.js')
-const { REDIS_HOST } = require('../constants.js')
+const cache = require('../middleware/cache.js')
 
 // Setup Router
 const router = Router() // eslint-disable-line
-const cache = require('express-redis-cache')({ host: REDIS_HOST })
 
 router.get('/:name', async (req, res) => {
   let { name } = req.params

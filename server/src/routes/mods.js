@@ -3,11 +3,11 @@ const semver = require('semver')
 const Account = require('../models/Account.js')
 const Mod = require('../models/Mod.js')
 const { mapMod, getPendingMods } = require('../app/mods.js')
-const { REDIS_HOST, RESULTS_PER_PAGE } = require('../constants.js')
+const cache = require('../middleware/cache.js')
+const { RESULTS_PER_PAGE } = require('../constants.js')
 
 // Setup Router
 const router = Router() // eslint-disable-line
-const cache = require('express-redis-cache')({ host: REDIS_HOST })
 
 router.get('/pending', async (req, res) => {
   const mods = await getPendingMods()
