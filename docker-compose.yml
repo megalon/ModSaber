@@ -11,7 +11,7 @@ services:
       - internal
       - proxy
     env_file:
-      - site.env
+      - .env
     volumes:
       - cdn:/usr/app/src/store:rw
       - ./logs:/usr/app/src/logs:rw

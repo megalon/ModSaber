@@ -6,8 +6,8 @@ See the [contribution guidelines](https://github.com/lolPants/ModSaber/blob/mast
 
 ## Deploying
 1. Install [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/)
-2. Clone the repo and copy `example.env` to `site.env`
-3. Fill in environment variables as denoted in `site.env`
+2. Clone the repo and copy `example.env` to `.env`
+3. Fill in environment variables as denoted in `.env`
 4. Pull external container dependencies with `docker-compose pull`
 5. Build ModSaber containers with `docker-compose build`
 6. Start the services with `docker-compose up -d`
