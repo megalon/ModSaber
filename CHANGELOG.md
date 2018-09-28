@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Server can now load environment variables from `.env` file
 ### Fixed
 - Fixed text colour in `blockquote` elements
+- Now correctly closes preview window when leaving the edit page
 
 ## [1.0.0] 2018-09-27
 **Public release!**  

@@ -31,6 +31,10 @@ class Edit extends Component {
     if (this.props.match.params !== prevProps.match.params) this.checkExisting()
   }
 
+  componentWillUnmount () {
+    if (this.state.preview) this.state.preview.close()
+  }
+
   async checkExisting () {
     this.setState({ checked: false, mod: {} })
     let { name, version } = this.props.match.params
