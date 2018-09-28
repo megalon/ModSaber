@@ -4,10 +4,10 @@ If you wish to contribute to the ModSaber codebase, feel free to fork the reposi
 ## Submit bug reports or feature requests
 Just use the GitHub issue tracker to submit your bug reports and feature requests. If you are submitting a bug report, please follow the [issue template](https://github.com/lolPants/ModSaber/issues/new).
 
-## Development Requirements
+## Development Prerequisites
 - Node.js (>=8.0.0) and `npm`
 - MongoDB server running locally on port `27017`
-- Redis server running locally on port `6379`
+- Redis server running locally on port `6379` **[OPTIONAL]**
 
 ## Setup
 1. Fork & clone the repository, and make sure you're on the master branch

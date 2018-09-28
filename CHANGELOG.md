@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - Ability to change site alert class from `SITE_ALERT_STYLE` env variable
+- Ability to skip caching layer by setting `CACHE_DRIVER` to `none`
 
 ## [1.0.0] 2018-09-27
 **Public release!**  
