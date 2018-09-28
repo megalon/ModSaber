@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Ability to change site alert class from `SITE_ALERT_STYLE` env variable
 - Ability to skip caching layer by setting `CACHE_DRIVER` to `none`
+- `input[type='checkbox']` styles. Now with 100% less bland!
 ### Changed
 - Server can now load environment variables from `.env` file
 ### Fixed

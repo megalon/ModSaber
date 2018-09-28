@@ -410,14 +410,14 @@ class Form extends Component {
           </i></p>
 
           <div className='field'>
-            <label className='checkbox'>
-              <input
-                type='checkbox'
-                checked={ this.state.hasOculusFile }
-                onChange={ () => this.setState({ hasOculusFile: !this.state.hasOculusFile }) }
-              />
-              <span> Upload Seperate File for Oculus users</span>
-            </label>
+            <input
+              type='checkbox'
+              checked={ this.state.hasOculusFile }
+              onChange={ () => this.setState({ hasOculusFile: !this.state.hasOculusFile }) }
+              className='is-checkradio is-link'
+              id='checkbox'
+            />
+            <label htmlFor='checkbox'>Upload Seperate File for Oculus users</label>
           </div>
 
           <FileField

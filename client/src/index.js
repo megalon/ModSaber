@@ -6,6 +6,7 @@ import { parse } from 'url'
 
 import 'bulma/css/bulma.css'
 import '@fortawesome/fontawesome-free/css/all.css'
+import 'bulma-checkradio/dist/css/bulma-checkradio.min.css'
 import './css/overrides.css'
 
 import App from './js/App.jsx'
