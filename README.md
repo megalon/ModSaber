@@ -5,7 +5,7 @@ Beat Saber Mod Database
 See the [contribution guidelines](https://github.com/lolPants/ModSaber/blob/master/.github/CONTRIBUTING.md).
 
 ## Deploying
-1. Install [Docker]() and [Docker Compose]()
+1. Install [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/)
 2. Clone the repo and copy `example.env` to `site.env`
 3. Fill in environment variables as denoted in `site.env`
 4. Pull external container dependencies with `docker-compose pull`
