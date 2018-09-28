@@ -11,7 +11,7 @@ Just use the GitHub issue tracker to submit your bug reports and feature request
 
 ## Setup
 1. Fork & clone the repository, and make sure you're on the master branch
-2. Copy `example.env` to `site.env` and fill out the relevant keys
+2. Copy `example.env` to `server/.env` and fill out the relevant keys
 3. Run `npm install` in the `client` and the `server` directories
 4. Write some code!
 5. Document all notable changes in the `[Unreleased]` section of the [changelog](https://github.com/lolPants/ModSaber/blob/master/CHANGELOG.md)
