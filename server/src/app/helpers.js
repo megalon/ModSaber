@@ -55,10 +55,10 @@ const generatePayload = (mod, field) => ({
         name: mod.title,
       },
       title: `${mod.name}@${mod.version} // ${mod.author}`,
-      url: `https://www.modsaber.ml/mod/${mod.name}/${mod.version}`,
+      url: `https://www.modsaber.org/mod/${mod.name}/${mod.version}`,
       color: 12822271,
       thumbnail: {
-        url: 'https://www.modsaber.ml/favicon.png',
+        url: 'https://www.modsaber.org/favicon.png',
       },
       fields: [
         {
