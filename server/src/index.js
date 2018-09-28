@@ -3,8 +3,12 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const dotenv = require('dotenv')
 const log = require('./app/logger.js')
 const devCORS = require('./middleware/cors.js')
+
+// Load from .env file
+dotenv.config()
 
 // App Constants
 const { MONGO_URL } = require('./constants.js')
