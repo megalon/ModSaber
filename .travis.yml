@@ -10,3 +10,6 @@ env:
   - TEST_DIR=client
   - TEST_DIR=server
 script: cd $TEST_DIR && npm ci && npm run test
+cache:
+  directories:
+  - '$HOME/.npm'
