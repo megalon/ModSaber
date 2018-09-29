@@ -14,6 +14,7 @@ import Reset from './routes/login/Reset'
 import Register from './routes/login/Register'
 
 import Mod from './routes/mod/Mod'
+import Author from './routes/mod/Author'
 import Publish from './routes/mod/Publish'
 import Preview from './routes/mod/Preview'
 import Edit from './routes/mod/Edit'
@@ -36,6 +37,7 @@ const Routes = () =>
     <Route path='/register' component={ withContext(Register) } />
 
     <Route path='/mod/:name/:version?' component={ withContext(Mod) } />
+    <Route path='/author/:username' component={ withContext(Author) } />
     <Route path='/publish/:name?/:version?' component={ withContext(Publish) } />
     <Route path='/preview' component={ withContext(Preview) } />
     <Route path='/edit/:name/:version' component={ withContext(Edit) } />
