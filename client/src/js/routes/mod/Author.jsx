@@ -66,7 +66,7 @@ class Author extends Component {
         </div>
         <hr />
 
-        <Mods mods={ mods } showMore showApprovals>
+        <Mods mods={ mods } showMore>
           <p>
             <b>Looks like { author } doesn&#39;t have any mods!</b><br />
             <i>If this isn&#39;t supposed to be the case, please alert a site admin.</i><br /><br />

@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] 2018-09-29
+### Added
+- `npm` script to run a dev version of the server
+- Caching to Travis builds
+### Removed
+- Approval status from Author page
+
 ## [1.1.0] 2018-09-29
 ### Added
 - Ability to change site alert class from `SITE_ALERT_STYLE` env variable
