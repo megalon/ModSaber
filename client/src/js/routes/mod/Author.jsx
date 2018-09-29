@@ -12,7 +12,6 @@ class Author extends Component {
 
     this.state = {
       mods: [],
-      showOldVersions: false,
     }
   }
 
@@ -45,14 +44,8 @@ class Author extends Component {
     return [...map.values()].reverse()
   }
 
-  toggleDisplay () {
-    this.setState(prevstate => ({ showOldVersions: !prevstate.showOldVersions }))
-  }
-
   render () {
-    const mods = this.state.showOldVersions ?
-      this.state.mods :
-      this.filterMods(this.state.mods)
+    const mods = this.filterMods(this.state.mods)
 
     const author = this.props.match.params.username.toLowerCase()
     const authorText = author.slice(-1) === 's' ?
@@ -66,18 +59,9 @@ class Author extends Component {
         </Helmet>
 
         <div className='columns'>
-          <div className='column is-10'>
+          <div className='column'>
             <h1 className='is-size-1 has-text-weight-semibold'>{ authorText } Mods</h1>
             <p><i>All mods published by { author }</i></p>
-          </div>
-
-          <div className='column home-buttons'>
-            <button className='button is-dark is-outlined is-inverted' onClick={ () => this.toggleDisplay() }>
-              <span>Show old versions?</span>
-              <span className='icon is-medium'>
-                <i className={ `fas fa-${this.state.showOldVersions ? 'check' : 'times'}` }></i>
-              </span>
-            </button>
           </div>
         </div>
         <hr />
