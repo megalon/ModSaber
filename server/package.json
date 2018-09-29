@@ -4,6 +4,8 @@
   "description": "Beat Saber Mod Database",
   "main": "src/index.js",
   "scripts": {
+    "start": "node .",
+    "dev": "nodemon .",
     "test": "eslint --color src/"
   },
   "repository": {
@@ -24,7 +26,8 @@
   },
   "homepage": "https://github.com/lolPants/ModSaber#readme",
   "devDependencies": {
-    "eslint": "^5.5.0"
+    "eslint": "^5.5.0",
+    "nodemon": "^1.18.4"
   },
   "dependencies": {
     "adm-zip": "^0.4.11",
