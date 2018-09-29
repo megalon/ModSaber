@@ -47,6 +47,15 @@ div.content blockquote p {
   opacity: 1;
 }
 
+code a {
+  color: #3273dc;
+  transition: color .15s;
+}
+
+code a:hover {
+  color: #242424;
+}
+
 kbd {
   background-color: #72767d;
   box-shadow: inset 0 -4px 0 rgba(35,39,42,.6);

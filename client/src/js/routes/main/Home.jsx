@@ -42,6 +42,7 @@ class Home extends Component {
           mods={ this.state.mods }
           showMore={ this.state.showMore }
           showMoreClicked={ () => this.setState({ showMore: true }) }
+          authorLinks
         >
           <p>
             <b>Well this is embarrassing, it looks like there are no mods.</b><br />

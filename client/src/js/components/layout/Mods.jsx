@@ -31,6 +31,7 @@ class Mods extends Component {
     showMore: PropTypes.bool,
     showMoreClicked: PropTypes.func.isRequired,
     showApprovals: PropTypes.bool,
+    authorLinks: PropTypes.bool,
   }
 
   categorize (mods) {
@@ -90,7 +91,11 @@ class Mods extends Component {
 
         {
           !(sliced.length === 0 && this.state.search !== '') ?
-            <ModsTable categories={ sliced } showApprovals={ this.props.showApprovals } /> :
+            <ModsTable
+              categories={ sliced }
+              showApprovals={ this.props.showApprovals }
+              authorLinks={ this.props.authorLinks }
+            /> :
             <Fragment>
               <p>
                 <b>No mods found!</b><br />
@@ -140,7 +145,13 @@ const ModsTable = props =>
               </td>
 
               <td>
-                <code style={{ color: '#060606' }}>{ mod.author }</code>
+                {
+                  !props.authorLinks ?
+                    <code style={{ color: '#060606' }}>{ mod.author }</code> :
+                    <code style={{ color: '#060606' }}>
+                      <Link to={ `/author/${mod.author}` }>{ mod.author }</Link>
+                    </code>
+                }
               </td>
 
               <td>
@@ -164,6 +175,7 @@ const ModsTable = props =>
 ModsTable.propTypes = {
   categories: PropTypes.any,
   showApprovals: PropTypes.bool,
+  authorLinks: PropTypes.bool,
 }
 
 export default Mods
