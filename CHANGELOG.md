@@ -1,13 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.1.0] 2018-09-29
 ### Added
 - Ability to change site alert class from `SITE_ALERT_STYLE` env variable
 - Ability to skip caching layer by setting `CACHE_DRIVER` to `none`
 - `input[type='checkbox']` styles. Now with 100% less bland!
+- Mod author pages. Lists all mods by an author.
 ### Changed
 - Server can now load environment variables from `.env` file
+- Homepage now links to author pages
 ### Fixed
 - Fixed text colour in `blockquote` elements
 - Now correctly closes preview window when leaving the edit page
