@@ -24,7 +24,7 @@ router.post('/publish', async (req, res) => {
   // Refuse unverified accounts
   if (!req.user.verified) return res.status(403).send({ error: 'verification' })
 
-  let { name, version, title, description, gameVersion, dependsOn, conflictsWith } = req.body
+  let { name, version, title, type, description, gameVersion, dependsOn, conflictsWith } = req.body
   if (!req.files) return res.status(400).send({ field: 'steam' })
   let { steam, oculus } = req.files
 
@@ -33,6 +33,7 @@ router.post('/publish', async (req, res) => {
   if (!version) return res.status(400).send({ field: 'version', error: errors.MISSING })
   if (!title) return res.status(400).send({ field: 'title', error: errors.MISSING })
   if (!gameVersion) return res.status(400).send({ field: 'gameVersion', error: errors.MISSING })
+  if (!type) return res.status(400).send({ field: 'type', error: errors.MISSING })
 
   // Coerce name correct format
   name = slugify(name, { lower: true })
@@ -150,6 +151,7 @@ router.post('/publish', async (req, res) => {
       files: { steam: steamFiles, oculus: oculusFiles },
       dependsOn,
       conflictsWith,
+      type,
     })
 
     log.info(`Mod uploaded - ${name}@${version} [${req.user.username}]`)
