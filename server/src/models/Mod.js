@@ -17,7 +17,7 @@ const Mod = new Schema({
   description: { type: String, default: '', maxlength: 10000 },
   approved: { type: Boolean, default: false },
   unpublished: { type: Boolean, default: false },
-  type: { type: String, enum: ['mod', 'saber', 'platform'], default: 'mod' },
+  type: { type: String, enum: ['mod', 'avatar', 'saber', 'platform'], default: 'mod' },
   category: { type: String, default: '', maxlength: 25 },
   version: String,
   oldVersions: [String],

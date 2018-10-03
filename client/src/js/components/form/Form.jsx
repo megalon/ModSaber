@@ -16,6 +16,7 @@ class Form extends Component {
       title: this.props.details.title || '',
       description: this.props.details.description || '',
       gameVersion: {},
+      modType: {},
 
       dependsOn: [],
       dependsOnSuggestions: [],
@@ -24,6 +25,8 @@ class Form extends Component {
       conflictsWithSuggestions: [],
 
       gameVersions: [],
+
+      modTypes: ['mod', 'avatar', 'saber', 'platform'],
 
       currentDependsOn: '',
       currentDependsOnError: '',
@@ -218,6 +221,7 @@ class Form extends Component {
     body.set('title', this.state.title)
     body.set('description', this.state.description)
     body.set('gameVersion', this.state.gameVersion.id)
+    body.set('type', this.state.modType)
 
     if (this.state.dependsOn.length > 0) body.set('dependsOn', this.state.dependsOn.join(','))
     if (this.state.conflictsWith.length > 0) body.set('conflictsWith', this.state.conflictsWith.join(','))
@@ -270,6 +274,22 @@ class Form extends Component {
   render () {
     return (
       <div className='tile box publish-tile'>
+        <div className='field'>
+          <div className='control'>
+            <label className='label'>Mod Type</label>
+            <div className='select'>
+              <select onChange={ e => { this.setState({ modType: e.target.value }) }}>
+                {
+                  this.state.modTypes.map(value =>
+                    <option key={value} value={ JSON.stringify(value) }>
+                      { value }
+                    </option>)
+                }
+              </select>
+            </div>
+          </div>
+        </div>
+
         <Field
           label='Mod Name'
           type='text'
