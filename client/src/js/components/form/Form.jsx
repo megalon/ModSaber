@@ -280,8 +280,8 @@ class Form extends Component {
             <div className='select'>
               <select onChange={ e => { this.setState({ modType: e.target.value }) }}>
                 {
-                  this.state.modTypes.map(value =>
-                    <option key={value} value={ JSON.stringify(value) }>
+                  this.state.modTypes.map((value, i) =>
+                    <option key={i} value={value}>
                       { value }
                     </option>)
                 }
