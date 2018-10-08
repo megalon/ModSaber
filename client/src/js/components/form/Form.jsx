@@ -26,7 +26,7 @@ class Form extends Component {
 
       gameVersions: [],
 
-      modTypes: ['mod', 'avatar', 'saber', 'platform'],
+      modTypes: ['mod', 'avatar', 'saber', 'platform', 'other'],
 
       currentDependsOn: '',
       currentDependsOnError: '',
