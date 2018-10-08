@@ -11,7 +11,12 @@ class Home extends Component {
 
     this.state = {
       mods: [],
+      sabers: [],
+      avatars: [],
+      platforms: [],
+      other: [],
       showMore: false,
+      currentTable: `mods`,
     }
   }
 
@@ -26,8 +31,22 @@ class Home extends Component {
       return resp.mods
     }))
 
-    const mods = [].concat(...multi)
-    this.setState({ mods })
+    const allMods = [].concat(...multi)
+
+    const mods = []
+    const sabers = []
+    const avatars = []
+    const platforms = []
+    const other = []
+    for (let mod of allMods) {
+      if (mod.type === `mod`) mods.push(mod)
+      else if (mod.type === `saber`) sabers.push(mod)
+      else if (mod.type === `avatar`) avatars.push(mod)
+      else if (mod.type === `platform`) platforms.push(mod)
+      else other.push(mod)
+    }
+
+    this.setState({ mods, sabers, avatars, platforms, other })
   }
 
   render () {
@@ -40,8 +59,14 @@ class Home extends Component {
 
         <Mods
           mods={ this.state.mods }
+          sabers={ this.state.sabers }
+          avatars={ this.state.avatars }
+          platforms={ this.state.platforms }
+          other={ this.state.other }
           showMore={ this.state.showMore }
+          currentTable={ this.state.currentTable }
           showMoreClicked={ () => this.setState({ showMore: true }) }
+          setCurrentTable={ x => this.setState({ currentTable: x }) }
           authorLinks
         >
           <p>

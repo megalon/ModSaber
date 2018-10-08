@@ -28,8 +28,14 @@ class Mods extends Component {
   static propTypes = {
     children: PropTypes.any,
     mods: PropTypes.arrayOf(PropTypes.any),
+    sabers: PropTypes.arrayOf(PropTypes.any),
+    avatars: PropTypes.arrayOf(PropTypes.any),
+    platforms: PropTypes.arrayOf(PropTypes.any),
+    other: PropTypes.arrayOf(PropTypes.any),
+    currentTable: PropTypes.string,
     showMore: PropTypes.bool,
     showMoreClicked: PropTypes.func.isRequired,
+    setCurrentTable: PropTypes.func.isRequired,
     showApprovals: PropTypes.bool,
     authorLinks: PropTypes.bool,
   }
@@ -58,9 +64,15 @@ class Mods extends Component {
   }
 
   render () {
+    let displayList = this.props.other
+    if (this.props.currentTable === `mods`) displayList = this.props.mods
+    else if (this.props.currentTable === `sabers`) displayList = this.props.sabers
+    else if (this.props.currentTable === `avatars`) displayList = this.props.avatars
+    else if (this.props.currentTable === `platforms`) displayList = this.props.platforms
+
     const filtered = this.state.search === '' ?
-      this.props.mods :
-      new Fuse(this.props.mods, this.fuseOptions)
+      displayList :
+      new Fuse(displayList, this.fuseOptions)
         .search(this.state.search)
 
     const categories = this.categorize(filtered)
@@ -88,6 +100,41 @@ class Mods extends Component {
           autoComplete='off'
           autoCapitalize='off'
         />
+
+        {
+          <button
+            onClick={ () => this.props.setCurrentTable(`mods`) }
+            className='button is-dark is-inverted is-outlined'
+          >Mods</button>
+        }
+
+        {
+          <button
+            onClick={ () => this.props.setCurrentTable(`sabers`) }
+            className='button is-dark is-inverted is-outlined'
+          >Sabers</button>
+        }
+
+        {
+          <button
+            onClick={ () => this.props.setCurrentTable(`avatars`) }
+            className='button is-dark is-inverted is-outlined'
+          >Avatars</button>
+        }
+
+        {
+          <button
+            onClick={ () => this.props.setCurrentTable(`platforms`) }
+            className='button is-dark is-inverted is-outlined'
+          >Platforms</button>
+        }
+
+        {
+          <button
+            onClick={ () => this.props.setCurrentTable(`other`) }
+            className='button is-dark is-inverted is-outlined'
+          >Other</button>
+        }
 
         {
           !(sliced.length === 0 && this.state.search !== '') ?
